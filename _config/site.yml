@@ -1,0 +1,7 @@
+profiles:
+  production:
+    base_url: http://goldmann.pl/
+    deploy:
+      host: goldmann.pl
+      path: /var/www/goldmann.pl/htdocs/
+google_analytics: UA-351971-1
