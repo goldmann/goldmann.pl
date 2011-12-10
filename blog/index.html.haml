@@ -1,0 +1,30 @@
+---
+title: Blog
+layout: base
+hide_title: true
+---
+
+%div#left-column.span9
+  - for post in page.posts
+    .post
+      %h2.title
+        %a{:href=>post.url}= post.title
+      .byline{:style => "border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 10px;"}
+        .author <strong>#{post.author}</strong>
+        .date #{post.timestamp.strftime( '%d %B %Y %H:%M %Z' )}
+        .tags
+          - unless post.tags.empty?
+            - post.tags.each do |tag|
+              %a{:href=>tag.primary_page.url}
+                = tag
+      .body
+        ~ post.content
+      .comments
+        = post.intense_debate_comments_link
+  = page.posts.links
+%div#right-column.span4
+  %h3 Tags
+  .tag-cloud
+    = site.posts_tag_cloud
+
+

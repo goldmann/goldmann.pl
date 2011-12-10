@@ -1,0 +1,28 @@
+body{ 
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 0.8em;
+  color: #444;
+}
+
+li {
+  color: #444;
+}
+
+#left-column {
+  float: left;
+}
+
+#right-column {
+  float: left;
+  margin-left: 10px;
+}
+
+#googleplus, #twitter {
+  margin-top: 5px;
+}
+
+.pagination-links {
+  margin: 10px 0;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}

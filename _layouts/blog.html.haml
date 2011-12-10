@@ -1,0 +1,37 @@
+---
+layout: base
+---
+
+%div#left-column.span9
+  %h2.pagetitle #{page.title}
+  .body
+    ~ content
+  .comments
+    = page.intense_debate_comments
+%div#right-column.span4{:style => "margin-top: 35px;"}
+  .post
+    .byline
+      .author <strong>#{page.author}</strong>
+      .date #{page.timestamp.strftime( '%d %B %Y %H:%M %Z' )}
+      .tags
+        - unless page.tags.empty?
+          - page.tags.each do |tag|
+            %a{:href=>tag.primary_page.url}
+              = tag
+  #twitter{:style => 'margin-top: 10px;'}
+    :plain
+      <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="marekgoldmann">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+  #googleplus
+    :plain
+      <!-- Place this tag where you want the +1 button to render -->
+      <g:plusone size="small"></g:plusone>
+
+      <!-- Place this render call where appropriate -->
+      <script type="text/javascript">
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/plusone.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+

@@ -1,8 +1,9 @@
 %html
   %head
-    %title Marek Goldmann 
+    %title Marek Goldmann | #{page.title}
     %link{ :rel=>'stylesheet', :type=>'text/css', :href=>'/stylesheets/bootstrap.min.css' }
-    %meta{ :name => 'keywords', :content => "goldmann, Marek, Marek Goldmann, programowanie, java, java ee, j2ee, jabber, xmpp, muzyka, electro, cloud computing, linux, jboss, red hat"}
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>'/stylesheets/main.css' }
+    %meta{ :name => 'keywords', :content => "goldmann, Marek, Marek Goldmann, programowanie, open source, java ee, jabber, xmpp, muzyka, electro, cloud computing, linux, jboss, red hat"}
     %meta{ :name => "description", :content => "My private home page."}
     %meta{ :name => "robots", :content => "all"}
     %meta{ :name => "revisit-after", :content => "7 days"}
@@ -45,8 +46,8 @@
               %li <a href="/technically/">Technically</a>
               %li <a href="/musically/">Musically</a>
               %li <a href="/socially/">Socially</a>
-              %li{:style => "border-top: 1px solid #eee;"} <a href="http://ordinarythoughts.org/">Blog</a>
-        .span11
+              %li{:style => "border-top: 1px solid #eee;"} <a href="/blog/">Blog</a>
+        .span14
           .main-content
             ~ content
 
