@@ -24,5 +24,10 @@ li {
 .pagination-links {
   margin: 10px 0;
   padding-top: 10px;
-  border-top: 1px solid #ddd;
+}
+
+.comments {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+  margin: 10px 0;
 }
