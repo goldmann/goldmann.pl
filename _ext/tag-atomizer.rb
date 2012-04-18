@@ -1,18 +1,20 @@
 class TagAtomizer
-  def initialize(entries_name, options = {})
-    @entries_name = entries_name
+  def initialize(options = {})
     @options = {
-        :tags => []
+        :output_path => "/#TAG#.atom",
+        :feed_title => "Blog posts for #TAG# tag",
+        :tags => [],
+        :atom_options => {}
     }.merge(options)
   end
 
   def execute(site)
-    atoms = {}
-
     site.posts_tags.each do |tag|
       if @options[:tags].include?(tag.to_s) or @options[:tags].empty?
-        site.send( "#{@entries_name}_#{tag.to_s}=", tag.pages )
-        Awestruct::Extensions::Atomizer.new("#{@entries_name}_#{tag.to_s}".to_sym, "/#{tag.to_s}.atom").execute(site)
+        output_path = @options[:output_path].gsub(/#TAG#/, tag.to_s)
+        feed_title = @options[:feed_title].gsub(/#TAG#/, tag.to_s)
+
+        Awestruct::Extensions::Atomizer.new(tag.pages, output_path, @options[:atom_options].merge(:feed_title => feed_title)).execute(site)
       end
     end
   end
