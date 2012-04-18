@@ -1,3 +1,4 @@
+require 'tag-atomizer'
 
 Awestruct::Extensions::Pipeline.new do
   extension Awestruct::Extensions::Posts.new('/blog')
@@ -14,6 +15,7 @@ Awestruct::Extensions::Pipeline.new do
   extension Awestruct::Extensions::TagCloud.new(:posts,
                                                 '/blog/tags/index.html',
                                                 :layout=>'base')
+  extension TagAtomizer.new(:tags => ['fedora'])
 
   helper Awestruct::Extensions::GoogleAnalytics
 end
