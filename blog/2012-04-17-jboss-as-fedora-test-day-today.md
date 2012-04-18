@@ -3,7 +3,7 @@ title: "JBoss AS Fedora Test Day - today!"
 author: "Marek Goldmann"
 layout: blog
 timestamp: 2012-04-17t09:00:00.10+02:00
-tags: [ fedora, jboss ]
+tags: [ fedora, jboss_as ]
 ---
 
 We're going today to test the (very) fresh JBoss Application Server which was [packaged into Fedora](https://fedoraproject.org/wiki/JBossAS7). I hope you have some time to join us!
