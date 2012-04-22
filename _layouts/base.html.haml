@@ -1,4 +1,6 @@
-%html
+!!! XML
+!!!
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en" }
   %head
     %title Marek Goldmann | #{page.title}
     %link{ :rel=>'stylesheet', :type=>'text/css', :href=>'/stylesheets/bootstrap.min.css' }
@@ -6,33 +8,34 @@
     %meta{ :name => 'keywords', :content => "goldmann, Marek, Marek Goldmann, programowanie, open source, java ee, jabber, xmpp, muzyka, electro, cloud computing, linux, jboss, red hat"}
     %meta{ :name => "robots", :content => "all"}
     %meta{ :name => "revisit-after", :content => "7 days"}
+    %meta{ 'http-equiv' => 'Content-Type', :content => 'text/html; charset=UTF-8' }
 
-  :css
-    body,html { 
-    }
-    .content {
-      margin:20px;
-    } 
-    .page-header {
-      padding: 40px 20px 10px 20px;
-    }
-    .main-content {
-      border-left: 1px solid #eee;
-      padding-left: 20px;
-    }
-    .menu>ul {
-      list-style-type: none;
-    }
-    .menu>ul>li {
-      padding: 5px;
-      text-transform: uppercase;
-    }
-    .banner {
-      margin-bottom: 5px;
-    }
-    .banner>a>img {
-      border-right: 10px solid #0069D6;
-    }
+    :css
+      body,html { 
+      }
+      .content {
+        margin:20px;
+      } 
+      .page-header {
+        padding: 40px 20px 10px 20px;
+      }
+      .main-content {
+        border-left: 1px solid #eee;
+        padding-left: 20px;
+      }
+      .menu>ul {
+        list-style-type: none;
+      }
+      .menu>ul>li {
+        padding: 5px;
+        text-transform: uppercase;
+      }
+      .banner {
+        margin-bottom: 5px;
+      }
+      .banner>a>img {
+        border-right: 10px solid #0069D6;
+      }
   %body
     .content
       .page-header
