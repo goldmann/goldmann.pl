@@ -4,44 +4,22 @@
   %head
     %title Marek Goldmann | #{page.title}
     %link{ :rel=>'stylesheet', :type=>'text/css', :href=>'/stylesheets/bootstrap.min.css' }
+    %link{ :rel=>'stylesheet', :type=>'text/css', :href=>'/stylesheets/colorbox.css' }
     %link{ :rel=>'stylesheet', :type=>'text/css', :href=>'/stylesheets/main.css' }
     %meta{ :name => 'keywords', :content => "goldmann, Marek, Marek Goldmann, programowanie, open source, java ee, jabber, xmpp, muzyka, electro, cloud computing, linux, jboss, red hat"}
     %meta{ :name => "robots", :content => "all"}
     %meta{ :name => "revisit-after", :content => "7 days"}
     %meta{ 'http-equiv' => 'Content-Type', :content => 'text/html; charset=UTF-8' }
+    %script{ 'type' => "text/javascript", 'src' => "/js/jquery-1.7.2.min.js"}
+    %script{ 'type' => "text/javascript", 'src' => "/js/bootstrap.min.js"}
+    %script{ 'type' => "text/javascript", 'src' => "/js/jquery.colorbox-min.js"}
 
-    :css
-      body,html { 
-      }
-      .content {
-        margin:20px;
-      } 
-      .page-header {
-        padding: 40px 20px 10px 20px;
-      }
-      .main-content {
-        border-left: 1px solid #eee;
-        padding-left: 20px;
-      }
-      .menu>ul {
-        list-style-type: none;
-      }
-      .menu>ul>li {
-        padding: 5px;
-        text-transform: uppercase;
-      }
-      .banner {
-        margin-bottom: 5px;
-      }
-      .banner>a>img {
-        border-right: 10px solid #0069D6;
-      }
   %body
     .content
       .page-header
         %h1 <a href="/">Marek Goldmann</a> <small>ordinary thoughts</small>
       .row
-        .span3
+        .span2
           .menu
             %ul
               %li Me
@@ -49,7 +27,7 @@
               %li <a href="/musically/">Musically</a>
               %li <a href="/socially/">Socially</a>
               %li{:style => "border-top: 1px solid #eee;"} <a href="/blog/">Blog</a>
-        .span14
+        .span12
           .main-content
             ~ content
 

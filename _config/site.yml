@@ -4,5 +4,10 @@ profiles:
     deploy:
       host: goldmann.pl
       path: /var/www/goldmann.pl/htdocs/
+  openshift:
+    base_url: http://website-goldmann.rhcloud.com/
+    deploy:
+      host: 4f002a43016f497fa6c1dd14dda53e04@website-goldmann.rhcloud.com
+      path: ~/git/website.git/diy/
 intense_debate_acct: dc0fe4e524f2a8f99420088ae1c04124
 google_analytics: UA-351971-1

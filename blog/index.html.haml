@@ -4,7 +4,7 @@ layout: base
 hide_title: true
 ---
 
-%div#left-column.span9
+%div#left-column.span7{:style => "margin-left:0;"}
   - for post in page.posts
     .post
       %h2.title
@@ -22,7 +22,7 @@ hide_title: true
       .comments
         = post.intense_debate_comments_link
   = page.posts.links
-%div#right-column.span4
+%div#right-column.span2
   %h3 Tags
   .tag-cloud
     = site.posts_tag_cloud

@@ -2,13 +2,13 @@
 layout: base
 ---
 
-%div#left-column.span9
+%div#left-column.span7{:style => "margin-left:0;"}
   %h2.pagetitle #{page.title}
   .body
     ~ content
   .comments
     = page.intense_debate_comments
-%div#right-column.span4{:style => "margin-top: 35px;"}
+%div#right-column.span2{:style => "margin-top: 35px;"}
   .post
     .byline
       .author <strong>#{page.author}</strong>
