@@ -28,7 +28,7 @@ All presented RAID logical disks were created using default settings and include
 
 Uh. Ah... I knew the performance wasn't great but I wasn't expecting such horrible write performance. I'm pretty happy with read performance though. Remember: these are 2.5'' 5.4k disks, so nothing very fancy.
 
-I started to crawl the web for solutions for this problem. I found ACU. HP's **[Array Configuration Utility](http://h18004.www1.hp.com/products/servers/proliantstorage/software-management/acumatrix/index.html)** provides an easy way to view and change the configuration of the arrays. I didn't bother myself with the gui version, I used CLI, which works just fine. You can download it from [here](http://h20000.www2.hp.com/bizsupport/TechSupport/DriverDownload.jsp?prodNameId=468781&lang=en&cc=us&prodTypeId=18964&prodSeriesId=468780&taskId=135). I installed it on the running LiveCD and started to poke around. HP ships a nice [manual for using ACU](http://h20000.www2.hp.com/bizsupport/TechSupport/CoreRedirect.jsp?redirectReason=DocIndexPDF&prodSeriesId=468780&targetPage=http%3A%2F%2Fbizsupport1.austin.hp.com%2Fbc%2Fdocs%2Fsupport%2FSupportManual%2Fc00729544%2Fc00729544.pdf) [pdf, 1.8MB].
+I started to crawl the web for solutions for this problem. I found ACU. HP's **[Array Configuration Utility](http://h18004.www1.hp.com/products/servers/proliantstorage/software-management/acumatrix/index.html)** provides an easy way to view and change the configuration of the arrays. I didn't bother myself with the gui version, I used CLI, which works just fine. You can download it from [here](http://h20000.www2.hp.com/bizsupport/TechSupport/DriverDownload.jsp?prodNameId=468781&amp;lang=en&amp;cc=us&amp;prodTypeId=18964&amp;prodSeriesId=468780&amp;taskId=135). I installed it on the running LiveCD and started to poke around. HP ships a nice [manual for using ACU](http://h20000.www2.hp.com/bizsupport/TechSupport/CoreRedirect.jsp?redirectReason=DocIndexPDF&amp;prodSeriesId=468780&amp;targetPage=http%3A%2F%2Fbizsupport1.austin.hp.com%2Fbc%2Fdocs%2Fsupport%2FSupportManual%2Fc00729544%2Fc00729544.pdf) [pdf, 1.8MB].
 
 To list the status of the array controller, just run the CLI: `hpacucli` and execute the `ctrl slot="0" show` command, like this:
 
@@ -104,7 +104,7 @@ When ratio was set to, for example 50% / 50% (default value) the performance was
 
 <div class="alert alert-block">
 <h4 class="alert-heading">Warning!</h4>
-HP itself <a href="http://h20000.www2.hp.com/bizsupport/TechSupport/Document.jsp?objectID=c01149818&lang=en&cc=us&taskId=101&prodSeriesId=1121586&prodTypeId=15351">doesn't recommend</a> enabling DWC for mission-critical systems and for systems without proper power infrastructure (redundancy, UPS, etc) because in case of a power outage it may destroy your data. Ouch.
+HP itself <a href="http://h20000.www2.hp.com/bizsupport/TechSupport/Document.jsp?objectID=c01149818&amp;lang=en&amp;cc=us&amp;taskId=101&amp;prodSeriesId=1121586&amp;prodTypeId=15351">doesn't recommend</a> enabling DWC for mission-critical systems and for systems without proper power infrastructure (redundancy, UPS, etc) because in case of a power outage it may destroy your data. Ouch.
 </div>
 
 Assuming we have proper power backup (I have an [APC Smart-UPS](http://www.apc.com/products/resource/include/techspec_index.cfm?base_sku=SUA1000I) connected to the box) we can go ahead and get some performance.
