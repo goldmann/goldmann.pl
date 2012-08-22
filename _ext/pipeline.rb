@@ -17,6 +17,7 @@ Awestruct::Extensions::Pipeline.new do
                                                 :layout=>'base')
   extension Awestruct::Extensions::Atomizer.new(:posts, '/blog.atom', :feed_title => "Blog posts")
   extension TagAtomizer.new(:tags => ['fedora'])
+  extension TagAtomizer.new(:tags => ['jboss_as', 'java', 'jboss'], :output_path => "/jboss.atom", :feed_title => "Blog posts related to JBoss")
   extension Bugzilla.new(:layout => 'blog')
 
   helper Awestruct::Extensions::GoogleAnalytics
