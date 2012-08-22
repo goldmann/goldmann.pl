@@ -3,7 +3,7 @@ title: "OpenJPA and Hibernate 3 on JBoss AS in Fedora"
 author: "Marek Goldmann"
 layout: blog
 timestamp: 2012-08-22t12:42:00.10+02:00
-tags: [ fedora, rpm, java ]
+tags: [ fedora, rpm, java, jboss_as ]
 ---
 
 With the upcoming new release of the [JBoss AS](http://www.jboss.org/as7) package in Fedora you'll be able to use both the [Hibernate](http://www.hibernate.org/) 3 and [OpenJPA](http://openjpa.apache.org/) JPA providers. The reason why I'm enabling this for you is that we still don't have Hibernate 4 packaged, which is a pity since Hibernate 4 is the default JPA provider in JBoss AS 7. **If you want to help us** with it, please consider [reviewing the Gradle package](https://bugzilla.redhat.com/show_bug.cgi?id=809950).
