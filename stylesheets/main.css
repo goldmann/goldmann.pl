@@ -29,6 +29,8 @@ body{
   font-family: Helvetica,Arial,sans-serif;
   font-size: 0.8em;
   color: #444;
+  background-image:url('/images/gradient.png');
+  background-repeat:repeat-x;
 }
 
 li {

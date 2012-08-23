@@ -18,16 +18,16 @@
     .content
       .page-header
         %h1 <a href="/">Marek Goldmann</a> <small>ordinary thoughts</small>
-      .row
+      .row{:style => "min-width: 1000px;"}
         .span2
           .menu
             %ul
+              %li{:style => "border-bottom: 1px solid #eee;"} <a href="/blog/">Blog</a>
               %li Me
               %li <a href="/technically/">Technically</a>
               %li <a href="/musically/">Musically</a>
               %li <a href="/socially/">Socially</a>
-              %li{:style => "border-top: 1px solid #eee;"} <a href="/blog/">Blog</a>
-        .span12
+        .span14
           .main-content
             ~ content
 
