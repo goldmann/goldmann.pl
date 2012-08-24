@@ -87,3 +87,6 @@ It's easy to use Hibernate 3 and OpenJPA with JBoss AS 7. It's even easier with 
 
 If you have any issues ask in the comments or [report a bug directly](https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=jboss-as).
 
+### Update 24.08.2012
+
+The `jboss-as-7.1.1-7` package was submitted as an update for [Fedora 17](https://admin.fedoraproject.org/updates/jboss-as-7.1.1-7.fc17) and [Fedora 18](https://admin.fedoraproject.org/updates/jboss-as-7.1.1-7.fc18), please test it and bump the karma. This kind of feedback is **very important**.
