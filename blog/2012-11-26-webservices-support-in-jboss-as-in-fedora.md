@@ -2,15 +2,15 @@
 title: "Webservices support in JBoss AS in Fedora"
 author: "Marek Goldmann"
 layout: blog
-timestamp: 2012-11-24t14:12:00.10+02:00
+timestamp: 2012-11-26t14:15:00.10+01:00
 tags: [ fedora, java, jboss_as ]
 ---
 
 <div class="alert alert-info"><h4>Version info</h4>New features mentioned in this post are available in <code>jboss-as-7.1.1-11</code> or newer.</div>
 
-Until now the webservices support was not available in the [Fedora](http://fedoraproject.org/) packaged JBoss AS. The main issue was the lack of [CXF stack](http://cxf.apache.org/) in Fedora. It took some time to make it available in RPMfied version since CXF is a pretty big project, with many submodules and pretty nice dependency tree.
+Until now the webservices support was not available in the [Fedora](http://fedoraproject.org/) packaged JBoss AS. The main issue was the lack of [CXF stack](http://cxf.apache.org/) in Fedora. It took some time to make it available in an RPMified version since CXF is a pretty big project, with many submodules and a pretty nice dependency tree.
 
-Currently in Fedora we have JBoss AS available in version `7.1.1.Final` which requires CXF `2.4.6`. This is a pretty old release. I decided to **upgrade the CXF stack** to the latest available release from the `2.6.x` series. This triggered updating `jbossws-*` stack to newer versions than shipped with JBoss AS `7.1.1.Final`. I did some tests and it seems that the components integrate with JBoss AS seamless. Either case please test your application with the new stack and [report any bugs](https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=jboss-as).
+Currently in Fedora we have JBoss AS available in version `7.1.1.Final` which requires CXF `2.4.6`. This is a pretty old release. I decided to **upgrade the CXF stack** to the latest available release from the `2.6.x` series. This triggered updating the `jbossws-*` stack to newer versions than shipped with JBoss AS `7.1.1.Final`. I did some tests and it seems that the components integrate with JBoss AS seamlessly. Either case please test your application with the new stack and [report any bugs](https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=jboss-as).
 
 ### Sample application
 
@@ -39,7 +39,7 @@ public interface Calculator {
 }
 </pre>
 
-As you can see the webservice is a **very simple calculator** with four basic operations. You can build the application by executing `mvn package`. I used `jboss-cli` command to deploy the application to JBoss AS:
+As you can see the webservice is a **very simple calculator** with four basic operations. You can build the application by executing `mvn package`. I used the `jboss-cli` command to deploy the application to JBoss AS:
 
 <pre>
 [standalone@localhost:9999 /] deploy /home/goldmann/tmp/webservices.war
@@ -69,7 +69,7 @@ And here is the JBoss AS log:
 
 You can see the [WSDL](http://en.wikipedia.org/wiki/Web_Services_Description_Language) by pointing your browser to [http://jboss-as:8080/webservices?wsdl](http://jboss-as:8080/webservices?wsdl).
 
-<div class="alert alert-info"><h4>Hostname</h4>I used <code>jboss-as</code> hostname. You may want to edit <code>/etc/hosts</code> file to adjust the IP.</div>
+<div class="alert alert-info"><h4>Hostname</h4>The example applications use <code>jboss-as</code> as the hostname. You may want to edit the <code>/etc/hosts</code> file and add an entry to map this hostname to a valid IP address.</div>
 
 ### Testing the webservice
 
@@ -81,11 +81,11 @@ To test the service I prepared a simple [standalone client](https://github.com/g
 
 and observe the output. It should be similar to [what I got](https://gist.github.com/81ad7a7b3b4d2d510ebf).
 
-Additionally I run some basic tests with [SoapUI](http://www.soapui.org/). I was able to create a webservice from WSDL and run some sample requests. You can see the result <a class="picture" href="/images/soapui_calculator.png" title="Sample calls to websevice using SoapUI">on the screenshot</a>.
+Additionally I ran some basic tests with [SoapUI](http://www.soapui.org/). I was able to create a webservice from WSDL and run some sample requests. You can see the result <a class="picture" href="/images/soapui_calculator.png" title="Sample calls to websevice using SoapUI">on the screenshot</a>.
 
 ### Summary
 
-As you can see the webservice stack in JBoss As in Fedora works! Of course all you saw above are basic tests. Ii you have something more fancy, go for it and [let me know](/socially/) how it went.
+As you can see the webservice stack in JBoss AS in Fedora works! Of course all you saw above are basic tests. If you have something more fancy, go for it and [let me know](/socially/) how it went.
 
 <script type="text/javascript">
     $('.picture').colorbox();
