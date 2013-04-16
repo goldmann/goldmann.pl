@@ -6,17 +6,17 @@ timestamp: 2013-04-16t14:15:00.10+01:00
 tags: [ jboss_as ]
 ---
 
-There are many tools that use JMX connections which can be usefull for
-debugging and performance tunning of your applications running on JVM. The
+There are many tools that use JMX connections which can be useful for
+debugging and performance tunning of your applications running on the JVM. The
 most used are JConsole (shipped with every JDK) and VisualVM (available to
 download on [Oracle page](http://visualvm.java.net/)).
 
-But before I show how to conect them to JBoss AS - we need to understand a few
+But before I show how to connect them to JBoss AS we need to understand a few
 concepts.
 
 ## Standalone and domain mode
 
-JBoss AS can be run in **standalone** or **domain** mode. I'll not explain in
+JBoss AS can be run in either **standalone** or **domain** mode. I won't explain in
 detail the difference between those two here because this is a topic for
 another blog post.  The most important difference is that in domain mode you
 can manage a set of JBoss AS instances using one management entry point
@@ -29,48 +29,48 @@ configuration is different depending on which mode you choose.
 
 ## Classpath changes
 
-To be able to connect to the remote you need to add a few libraries to the
+To be able to connect to the remote JMX you need to add a few libraries to the
 classpath.
 
 <div class="alert alert-info"><h4>Optional</h4>You can skip this part if you're going to connect to local processes and don't want to have the JBoss CLI integrated with JConsole. In any other case this step is required.</div>
 
 ### JConsole
 
-If you use JConsole - you're lucky, because the JBoss AS team ships
+If you use JConsole, you're lucky, because the JBoss AS team ships
 a wrapper script for JConsole. You can find it in
-`$JBOSS_HOME/bin/jconsole.sh`. As a bonus you get access to JBoss AS CLI
+`$JBOSS_HOME/bin/jconsole.sh`. As a bonus you get access to the JBoss AS CLI
 directly from JConsole.
 
 ### VisualVM
 
-If you want to use VisualVM - I
+If you want to use VisualVM, I
 [adjusted](https://gist.github.com/goldmann/fdea19f156eff7b15f99) a wrapper
 script, found originally on [akquinet
 blog](http://blog.akquinet.de/2012/11/01/connecting-visualvm-with-a-remote-jboss-as-7-eap6-jvm-process/).
 [This script]((https://gist.github.com/goldmann/fdea19f156eff7b15f99)) will
-make it easy to launch VisualVM with required libraries on the classpath for
-both, JBoss AS 7 and 8.
+make it easy to launch VisualVM with the required libraries on the classpath for
+both JBoss AS 7 and 8.
 
-Do not forget to adjust the `VISUALVM` path to the VisualVM executable before
+You may need to adjust the `VISUALVM` path to the VisualVM executable before
 you proceed.
 
 ## Connections
 
-Now, when we have our applications fed with the right classpath - we're ready
-to connect to the instance.
+Now, that we have our monitoring applications set up with the correct classpath, we're ready
+to connect to a local or remote instance.
 
 ### Local processes
 
 This is when the monitoring application and the JBoss AS instance are running on one host.
 
-<div class="alert alert-warn"><h4>Mode</h4>Works in <strong>standalone</strong> and <strong>domain</strong> mode.</div>
+<div class="alert alert-warn"><h4>Mode</h4>This works in both <strong>standalone</strong> and <strong>domain</strong> mode.</div>
 
-There are **no preparations required** to connect JConsole or VisualVM to a
+There are **no classpath preparations required** to connect JConsole or VisualVM to a
 local process. But if you want to use the integrated CLI with JConsole you need
 to use the `jconsole.sh` wrapper script mentioned earlier.
 
-In this case a local authentication takes place and connection from the same
-host are automatically granted.
+In this case, no authentication is necessary since connections from the same
+host are automatically allowed.
 
 To begin just start the selected application (JConsole or Visual VM), choose
 the appropriate Java process from the list and you're ready.
@@ -83,12 +83,12 @@ the appropriate Java process from the list and you're ready.
 This is when the monitoring application and the JBoss AS instance are running
 on different hosts and we connect to the **native management port**.
 
-<div class="alert alert-warn"><h4>Mode</h4>Works in <strong>standalone</strong> mode only.</div>
+<div class="alert alert-warn"><h4>Mode</h4>This works in <strong>standalone</strong> mode only.</div>
 
 #### Port visibility
 
 To connect using the native port you need to make sure the JBoss AS management
-interface is visible from the host you're trying to connect.
+interface is visible from the client host.
 
 By default the management interface is bound to `127.0.0.1`. To change the
 management interface address to bind to, you can use the
@@ -103,7 +103,7 @@ You can also make it persistent using the JBoss CLI (`$JBOSS_HOME/bin/jboss-cli.
 You can use the same call for domain mode, but please be aware this will not
 make the native management port available for JMX connections. For remote
 connections to JBoss AS running in domain mode see the remoting port described
-later.
+below.
 
 <div class="alert alert-warn"><h4>Restart required</h4>Please note that a JBoss AS restart is required to apply the above change.</div>
 
@@ -153,12 +153,12 @@ management user you created earlier.
 This is when the monitoring application and the JBoss AS instance are running
 on different hosts and we connect to the **remoting port**.
 
-<div class="alert alert-warn"><h4>Mode</h4>Works in <strong>standalone</strong> and <strong>domain</strong> mode.</div>
+<div class="alert alert-warn"><h4>Mode</h4>This works in both <strong>standalone</strong> and <strong>domain</strong> mode.</div>
 
 #### Port visibility
 
 To connect using the remoting port you need to make sure the JBoss AS instance
-is visible from the host you're trying to connect.
+is visible from the client host.
 
 <div class="alert alert-info"><h4>Difference</h4>Please note that the configuration described here is different from the native management configuration above.</div>
 
@@ -174,10 +174,10 @@ You can also make it persistent using the JBoss CLI (`$JBOSS_HOME/bin/jboss-cli.
 <div class="alert alert-warn"><h4>Restart required</h4>Please note that a JBoss AS restart is required to apply the above change.</div>
 
 The remoting endpoint is exposed by default on port `4447`. If you start JBoss
-AS in the domain mode then the remoting port of the first instance will be
-exposed on port `4447` but next instances will add an offset to this port. By
+AS in domain mode then the remoting port of the first instance will be
+exposed on port `4447` but later instances will add an offset to this port. By
 default the offset is equal to `150` so the second instance will use port `4597`
-as the remoting port, third `4747`, and so on.
+as the remoting port, the third `4747`, and so on.
 
 #### Application user creation
 
@@ -220,13 +220,12 @@ You can change this by using the JBoss CLI. For standalone mode:
 
     # /subsystem=jmx/remoting-connector=jmx/:write-attribute(name=use-management-endpoint,value=false)
 
-Due to a bug in JBoss CLI you cannot set this for domain mode, but you are free
-to uncomment the following line:
+Due to a bug in JBoss CLI you cannot set this for domain mode, but you
+uncomment the following line from the `full` profile to enable it
+(assuming that you are using the default configuration which utilizes the
+`full` profile):
 
     <!--<remoting-connector use-management-endpoint="false"/>-->
-
-from the `full` profile (assuming that you use the default configuration which
-utilizes the `full` profile).
 
 <div class="alert alert-warn"><h4>Restart required</h4>Please note that a JBoss AS restart is required to apply the above change.</div>
 
@@ -236,8 +235,8 @@ Now we're ready to connect to the remote instance. The connection string should 
 
     service:jmx:remoting-jmx://HOST:4447
 
-When you're trying to connect to the second instance of the JBoss AS in the
-domain mode, you need to add to the port number the default offset (150).
+When you're trying to connect to the second instance of the JBoss AS in 
+domain mode, you'll need to add the default offset (150) to the port number.
 
 <div class="alert alert-warn"><h4>Classpath entries</h4>This connection type requires the modified classpath changes described above.</div>
 
