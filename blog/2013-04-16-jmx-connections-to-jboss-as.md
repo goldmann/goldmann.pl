@@ -2,7 +2,7 @@
 title: "JMX connections to JBoss AS"
 author: "Marek Goldmann"
 layout: blog
-timestamp: 2013-04-16t14:15:00.10+01:00
+timestamp: 2013-04-16t16:32:00.10+02:00
 tags: [ jboss_as ]
 ---
 
@@ -41,6 +41,8 @@ a wrapper script for JConsole. You can find it in
 `$JBOSS_HOME/bin/jconsole.sh`. As a bonus you get access to the JBoss AS CLI
 directly from JConsole.
 
+<a class="picture" href="/images/jmx/jconsole.png" title="JConsole"><img style="width: 50%; border: 1px solid #eee; padding: 5px;" alt="VisualVM" src="/images/jmx/jconsole.png" /></a>
+
 ### VisualVM
 
 If you want to use VisualVM, I
@@ -53,6 +55,8 @@ both JBoss AS 7 and 8.
 
 You may need to adjust the `VISUALVM` path to the VisualVM executable before
 you proceed.
+
+<a class="picture" href="/images/jmx/visualvm.png" title="VisualVM"><img style="width: 50%; border: 1px solid #eee; padding: 5px;" alt="VisualVM" src="/images/jmx/visualvm.png" /></a>
 
 ## Connections
 
@@ -145,8 +149,8 @@ Now we're ready to connect to the remote instance. The connection string should 
 In the username and password fields please enter the valid credentials for the
 management user you created earlier.
 
-<a rel="native" class="picture" href="/images/jmx/jconsole_native.png" title="JConsole native process"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="JConsole native process" src="/images/jmx/jconsole_native.png" /></a>
-<a rel="native" class="picture" href="/images/jmx/visualvm_native.png" title="VisualVM native process"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="VisualVM native process" src="/images/jmx/visualvm_native.png" /></a>
+<a rel="native" class="picture" href="/images/jmx/jconsole_native.png" title="JConsole native"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="JConsole native" src="/images/jmx/jconsole_native.png" /></a>
+<a rel="native" class="picture" href="/images/jmx/visualvm_native.png" title="VisualVM native"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="VisualVM native" src="/images/jmx/visualvm_native.png" /></a>
 
 ### Remote process with password authentication and remoting port
 
@@ -243,8 +247,8 @@ domain mode, you'll need to add the default offset (150) to the port number.
 In the username and password fields please enter the valid credentials for the
 application user you created earlier.
 
-<a rel="native" class="picture" href="/images/jmx/jconsole_native.png" title="JConsole native process"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="JConsole native process" src="/images/jmx/jconsole_native.png" /></a>
-<a rel="native" class="picture" href="/images/jmx/visualvm_native.png" title="VisualVM native process"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="VisualVM native process" src="/images/jmx/visualvm_native.png" /></a>
+<a rel="remoting" class="picture" href="/images/jmx/jconsole_remoting.png" title="JConsole remoting"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="JConsole remoting" src="/images/jmx/jconsole_remoting.png" /></a>
+<a rel="remoting" class="picture" href="/images/jmx/visualvm_remoting.png" title="VisualVM remoting"><img style="width: 30%; border: 1px solid #eee; padding: 5px;" alt="VisualVM remoting" src="/images/jmx/visualvm_remoting.png" /></a>
 
 ## Troubleshooting
 
