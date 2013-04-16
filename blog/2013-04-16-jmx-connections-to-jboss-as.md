@@ -49,7 +49,7 @@ If you want to use VisualVM, I
 [adjusted](https://gist.github.com/goldmann/fdea19f156eff7b15f99) a wrapper
 script, found originally on [akquinet
 blog](http://blog.akquinet.de/2012/11/01/connecting-visualvm-with-a-remote-jboss-as-7-eap6-jvm-process/).
-[This script]((https://gist.github.com/goldmann/fdea19f156eff7b15f99)) will
+[This script](https://gist.github.com/goldmann/fdea19f156eff7b15f99) will
 make it easy to launch VisualVM with the required libraries on the classpath for
 both JBoss AS 7 and 8.
 
