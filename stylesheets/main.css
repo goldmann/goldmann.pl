@@ -25,6 +25,10 @@ body,html {
   border-right: 10px solid #0069D6;
 }
 
+.banner>a:hover>img {
+  border-right: 10px solid #aaaaaa;
+}
+
 body{ 
   font-family: Helvetica,Arial,sans-serif;
   font-size: 0.8em;

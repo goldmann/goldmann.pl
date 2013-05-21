@@ -1,5 +1,6 @@
 require 'tag-atomizer'
 require 'bugzilla'
+require 'presentations'
 
 Awestruct::Extensions::Pipeline.new do
   extension Awestruct::Extensions::Posts.new('/blog')
@@ -19,6 +20,7 @@ Awestruct::Extensions::Pipeline.new do
   extension TagAtomizer.new(:tags => ['fedora'])
   extension TagAtomizer.new(:tags => ['jboss_as', 'java', 'jboss'], :output_path => "/jboss.atom", :feed_title => "Blog posts related to JBoss")
   extension Bugzilla.new(:layout => 'blog')
+  extension Presentations.new
 
   helper Awestruct::Extensions::GoogleAnalytics
 end

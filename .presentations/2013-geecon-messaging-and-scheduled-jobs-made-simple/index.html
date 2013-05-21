@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+    <title>Messaging and scheduled jobs made simple</title>
+
+    <meta name="description" content="Presentation: 'Messaging and scheduled jobs made simple'">
+      <meta name="author" content="Marek Goldmann">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+
+<style type="text/css">
+  html.white .state-background {
+    background-color: white;
+  }
+  html.red .state-background {
+    background-color: #770000;
+  }
+  .reveal section img {
+    border:0;
+    background:0;
+    box-shadow:none;
+  }
+
+  .important {
+    color: rgb(113, 233, 244);
+  }
+</style>
+
+<section>
+  <h1>Messaging and scheduled jobs made simple</h1>
+
+  <small>Marek Goldmann</small>
+</section>
+
+<section>
+  <img src="images/jboss_white.png" alt="JBoss">
+</section>
+
+<section>
+  <h2>Agenda</h2>
+  <ul>
+    <li>Introduction to <span class="important">TorqueBox</span></li>
+    <li class="fragment"><span class="important">Java Message Service</span>
+      <ul style="font-size:80%;">
+        <li>Concepts refresh</li>
+      </ul>
+    </li>
+    <li class="fragment">TorqueBox <span class="important">Messaging</span>
+      <ul style="font-size:80%;">
+        <li>Destination management</li>
+        <li>Sending and receiving messages</li>
+        <li>Message management</li>
+      </ul>
+    </li>
+    <li class="fragment">TorqueBox <span class="important">Jobs</span>
+      <ul style="font-size:80%;">
+        <li>Scheduled jobs</li>
+        <li>'At' jobs</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h2>A cat</h2>
+  <img src="images/cat.gif" alt="A cat" style="width: 500px;">
+</section>
+
+<section data-state="white">
+  <img src="images/knob.png" alt="TorqueBox Logo">
+</section>
+
+<section>
+  <h2>Ruby Application Server</h2>
+</section>
+
+<section data-state="red">
+  <blockquote style="padding: 30px;">Did he just say <span style="font-size: 200%; text-decoration: underline;"><strong>Ruby</strong></span> at a <span style="font-size: 150%"><strong>Java</strong></span> conference?</blockquote>
+</section>
+
+<section>
+  <p>Yep, it's a</p>
+  <h2 style="margin-top:30px;">Ruby Application Server</h2>
+  <p>based on <a href="http://www.jboss.org/jbossas">JBoss AS</a></p>
+</section>
+
+<section>
+  <img src="images/jruby.png" alt="JRuby Logo">
+</section>
+
+<section>
+  <img src="images/wildfly.png" alt="WildFly Logo">
+</section>
+
+<section>
+  <img src="images/stack.png" alt="TorqueBox stack">
+</section>
+
+<section>
+  <h2>Application Server</h2>
+  <h2><span class="important">is not <span class="fragment" style="text-decoration: underline;">only</span></span></h2>
+  <h2>a Web server</h2>
+</section>
+
+<section>
+  <h2>Stuff we can deploy on TorqueBox</h2>
+
+  <ul>
+    <li>Web applications (both Ruby <span class="important">and</span> Java)</li>
+    <li class="fragment">Services</li>
+    <li class="fragment">Jobs</li>
+    <li class="fragment">Messaging</li>
+    <li class="fragment"><span class="important">A mix of above</span></li>
+  </ul>
+</section>
+<!--
+<section>
+  <h2>Stuff you get 'for free'</h2>
+
+  <ul>
+    <li>Solid foundation</li>
+    <li class="fragment">Clustering</li>
+    <li class="fragment">HA</li>
+    <li class="fragment">Load balancing (<code>mod_cluster</code>)</li>
+    <li class="fragment">Consolidation</li>
+    <li class="fragment">Integration</li>
+  </ul>
+</section>
+-->
+<section>
+  <code>$ torquebox run</code>
+</section>
+
+<section>
+  <h1>Java Message Service</h1>
+  <p>Let's refresh the knowledge!</p>
+</section>
+
+<section>
+<h1><span class="important">Async</span>hronous!</h1>
+</section>
+
+<section>
+  <p>There are</p>
+  <h2 style="margin: 0;">Producers</h2>
+  <p>and</p>
+  <h2>Consumers</h2>
+</section>
+
+<section>
+  <h2>Two communication models</h2>
+  <ol>
+    <li><span class="important">point-to-point</span> (one to one)</li>
+    <li><span class="important">publish-subscribe</span> (one to many)</li>
+  </ol>
+</section>
+
+<section data-state="white">
+  <img src="images/queues.png" alt="Queues">
+</section>
+
+<section data-state="white">
+  <img src="images/topics.png" alt="Topics">
+</section>
+
+<section>
+  <h1>Destinations</h1>
+</section>
+<!--
+<section>
+  <h2>Creating destinations</h2>
+  <ol>
+    <li>Directly in the <span class="important">code</span></li>
+    <li>Using <span class="important">deployment descriptors</span></li>
+    <li class="fragment">Using JBoss AS <span class="important">management interfaces</span> (CLI, Console, Remoting)</li>
+  </ol>
+</section>
+-->
+<section>
+  <h2>In the code</h2>
+  <pre><code class="ruby"># Creates and starts a new queue
+@queue = TorqueBox::Messaging::Queue.start("/queues/new_queue")
+
+# Creates and starts a new topic
+@topic = TorqueBox::Messaging::Topic.start("/topics/new_topic")</code></pre>
+</section>
+
+<section>
+  <h2>Using deployment descriptors</h2>
+  <pre><code class="ruby">TorqueBox.configure do
+  # Creates and starts the queue with the application
+  queue '/queues/one'
+
+  # Creates and starts the topic with the application
+  topic '/topics/one'
+end</code></pre>
+  <pre style="text-align: right;">torquebox.rb</pre>
+</section>
+
+<!--
+<section>
+  <h2>Stopping the destinations</h2>
+  <pre><code class="ruby"># Stops and destroys the destination
+# Valid for queues and topics
+@queue.stop</code></pre>
+</section>
+-->
+<section>
+  <h1>Demo 01</h1>
+  <p>Creating and destroying destinations</p>
+</section>
+
+<section>
+  <h1>Message</h1>
+</section>
+
+<section>
+  <img src="images/message.png" alt="Message">
+</section>
+<!--
+<section>
+  <h2>Message types</h2>
+  <ul>
+    <li><code>Message</code></li>
+    <li><code>TextMessage</code></li>
+    <li><code>ObjectMessage</code></li>
+    <li><code>BytesMessage</code></li>
+    <li><code>StreamMessage</code></li>
+    <li><code>MapMessage</code></li>
+  </ul>
+</section>
+-->
+<section>
+  <h2>Sending a simple message</h2>
+  <pre><code class="ruby"># Sending a text message
+@queue.publish("Hello!")
+
+# Sending a Ruby Hash
+@queue.publish(:type =&gt; :car, :price =&gt; 20455.73)</code></pre>
+</section>
+
+<section>
+  <h2>Defining message properties</h2>
+  <pre><code class="ruby">@queue.publish("Hello!",
+  :properties =&gt; {
+    'type'  =&gt; 'CUCUMBER',   # String
+    'count' =&gt; 126,          # Integer
+    'price' =&gt; 4367.23,      # Float
+    'valid' =&gt; true          # Boolean
+  }
+)</code></pre>
+</section>
+
+<section>
+  <h2>Receiving a message</h2>
+  <pre><code class="ruby"># Watch out - this call can block
+# the thread forever if no new messages arrive
+message = @queue.receive
+
+# Wait at most 10 seconds for the message
+message = @queue.receive(:timeout =&gt; 10_000)</code></pre>
+</section>
+
+<section>
+  <h1>Demo 02</h1>
+  <p>Sending and receiving messages</p>
+</section>
+
+<section>
+  <h2>Message processor</h2>
+  <pre><code class="ruby">class SimpleProcessor &lt; TorqueBox::Messaging::MessageProcessor
+
+  def on_message(message)
+    puts "Received '#{message}'"
+  end
+
+end</code></pre>
+</section>
+
+<section>
+  <h2>Message processors usage</h2>
+  <pre><code class="ruby">TorqueBox.configure do
+  # Define the queue
+  queue '/queues/stuff' do
+    # Specify the message processor implementation
+    processor SimpleProcessor
+  end
+end</code></pre>
+  <pre style="text-align: right;">torquebox.rb</pre>
+</section>
+
+<section>
+  <h1>Demo 03</h1>
+  <p>Using message processors</p>
+</section>
+
+<section>
+  <h2>Message filtering</h2>
+  <p><a href="http://docs.oracle.com/javaee/6/api/javax/jms/Message.html">SQL92-like syntax</a></p>
+</section>
+
+<section>
+  <h2>Examples</h2>
+  <pre><code class="sql">type = 'CUCUMBER' AND price &lt; 1.23</code></pre>
+  <pre><code class="sql">action = 'BUY' AND JMSPriority BETWEEN 5 AND 8</code></pre>
+  <pre><code class="sql">name LIKE 'MAR%'</code></pre>
+</section>
+
+<section>
+  <img src="images/priority.png" alt="Priority">
+</section>
+
+<section>
+  <h2>Syntax Expressions</h2>
+  <ul>
+    <li>Headers <small><span class="fragment important">(but not all!)</span></small></li>
+    <li class="fragment">Properties</li>
+    <li class="fragment">Operators</li>
+  </ul>
+</section>
+
+<!--
+<section>
+  <h2>JMS headers in expressions</h2>
+  <ul>
+    <li><code>JMSDeliveryMode</code></li>
+    <li><code>JMSPriority</code></li>
+    <li><code>JMSMessageID</code></li>
+    <li><code>JMSTimestamp</code></li>
+    <li><code>JMSCorrelationID</code></li>
+    <li><code>JMSType</code></li>
+  </ul>
+</section>
+-->
+
+<section>
+  <h2>Receiving a message with selector</h2>
+  <pre><code class="ruby">message = @queue.receive(:selector =&gt; "type = 'CUCUMBER' AND price &lt; 1.23")
+</code></pre>
+</section>
+
+<section>
+  <h2>Message selectors in processors</h2>
+  <pre><code class="ruby">TorqueBox.configure do
+  # Define the queue
+  queue '/queues/selector' do
+    # Specify the message processor implementation
+    processor SimpleProcessor do
+      # Define the filter expression
+      selector "score &gt; 5"
+    end
+  end
+end</code></pre>
+  <pre style="text-align: right;">torquebox.rb</pre>
+</section>
+
+<section>
+  <h1>Demo 04</h1>
+  <p>Using message selectors</p>
+</section>
+
+<section>
+  <h2>Message priority</h2>
+  <p>By default: <span class="important">4</span></p>
+</section>
+
+<section>
+  <p>Message provider delivers messages with higher priority first</p>
+</section>
+
+<section>
+  <h2>Message priority in TorqueBox</h2>
+  <ul>
+    <li><code class="important">:low</code> set to <span class="important">1</span></li>
+    <li><code class="important">:normal</code> set to <span class="important">4</span></li>
+    <li><code class="important">:high</code> set to <span class="important">7</span></li>
+    <li><code class="important">:critical</code> set to <span class="important">9</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Examples</h2>
+  <pre><code class="ruby"># low priority (1)
+@queue.publish("Is someone there?", :priority =&gt; :low)</code></pre>
+  <pre><code class="ruby"># default priority (4)
+@queue.publish("Hello!")</code></pre>
+  <pre><code class="ruby"># critical priority (9)
+@queue.publish("Urgent!", :priority =&gt; :critical)</code></pre>
+</section>
+
+<section>
+  <h1>Demo 05</h1>
+  <p>Message priorities</p>
+</section>
+
+<!--
+<section>
+  <h2>Message expiration</h2>
+  <p>By default: <span class="important">never</span></p>
+</section>
+
+<section>
+  <h2>Message expiration in TorqueBox</h2>
+  <p><code class="important">:ttl</code> property when sending a message</p>
+</section>
+
+<section>
+  <h2>Examples</h2>
+  <pre><code class="ruby"># Message never expires (default, :ttl set to 0)
+@queue.publish("Knock knock!")</code></pre>
+  <pre><code class="ruby"># Message expires after 10 minutes
+@queue.publish("Hello!", :ttl =&gt; 600_000)</code></pre>
+</section>
+<section>
+  <h2>Expiry address</h2>
+  <p>By default: <code class="important">jms.queue.ExpiryQueue</code></p>
+</section>
+<section>
+  <h2>Address != Queue name</h2>
+  <p><code>jms.queue.<span class="important">QUEUE_NAME</span></code></p>
+</section>
+
+<section>
+  <h3>Queue name</h3>
+  <p><code>/queues/something</code></p>
+  <h3>Address</h3>
+  <p><code><span class="important">jms.queue.</span>/queues/something</code></p>
+</section>
+<section>
+  <h2>Expiry address in TorqueBox</h2>
+  <pre><code class="ruby"># Changes the expiry address of selected queue
+# Expired messages will be moved to the /queues/old queue
+@queue.expiry_address = "jms.queue./queues/old"</code></pre>
+</section>
+
+<section>
+  <h1>Demo 06</h1>
+  <p>Message expiration</p>
+</section>
+-->
+
+<section>
+  <h2>Message scheduling</h2>
+  <p>By default: publish <span class="important">NOW!</span></p>
+</section>
+
+<section>
+  <h2>Examples</h2>
+  <pre><code class="ruby"># Message is published immediately (:scheduled set to 0)
+@queue.publish("Normal message")
+
+# Message is published 10 seconds after executing the call
+@queue.publish("Scheduled message", :scheduled =&gt; Time.now + 10)</code></pre>
+</section>
+
+<section>
+  <h1>Demo 06</h1>
+  <p>Message scheduling</p>
+</section>
+
+<section>
+  <h1>Synchronous<br/>messaging</h1>
+</section>
+
+<section data-state="red">
+  <h1>WAT?</h1>
+  <p>You said that messaging is asynchronous!</p>
+</section>
+
+
+<section>
+  <h2>Example</h2>
+  <pre><code class="ruby"># Publish a message, then wait for reply
+answer = @queue.publish_and_receive("Hello")
+
+# Wait for a message and reply
+@queue.receive_and_publish do |message|
+  message.upcase
+end</code></pre>
+</section>
+
+<section>
+  <h1>Demo 07</h1>
+  <p>Synchronous messaging</p>
+</section>
+
+<section>
+  <h1>Message management</h1>
+</section>
+
+<section>
+  <ul>
+    <li>Counting messages</li>
+    <li class="fragment">Moving messages to another queue
+      <ul>
+        <li class="fragment" style="font-size: 80%;">Expiring messages</li>
+        <li class="fragment" style="font-size: 80%;">Sending messages to DLQ</li>
+      </ul>
+    </li>
+    <li class="fragment">Removing messages</li>
+  </ul>
+</section>
+
+<section>
+  <h1>Demo 08</h1>
+  <p>Message management</p>
+</section>
+
+<section>
+  <h1>Queue management</h1>
+</section>
+
+<section>
+  <ul>
+    <li>Listing destinations</li>
+    <li class="fragment">Pausing / resuming the queue</li>
+  </ul>
+</section>
+
+<section>
+  <h1>Demo 09</h1>
+  <p>Queue management</p>
+</section>
+
+<section>
+  <h1>Scheduled jobs</h1>
+</section>
+
+<section>
+  <p>Things you want to execute sometime in the future</p>
+</section>
+
+<section>
+  <h2>Job class</h2>
+  <pre><code class="ruby">class SimpleJob
+  def run
+    # Stuff goes here
+  end
+end</code></pre>
+  <pre style="text-align: right;">simple_job.rb</pre>
+</section>
+
+<section>
+  <h2>Scheduling options</h2>
+  <ol>
+    <li>Cron syntax</li>
+    <li class="fragment">'At'</li>
+  </ol>
+</section>
+
+<section>
+  <table>
+    <tr class="fragment">
+      <th style="width: 15%">Seconds</th>
+      <th style="width: 15%">Minutes</th>
+      <th style="width: 15%">Hours</th>
+      <th style="width: 15%">Day of month</th>
+      <th style="width: 15%">Month</th>
+      <th style="width: 15%">Day of week</th>
+      <th style="width: 15%">Year</th>
+    </tr>
+    <tr style="font-weight: bold;" class="important">
+      <td>*/5</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>?</td>
+      <td></td>
+    </tr>
+    <tr style="font-weight: bold;" class="fragment important">
+      <td>0</td>
+      <td>15</td>
+      <td>3</td>
+      <td>1</td>
+      <td>*</td>
+      <td>?</td>
+      <td></td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h2>In the code</h2>
+  <pre><code class="ruby">TorqueBox::ScheduledJob.schedule(
+  "SimpleJob", 
+  '*/5 * * * * ?',
+  :name         =&gt; 'simple.job',
+  :description  =&gt; 'Simple job',
+  :timeout      =&gt; '5s',
+  :config       =&gt; { 'foo' =&gt; 'bar' }
+)</code></pre>
+</section>
+
+<section>
+  <h2>Deployment descriptors</h2>
+  <pre><code class="ruby">TorqueBox.configure do
+  job SimpleJob do
+    cron '*/5 * * * * ?'
+  end
+end</code></pre>
+  <pre style="text-align: right;">torquebox.rb</pre>
+</section>
+
+<section>
+  <h1>Demo 10</h1>
+  <p>Cron jobs</p>
+</section>
+
+<section>
+  <h2>'At' jobs</h2>
+  <pre><code class="ruby"># Run a job every 200 ms for over 5 seconds, from now
+TorqueBox::ScheduledJob.at(
+  'SimpleJob', :every =&gt; 200, :until =&gt; Time.now + 5)
+
+# Start in 1 second, then every 200 ms for over 4 seconds
+TorqueBox::ScheduledJob.at(
+  'SimpleJob', :at =&gt; Time.now + 1, :every =&gt; 200, :until =&gt; Time.now + 5)
+
+# Start in 1 second, then every 200 ms for over 4 seconds
+TorqueBox::ScheduledJob.at(
+  'SimpleJob', :in =&gt; 1_000, :every =&gt; 200, :until =&gt; Time.now + 5)
+
+# Start in 1 second, then repeat te job 10 times, every 200 ms
+TorqueBox::ScheduledJob.at(
+  'SimpleJob', :in =&gt; 1_000, :repeat =&gt; 10, :every =&gt; 200)</code></pre>
+</section>
+
+<section>
+  <h1>Demo 11</h1>
+  <p>'At' jobs</p>
+</section>
+
+<!--
+<section>
+  <h2>Queue durability</h2>
+  <p>Something</p>
+
+  <pre><code class="ruby">TorqueBox::Messaging::Queue.start '/queues/foo'
+TorqueBox::Messaging::Topic.start '/topics/bar'
+</code></pre>
+</section>
+-->
+
+<section>
+  <h2>Disclaimer</h2>
+  <p>All mentioned features require <span class="important">TorqueBox 3</span>
+  <p style="font-size: 80%;">Or at least latest incrementals</p>
+</section>
+
+<section>
+  <h1>Questions?</h1>
+</section>
+
+<section>
+<h1>Thanks!</h1>
+  <p><a href="http://torquebox.org">http://torquebox.org</a></p>
+</section>
+
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					// { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					// { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					// { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					// { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					// { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
