@@ -120,3 +120,11 @@ documentation](https://docs.jboss.org/author/display/AS71/Admin+Guide).
 The update was [submitted to Fedora
 19](https://admin.fedoraproject.org/updates/jboss-as-7.1.1-19.fc19) and is
 already available in Rawhide. Please give it a shot and add some karma!
+
+### Update 28.05.2013
+
+Please make sure you install the
+[jacorb-2.3.1-5](https://admin.fedoraproject.org/updates/FEDORA-2013-9359)
+bugfix update available now in `updates-testing` repository. This fixes some
+issues when running JBoss AS in high-availability and in domain mode.
+
