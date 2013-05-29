@@ -19,7 +19,7 @@ is not everything &ndash; you get a single entry point for management for all
 these instances. This means that you can deploy applications one all instances
 by just executing one command!
 
-<div class="alert alert-info"><h4>Available with the next jboss-as package update</h4>Domain mode will be available with the next jboss-as package update <strong>7.1.1-19</strong> on <strong>Fedora 19+</strong>.</div>
+<div class="alert alert-info"><strong>Available with the next jboss-as package update</strong><br/>Domain mode will be available with the next jboss-as package update <strong>7.1.1-19</strong> on <strong>Fedora 19+</strong>.</div>
 
 ## Configuration
 

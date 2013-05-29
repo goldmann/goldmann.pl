@@ -32,7 +32,7 @@ configuration is different depending on which mode you choose.
 To be able to connect to the remote JMX you need to add a few libraries to the
 classpath.
 
-<div class="alert alert-info"><h4>Optional</h4>You can skip this part if you're going to connect to local processes and don't want to have the JBoss CLI integrated with JConsole. In any other case this step is required.</div>
+<div class="alert alert-info"><strong>Optional</strong><br/>You can skip this part if you're going to connect to local processes and don't want to have the JBoss CLI integrated with JConsole. In any other case this step is required.</div>
 
 ### JConsole
 

@@ -1,18 +1,25 @@
-body,html { 
+body,html {
+  margin:0;
+  padding: 0;
 }
+
 .content {
-  margin:20px;
+  margin: 20px;
 } 
 .page-header {
-  padding: 40px 20px 10px 20px;
+  padding: 20px 0;
 }
 .main-content {
-  border-left: 1px solid #eee;
-  padding-left: 20px;
+/*  border-left: 1px solid #eee;*/
+  /*padding-left: 20px;*/
   overflow:hidden;
 }
 .menu>ul {
   list-style-type: none;
+  margin:0;
+  font-size: 1.5em;
+  padding-bottom: 1em;
+  border-bottom: 5px solid #eee;
 }
 .menu>ul>li {
   padding: 5px;
@@ -30,11 +37,22 @@ body,html {
 }
 
 body{ 
+  margin: 20px;
   font-family: Helvetica,Arial,sans-serif;
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: #444;
   background-image:url('/images/gradient.png');
   background-repeat:repeat-x;
+}
+@media only screen and (max-width: 767px) {
+  .main-content {
+    font-size: 1.2em;
+    line-height: 150%;
+  }
+}
+
+.container {
+  margin: 0;
 }
 
 li {
