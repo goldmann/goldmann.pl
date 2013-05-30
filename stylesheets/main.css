@@ -1,4 +1,4 @@
-body,html {
+html {
   margin:0;
   padding: 0;
 }
@@ -37,22 +37,23 @@ body,html {
 }
 
 body{ 
-  margin: 20px;
+  margin: 0;
   font-family: Helvetica,Arial,sans-serif;
   font-size: 0.9em;
   color: #444;
   background-image:url('/images/gradient.png');
   background-repeat:repeat-x;
+  border-top: 20px solid #0069D6;
 }
 @media only screen and (max-width: 767px) {
   .main-content {
-    font-size: 1.2em;
+    font-size: 1.25em;
     line-height: 150%;
   }
 }
 
 .container {
-  margin: 0;
+  margin: 20px;
 }
 
 li {
