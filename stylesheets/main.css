@@ -43,7 +43,7 @@ body{
   color: #444;
   background-image:url('/images/gradient.png');
   background-repeat:repeat-x;
-  border-top: 20px solid #0069D6;
+  border-top: 20px solid #08c;
 }
 @media only screen and (max-width: 767px) {
   .main-content {
