@@ -11,7 +11,7 @@ class Bugzilla
     site.pages.each do |page|
       next if @options[:layout] != page.layout or page.timestamp.nil?
 
-      if page.is_a?(Awestruct::Handlers::MarkdownHandler) and @options[:since].nil? or page.timestamp > @options[:since]
+      if page.source_path.end_with?(".md") and @options[:since].nil? or page.timestamp > @options[:since]
         page.raw_content.gsub!(/RHBZ\#(\d+)/, "<a href=\"#{@options[:base_url]}/show_bug.cgi?id=\\1\">RHBZ#\\1</a>")
       end
     end

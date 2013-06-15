@@ -1,7 +1,6 @@
 ---
 title: News from the JBoss AS / WildFly and Fedora world
 layout: base
-hide_title: true
 ---
 
 %div#left-column.span7{:style => "margin-left:0;"}
@@ -18,9 +17,8 @@ hide_title: true
               %a{:href=>tag.primary_page.url}
                 = tag
       .body
-        ~ post.content
+        ~ post.abstract
       .comments
-        = post.intense_debate_comments_link
   = page.posts.links
 %div#right-column.span2
   %h3 Tags
