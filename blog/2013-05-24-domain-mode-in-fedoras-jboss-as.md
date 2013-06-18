@@ -15,7 +15,7 @@ If you're not familiar with the operating modes, I highly recommend you reading
 the [introduction to
 it](https://docs.jboss.org/author/display/AS71/Operating+modes). In short, in
 domain mode you can launch more than one server on one host easily. But this
-is not everything &ndash; you get a single entry point for management for all
+is not everything &#8211; you get a single entry point for management for all
 these instances. This means that you can deploy applications one all instances
 by just executing one command!
 
@@ -50,7 +50,7 @@ Afterwards you can restart the server by simply using the `systemctl` command:
 
     $ systemctl restart jboss-as.service
 
-And voila &ndash; domain mode is running with two JBoss AS instances (default case):
+And voila &#8211; domain mode is running with two JBoss AS instances (default case):
 
     $ systemctl status jboss-as.service
     jboss-as.service - The JBoss Application Server
