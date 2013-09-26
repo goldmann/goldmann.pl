@@ -10,7 +10,7 @@ tags: [ fedora, docker ]
 
 For the last couple of days I have been playing with
 [Docker](https://www.docker.io/). Docker is a project that helps you create
-images and run containers. This sounds lime virtualization, but it
+images and run containers. This sounds like virtualization, but it
 isn't. It uses [Linux Containers](http://lxc.sourceforge.net/) (LXC) under the
 hood to do all the magic. What kind of magic? Read on.
 
