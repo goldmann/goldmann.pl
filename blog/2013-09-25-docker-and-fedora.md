@@ -51,6 +51,7 @@ Fedora 19, 20 and Rawhide. This repo will become unavailable after the official
 Docker RPMs hit Fedora repos.
 
 <div class="alert alert-info"><strong>Fedora 20 host</strong><br/>Please note that I used a Fedora 20 host, but it should work on Fedora 19 too.</div>
+<div class="alert alert-info"><strong>Superuser privileges</strong><br/>All commands below should be executed with root privileges.</div>
 
     curl http://goldmann.fedorapeople.org/repos/docker.repo > /etc/yum.repos.d/docker-goldmann.repo
     yum install docker-io
