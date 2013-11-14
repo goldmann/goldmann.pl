@@ -11,3 +11,5 @@ profiles:
       path: ~/git/website.git/diy/
 intense_debate_acct: dc0fe4e524f2a8f99420088ae1c04124
 google_analytics: UA-351971-1
+asciidoctor:
+  :safe: safe

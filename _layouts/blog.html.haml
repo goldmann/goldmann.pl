@@ -13,7 +13,7 @@ layout: base
   .post
     .byline
       .author <strong>#{page.author}</strong>
-      .date #{page.timestamp.strftime( '%d %B %Y %H:%M %Z' )}
+      .date #{page.timestamp.strftime( '%a, %d %b %Y %H:%M' )}
       .tags
         - unless page.tags.empty?
           - page.tags.each do |tag|

@@ -1,5 +1,5 @@
 ---
-title: News from the JBoss AS / WildFly and Fedora world
+title: News from the JBoss AS / WildFly, Docker and Fedora world
 layout: base
 ---
 
@@ -10,7 +10,7 @@ layout: base
         %a{:href=>post.url}= post.title
       .byline{:style => "border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 10px;"}
         .author <strong>#{post.author}</strong>
-        .date #{post.timestamp.strftime( '%d %B %Y %H:%M %Z' )}
+        .date #{post.timestamp.strftime( '%a, %d %b %Y %H:%M' )}
         .tags
           - unless post.tags.empty?
             - post.tags.each do |tag|
