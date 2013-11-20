@@ -35,6 +35,7 @@ GEM
     execjs (2.0.2)
     ffi (1.9.3)
     fssm (0.2.10)
+    git (1.2.6)
     haml (4.0.4)
       tilt
     htmlcompressor (0.0.7)
@@ -72,6 +73,7 @@ DEPENDENCIES
   asciidoctor (= 0.1.4)
   awestruct (= 0.5.4.rc2)
   coffee-script (= 2.2.0)
+  git (= 1.2.6)
   htmlcompressor (= 0.0.7)
   json (= 1.8.1)
   rake (= 10.1.0)
