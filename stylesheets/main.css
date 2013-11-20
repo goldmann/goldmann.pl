@@ -88,3 +88,59 @@ pre {
   white-space:pre;
   overflow:auto;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+h1, h2, h3 {
+  line-height: 120%;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 19px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+p {
+  margin: 0 0 8px
+}
+
+.admonitionblock {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.admonitionblock.note {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.admonitionblock>table td.icon {
+/*  display: none;*/
+  font-weight: bold;
+  vertical-align: top;
+  padding-right: 10px;
+}

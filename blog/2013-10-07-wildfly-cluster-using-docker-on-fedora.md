@@ -26,7 +26,7 @@ Since that was a few years ago and we now have both
 [WildFly](http://wildfly.org/) (the JBoss AS successor) and Docker in Fedora,
 it's time to use these new techonogies to do something similar.
 
-### Preparations
+## Preparations
 
 <div class="alert alert-info"><strong>Pre-releases</strong><br/>Because we're IT <a href="https://www.google.com/search?q=hipster"><i>hipsters</i></a> we need to use the latest technologies like Fedora 20 (pre-release), WildFly 8 (pre-release) and Docker (soon-to-be-in-Fedora). As you can imagine, <strong>bad things may happen</strong>.</div>
 
@@ -45,7 +45,7 @@ Now that you have my image locally, you can try to run it, like this:
     $ docker run -i -t goldmann/f20 /bin/bash
     bash-4.2# 
 
-### Building the basic WildFly image
+## Building the basic WildFly image
 
 Now it's time to extend the `goldmann/f20` image and install the `wildfly`
 package on it. This can be easily done by using this Dockerfile:

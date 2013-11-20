@@ -10,13 +10,13 @@ Lokesh, the `docker-io` package maintainer at Fedora, does a damn good job at
 keeping it up to date. I think it's a good time to see what changed over the
 last weeks in the Docker-Fedora world.
 
-### Why Docker is still not available in Fedora?
+## Why Docker is still not available in Fedora?
 
-##### Simple answer
+### Simple answer
 
 There are some technical issues to overcome :)
 
-##### Longer answer
+### Longer answer
 
 The most important blocker  is lack of [AUFS](http://aufs.sourceforge.net/)
 support in the kernel (upstream as well as Fedora's and RHEL's). Alex Larsson
