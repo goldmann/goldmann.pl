@@ -15,3 +15,15 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
     ExpiresByType application/x-javascript "access plus 1 week"
 </IfModule>
 
+<IfModule mod_headers.c>
+  AddOutputFilter DEFLATE js css
+
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+  <FilesMatch "\.(js|css|xml|gz)$">
+    Header append Vary: Accept-Encoding
+  </FilesMatch>
+</IfModule>
+
