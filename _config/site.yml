@@ -1,6 +1,12 @@
 profiles:
+  development:
+    base_url: http://localhost:4242/
+    disqus: goldmann
+    disqus_developer: true
+    disqus_generate_id: true
   production:
     base_url: http://goldmann.pl/
+    disqus: goldmann
     deploy:
       host: goldmann.pl
       path: /var/www/goldmann.pl/htdocs/
