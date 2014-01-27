@@ -2,14 +2,14 @@
 layout: base
 ---
 
-%div#left-column.span6
+.col-sm-9
   %article
     %h1.pagetitle #{page.title}
     .body
       ~ content
   .comments
     = page.disqus_comments
-%div#right-column.span2
+%div.col-sm-3{:style => "padding-top: 20px;"}
   .post
     .byline
       .author <strong>#{page.author}</strong>

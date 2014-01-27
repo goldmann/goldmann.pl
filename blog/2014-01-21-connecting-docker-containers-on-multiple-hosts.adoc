@@ -35,7 +35,7 @@ I made a few changes to Franck's set up:
 == Set up
 
 ++++
-<a rel="browser" class="picture" href="/images/docker-network/network.png" title="Networking"><img style="padding-bottom: 10px;" alt="Networking" src="/images/docker-network/network.png" /></a>
+<a rel="browser" class="picture" href="/images/docker-network/network.png" title="Networking"><img class="img-responsive" alt="Networking" src="/images/docker-network/network.png" /></a>
 ++++
 
 I used two VM's (`host1` and `host2`) each with Fedora 20 as the operating system.

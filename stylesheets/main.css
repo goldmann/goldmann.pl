@@ -3,22 +3,21 @@ html {
   padding: 0;
 }
 
-.content {
-  margin: 20px;
-} 
 .page-header {
   padding: 20px 0;
 }
-.main-content {
-/*  border-left: 1px solid #eee;*/
-  /*padding-left: 20px;*/
-  overflow:hidden;
+
+/* Bump the font size on small screens */
+@media screen and (max-width: 768px) {
+  p { font-size: 1.2em; }
 }
+
 .menu>ul {
   list-style-type: none;
+  line-height: 1em;
   margin:0;
+  padding: 1em 0;
   font-size: 1.5em;
-  padding-bottom: 1em;
   border-bottom: 5px solid #eee;
 }
 .menu>ul>li {
@@ -38,35 +37,17 @@ html {
 
 body{ 
   margin: 0;
-  font-family: Helvetica,Arial,sans-serif;
-  font-size: 0.9em;
   color: #444;
   background-image:url('/images/gradient.png');
   background-repeat:repeat-x;
   border-top: 20px solid #08c;
 }
-@media only screen and (max-width: 767px) {
-  .main-content {
-    font-size: 1.25em;
-    line-height: 150%;
-  }
-}
-
 .container {
-  margin: 20px;
+  margin-left: 0;
 }
 
 li {
   color: #444;
-}
-
-#left-column {
-  float: left;
-}
-
-#right-column {
-  float: left;
-  margin-left: 10px;
 }
 
 #googleplus, #twitter {
@@ -78,46 +59,16 @@ li {
   padding-top: 10px;
 }
 
+
 .comments {
   padding: 5px 0;
   margin: 10px 0;
 }
 
+
 pre {
   white-space:pre;
   overflow:auto;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
-}
-
-h1, h2, h3 {
-  line-height: 120%;
-}
-
-h1 {
-  font-size: 35px;
-}
-
-h2 {
-  font-size: 28px;
-}
-
-h3 {
-  font-size: 22px;
-}
-
-h4 {
-  font-size: 19px;
-}
-
-h5 {
-  font-size: 16px;
-}
-
-p {
-  margin: 0 0 8px
 }
 
 .admonitionblock {
