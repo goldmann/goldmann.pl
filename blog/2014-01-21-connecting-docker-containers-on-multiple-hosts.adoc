@@ -64,7 +64,10 @@ Copy the `/usr/lib/systemd/system/docker.service` file to
 default `docker0` bridge creation on Docker startup.
 
 ----
+.include /usr/lib/systemd/system/docker.service
+
 [Service]
+ExecStart=
 ExecStart=/usr/bin/docker -d -b=none
 ----
 

@@ -229,7 +229,7 @@ uncomment the following line from the `full` profile to enable it
 (assuming that you are using the default configuration which utilizes the
 `full` profile):
 
-    <!--<remoting-connector use-management-endpoint="false"/>-->
+    <remoting-connector use-management-endpoint="false"/>
 
 <div class="alert alert-warn"><h4>Restart required</h4>Please note that a JBoss AS restart is required to apply the above change.</div>
 
