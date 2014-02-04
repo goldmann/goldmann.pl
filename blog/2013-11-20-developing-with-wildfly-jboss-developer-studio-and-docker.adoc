@@ -121,7 +121,9 @@ After you create the connection, please right click on the _Ssh Terminals_ and
 select _Subsystems_. On that page we need to change the port from +22+ to
 +10022+.
 
-image::wildfly-jbds-docker/ide_connection_port.png[Specifying the remote SSH port]
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/ide_connection_port.png" title="Specifying the remote SSH port"><img class="img-responsive" alt="Specifying the remote SSH port" src="/images/wildfly-jbds-docker/ide_connection_port.png" /></a>
+++++
 
 Now we can try to connect to the container, right click on the connection and
 select _Connect_. You'll be asked about password and user ID, please use +root+ / +verysecure+.
@@ -151,7 +153,9 @@ server choose _JBoss Community > WildFly 8.0 (Experimental)_, click _Next_.
 Because of the nature of the containers this will let us manage
 the server from IDE directly.
 
-image::wildfly-jbds-docker/ide_new_server.png[Create new server wizard]
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/ide_new_server.png" title="Create new server wizard"><img class="img-responsive" alt="Create new server wizard" src="/images/wildfly-jbds-docker/ide_new_server.png" /></a>
+++++
 
 In the next step in the _Home Directory_ field specify the directory to where
 you unpacked the WildFly zip content.
@@ -166,7 +170,9 @@ from dropdown.
 We're ready to set the _Remote Server Home_ field. Click _Browse_ and expand _Root
 > / > usr / > share > wildfly_.
 
-image::wildfly-jbds-docker/ide_home_directory.png[Browsing for the remote home directory of the application server]
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/ide_home_directory.png" title="Browsing for the remote home directory of the application server"><img class="img-responsive" alt="Browsing for the remote home directory of the application server" src="/images/wildfly-jbds-docker/ide_home_directory.png" /></a>
+++++
 
 The last thing is to change the server settings, double click on the newly created server.
 
@@ -198,7 +204,9 @@ JBDS will download all the required code and preapre it to run.
 The last step is to add the application to the server. It'll be automatically
 deployed and ready to check at http://localhost:18080/jboss-as-kitchensink.
 
-image::wildfly-jbds-docker/kitchensink.png[The kitchensink application]
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/kitchensink.png" title="The kitchensink application"><img class="img-responsive" alt="The kitchensink application" src="/images/wildfly-jbds-docker/kitchensink.png" /></a>
+++++
 
 === Done
 
@@ -208,5 +216,11 @@ still be able to develop your app!
 If you get hit by a long deployment time, then most probably you see the
 https://issues.jboss.org/browse/JBIDE-12202[JBIDE-12202] which will be fixed in
 the next version of JBDS.
+
+++++
+<script type="text/javascript">
+    $('.picture').colorbox();
+</script>
+++++
 
 // vim: set syntax=asciidoc:
