@@ -15,7 +15,7 @@ link:http://wildfly.org/news/2014/02/11/WildFly8-Final-Released/[was recently re
 and is now available in Fedora 20 `updates-testing` repository. Let's
 create an image that could be used to test this release but make it as minimal
 as it could be. The application server does have a lot of dependencies, so do
-not expect a 100 MB image. It'll be closer to 1.5 GB.
+not expect a 100 MB image. It'll be closer to 1 GB.
 
 == Intro
 
@@ -60,16 +60,21 @@ rm -rf $BUILDDIR
 
 # Install the required stuff
 yum -y install wildfly \
+  --setopt=override_install_langs=en \
+  --setopt=tsflags=nodocs \
   --installroot $BUILDDIR \
   --disablerepo=* \
   --enablerepo=fedora,updates,updates-testing \
   --releasever=20 \
   --nogpgcheck
 
-pushd $BUILDDIR
 # Clean up the cache
+# and fix the console issue when running the image
+chroot $BUILDDIR /bin/bash -x <<EOF
 rm -rf /var/cache/yum/*
-popd
+rm -rf /dev/console
+ln -s /dev/tty1 /dev/console
+EOF
 
 # Import to Docker
 tar -C $BUILDDIR -c . | docker import - $NAME
@@ -101,5 +106,13 @@ $ docker inspect -f '{{ .NetworkSettings.IPAddress }}' af59785a5245
 ----
 
 Great, WildFly is available on http://172.17.0.2:8080.
+
+====  Update 07.06.2014
+
+I changed a bit the script. Now it installs only the `en` language files and there
+was a mistake in cleaning the YUM cache which is now fixed too. Additionally I
+fixed the `/dev/console` warning messages that were appearing on boot.
+
+Everything above made it possible to *decrease the size of the image from 1.6GB to 1GB*. Win!
 
 // vim: set syntax=asciidoc:
