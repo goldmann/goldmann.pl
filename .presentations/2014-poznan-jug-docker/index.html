@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Docker - Intro to a revolution</title>
+
+		<meta name="description" content="Docker - Intro to a revolution">
+		<meta name="author" content="Marek Goldmann">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+        <style type="text/css">
+            body {
+              background: #fff;
+            }
+            .reveal td, .reveal th {
+                padding-left: 10px;
+            }
+
+            .reveal td:first-child {
+                font-weight: bold;
+                background-color: #eee;
+            }
+            
+            #geecon-logo {
+              position: absolute;
+              left: 20px;
+              top: 20px;
+
+            }
+
+            p.footnote {
+              font-size: 0.4em;
+            }
+        </style>
+	</head>
+
+	<body>
+
+    <div id="geecon-logo">
+      <img src="images/poznan_jug.png"/>
+    </div>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Docker</h1>
+					<p><small>@marekgoldmann</small></p>
+					<p style="font-size: 70%"><small>Poznań JUG, 3rd June 2014</small></p>
+				</section>
+
+				<section>
+					<img src="images/docker-logo.png" style="border: 0; box-shadow: none" alt="Docker">
+        </section>
+<!--
+				<section data-background="#6cc5c3">
+					<img src="images/docker_fail_whale.png" style="border: 0; box-shadow: none" alt="Docker">
+				</section>
+-->
+				<section>
+          <h2>Applications are complex</h2>
+					<img src="images/mess.jpg" style="border: 0; box-shadow: none; width: 40%;" alt="Mess">
+          <p class="footnote">http://www.reddit.com/r/pics/comments/nf8la/im_always_tempted_to_switch_two_random_cables_to/</p>
+				</section>
+
+        <section>
+          <h2>Different deployment environments</h2>
+					<img src="images/pc.jpg" style="border: 0; box-shadow: none; width: 50%;" alt="Mess">
+          <p class="footnote">http://www.shedworking.co.uk/2012/03/nuts-and-bolts-cable-ties.html</p>
+				</section>
+
+				<section>
+            <h2>But how?</h2>
+				</section>
+
+        <section>
+            <h2><strong>Unified</strong> deployment format</h2>
+				</section>
+
+				<section>
+					<img src="images/docker-logo.png" style="border: 0; box-shadow: none" alt="Docker">
+					<p>
+                        A project to manage containers.
+					</p>
+				</section>
+
+				<section>
+                    <h2>Containers?</h2>
+					<p class="fragment">
+                        Yes, a lightweight operating system virtualization.
+					</p>
+				</section>
+
+				<section>
+                    <h2>How this compares to a virtual machine?</h2>
+					<p class="fragment">
+                        It's <strong>completely</strong> different.
+					</p>
+				</section>
+
+				<section>
+                    <h2>Comparison</h2>
+
+					<table style="border: 5px solid #eee; background-color: #fff; width: 100%; font-size: 50%" cellspacing="0">
+                        <tr style="font-weight: bold; background-color: #eee;"><th style="width: 40%"></th><th>Virtual Machine (KVM, VMware)</th><th>Container (LXC, OpenVZ)</th></tr>
+                        <tr><td>Hardware</td><td>Simulated</td><td>Uses it (almost) directly</td></tr>
+                        <tr><td>Supported OS'es</td><td>Almost any</td><td>Only Linux</td></tr>
+                        <tr><td>Space</td><td>User space</td><td>Kernel space</td></tr>
+                        <tr><td>Separation</td><td>Full</td><td>Control Groups (cgroups)</td></tr>
+                        <tr><td>Startup time</td><td>Seconds to minutes</td><td>Miliseconds</td></tr>
+                        <tr><td>Scalability</td><td>A few</td><td>Sky is the limit (thousands)</td></tr>
+                        <tr><td>Custom kernel</td><td>Yes</td><td>No</td></tr>
+                        <tr><td>Enterprise features (live migration, etc)</td><td>Yes</td><td>No</td></tr>
+                        <tr><td>Ease of creation</td><td>Moderate</td><td>Easy</td></tr>
+                        <tr><td>Time consumption of creation</td><td>High</td><td>Low</td></tr>
+                        <tr><td>Size</td><td>HUGE</td><td>Small</td></tr>
+
+					</table>
+				</section>
+
+				<section>
+                    <h2>Who's behind Docker?</h2>
+					<p class="fragment">
+                        <a href="http://docker.com">Docker, Inc.</a> and a <a href="https://github.com/dotcloud/docker"><strong>powerful</strong> community</a>.<br /><br />
+                    </p>
+				</section>
+
+				<section>
+                    <h2>Speaking of community...</h2>
+                    <ul style="font-size: 80%">
+                        <li><strong>GitHub</strong>
+                            <ul>
+                              <li>&gt;800 watchers</li>
+                                <li>&gt;11000 stars</li>
+                                <li>&gt;1800 forks</li>
+                                <li>&gt;500 open issues</li>
+                                <li>&gt;80 pull requests</li>
+                            </ul>
+                        </li>
+                        <li>Over <a href="https://github.com/dotcloud/docker/graphs/contributors">400 contributors</a>
+                            <ul>
+                                <li>avg 17 commits / day</li>
+                                <li><strong>90% are external</strong></li>
+
+                            </ul></li>
+                        <li>Many meetups all over the world
+                            <ul>
+                                <li><strong>50</strong> active <a href="https://www.docker.io/meetups/">meetup</a> groups</li>
+                            </ul></li>
+                    </ul>
+                    <p style="margin-top: 40px;">Achieved after <strong><u>15 months</u></strong> since first commit to GitHub</p>
+				</section>
+
+        <section>
+          <h2>Glossary</h2>
+          <ul>
+            <li><strong>Image</strong>: a (read-only) <em>template</em> with filesystem and data</li>
+            <li class="fragment"><strong>Container</strong>: a running <em>image</em></li>
+            <li class="fragment"><strong>Registry</strong>: place where <em>images</em> are hosted/shared</li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>Main concepts</h2>
+          <ul>
+            <li>An image can be linked to a <strong>parent</strong> image</li>
+            <li class="fragment">Image not having a parent is called <strong>base</strong> image</li>
+            <li class="fragment">Container has a state, whereas image doesn't</li>
+            <li class="fragment">You can launch multiple containers from an image</li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>How does it work?</h2>
+          <ul>
+            <li><strong>cgroups</strong>
+              <ul>
+                <li>groups processes in trees, single entity</li>
+              </ul>
+            </li>
+            <li class="fragment"><strong>namespaces</strong>
+              <ul>
+                <li>process isolation; network, pid, filesystem, etc</li>
+              </ul>
+            </li>
+            <li class="fragment"><strong>filesystem</strong>
+              <ul>
+                <li>aufs, btrfs, devicemapper</li>
+              </ul>
+            </li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>Show it!</h2>
+				</section>
+
+				<section>
+          <h2>Creating Docker images</h2>
+          <p>It's simple! Use <a href="http://docs.docker.io/en/latest/use/builder/">Dockerfiles</a>.</p>
+				</section>
+
+        <section>
+          <h2>Dockerfile</h2>
+          <p>A <strong>plain text</strong> file with instructions that <strong>automates</strong> building the image.</p>
+				</section>
+
+        <section>
+          <h2>Dockerfile example</h2>
+
+					<pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+# Base on the Fedora 20 image
+FROM fedora
+
+# Upgrade the image
+RUN yum -y update
+
+# Install WildFly application server
+RUN yum -y install wildfly
+
+# Run WildFly after container boot
+ENTRYPOINT /usr/share/wildfly/bin/standalone.sh -c standalone-ha.xml -b 0.0.0.0
+					</code></pre>
+          <p>This should be saved as <code>Dockerfile</code></p>
+				</section>
+
+        <section>
+          <h2>Building the image</h2>
+          <code>docker build .</code>
+				</section>
+
+        <section>
+          <h2>Building the image</h2>
+					<pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+$ docker build .
+Uploading context  2.56 kB
+Uploading context 
+Step 0 : FROM fedora
+ ---> 58394af37342
+
+[SNIP]
+
+Step 3 : ENTRYPOINT /usr/share/wildfly/bin/standalone.sh -c standalone-ha.xml -b 0.0.0.0
+ ---> Running in 72f63daffbd1
+ ---> e91c26099a67
+Removing intermediate container 72f63daffbd1
+Successfully built e91c26099a67
+          </code></pre>
+        <p>We've built image <code>e91c26099a67</code></p>
+				</section>
+
+        <section>
+          <h2>Modifyng the image</h2>
+          <ol>
+            <li>Change the <code>Dockerfile</code></li>
+            <li>Execute the <code>build</code> command once again</li>
+          </ol>
+				</section>
+
+        <section>
+          <h2>Image repositories</h2>
+          <ol>
+            <li><strong>Private</strong>: for example hosted inside a company</li>
+            <li><strong>Public</strong>: <a href="https://index.docker.io/">index.docker.io</a></li>
+          </ol>
+				</section>
+ 
+        <section>
+          <h2>OK, great, <strong>but</strong>...</h2>
+				</section>
+
+        <section>
+          <h3>Use-cases?</h3>
+          <ul>
+            <li>Want your own <strong>PaaS</strong>?</li>
+            <li class="fragment">Automated testing and <strong>CI</strong></li>
+            <li class="fragment">Deploying <strong>scalable</strong> apps</li>
+          </ul>
+				</section>
+
+        <section>
+          <h3>PaaS</h3>
+          <p>It's (fairly) easy to create a PaaS with Docker</p>
+          <p class="fragment">There is even a <a href="http://progrium.com/blog/2013/06/19/dokku-the-smallest-paas-implementation-youve-ever-seen/">tutorial</a> to create one in 5 minutes...</p>
+				</section>
+        
+        <section>
+          <img style="border: 0; box-shadow: none" src="images/openshift_logo.svg"/>
+				</section>
+
+        <section>
+          <h3>Continuous Integration</h3>
+          <ol>
+            <li>You commit</li>
+            <li class="fragment">CI builds the app</li>
+            <li class="fragment">CI creates an image with the new app</li>
+            <li class="fragment">CI starts a container from new image</li>
+            <li class="fragment">Integration tests are executed on a <strong>real</strong> application</li>
+            <li class="fragment"><strong>Profit!</strong></li>
+          </ol>
+				</section>
+
+        <section>
+          <h3>Scalable apps</h3>        
+          <ul>
+            <li><strong>Requirement</strong>: prepare your app to be easily scalable</li>
+            <li class="fragment">Starting a container is fast and cheap</li>
+            <li class="fragment">Extending a (for example WildFly) cluster is easy</li>
+            <li class="fragment"><strong>Profit!</strong></li>
+          </ul>
+				</section>
+
+				<section>
+					<img src="images/much.jpg" style="border: 0; box-shadow: none" alt="Much JBoss">
+        </section>
+
+        <section>
+          <img style="border: 0; box-shadow: none" src="images/atomic.png"/>
+				</section>
+
+        <section>
+          <img style="border: 0; box-shadow: none" src="images/atomic_website.png"/>
+          <a href="http://www.projectatomic.io/">http://projectatomic.io</a>
+				</section>
+
+        <section>
+          <h2>100 httpd servers in one minute, go!</h2>
+				</section>
+
+				<section>
+					<h1>Thanks!</h1>
+          <p>(and remember to Docker all the things!)</p>
+				</section>
+
+        <section>
+          <p><a href="http://goldmann.pl/presentations/2014-geecon-docker-intro-to-a-revolution/">Slides</a></p>
+          <p><a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img style="border: 0;" src="images/cc-by-sa.png" /></a></p>
+          <p style="font-size: 50%">Attributions:</p>
+          <ul style="font-size: 50%; list-style-type: none;">
+            <li>https://www.docker.io/</li>
+          </ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
