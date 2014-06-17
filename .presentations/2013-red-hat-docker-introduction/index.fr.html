@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Docker - introduction</title>
+
+		<meta name="description" content="Introduction à Docker">
+		<meta name="author" content="Marek Goldmann">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+        <style type="text/css">
+            .reveal td, .reveal th {
+                padding-left: 10px;
+            }
+
+            .reveal td:first-child {
+                font-weight: bold;
+                background-color: #eee;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Docker</h1>
+					<h3>Introduction</h3>
+					<p style="font-size: 70%"><small>par</small></p>
+					<p><small>Marek Goldmann</small></p>
+					<p style="font-size: 70%"><small>10 Déc 2013</small></p>
+				</section>
+
+				<section>
+					<img src="images/docker-logo.png" style="border: 0; box-shadow: none" alt="Docker">
+				</section>
+
+				<section>
+                    <h2>Docker&nbsp;?</h2>
+					<p class="fragment">
+                        Un projet pour créer et gérer des conteneurs.
+					</p>
+				</section>
+
+				<section>
+                    <h2>Conteneurs&nbsp;?</h2>
+					<p class="fragment">
+                        Oui, une virtualisation de système d'exploitation légère.
+					</p>
+				</section>
+
+				<section>
+                    <h2>Quelle comparaison par rapport à une machine virtuelle?</h2>
+					<p class="fragment">
+                        C'est <strong>complètement</strong> différent.
+					</p>
+				</section>
+
+				<section>
+                    <h2>Comparaison</h2>
+
+					<table style="border: 5px solid #eee; background-color: #fff; width: 100%; font-size: 50%" cellspacing="0">
+                        <tr style="font-weight: bold; background-color: #eee;"><th style="width: 40%"></th><th>Machine virtuelle (KVM, VMware)</th><th>Conteneur (LXC, OpenVZ)</th></tr>
+                        <tr><td>Matériel</td><td>Simulé</td><td>L'utilise (presque) en direct</td></tr>
+                        <tr><td>OS supportés</td><td>Presque tous</td><td>Seulement Linux</td></tr>
+                        <tr><td>Espace</td><td>Espace utilisateur</td><td>Espace noyau</td></tr>
+                        <tr><td>Séparation</td><td>Complète</td><td>Control Groups (cgroups)</td></tr>
+                        <tr><td>Temps démarrage</td><td>Secondes à minutes</td><td>Milisecondes</td></tr>
+                        <tr><td>Passage échelle</td><td>Quelques une</td><td>Infini (milliers)</td></tr>
+                        <tr><td>Noyau spécifique</td><td>Oui</td><td>Non</td></tr>
+                        <tr><td>Fonctions avancées (migration live, etc)</td><td>Oui</td><td>Non</td></tr>
+                        <tr><td>Facilité de création</td><td>Moyenne</td><td>Facile</td></tr>
+                        <tr><td>Durée requise à création</td><td>Longue</td><td>Courte</td></tr>
+                        <tr><td>Taille</td><td>ENORME</td><td>Petite</td></tr>
+
+					</table>
+				</section>
+
+				<section>
+                    <h2>Qui est derrière Docker?</h2>
+					<p class="fragment">
+                        <a href="https://www.dotcloud.com/">dotCloud</a>* et une <a href="https://github.com/dotcloud/docker">communauté <strong>puissante</strong></a>.<br /><br />
+                        <span style="font-size: 60%">* dotCloud, Inc. a été <a href="http://blog.docker.io/2013/10/dotcloud-is-becoming-docker-inc/">renommée en Docker, Inc.</a> récemment</span>
+                    </p>
+				</section>
+
+				<section>
+                    <h2>En parlant de la communauté...</h2>
+                    <ul style="font-size: 80%">
+                        <li><strong>GitHub</strong>
+                            <ul>
+                                <li>501 watches</li>
+                                <li>6948 étoiles</li>
+                                <li>847 forks</li>
+                                <li>406 tickets ouverts</li>
+                                <li>69 pull requests</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Plus de <a href="https://github.com/dotcloud/docker/graphs/contributors">200 contributeurs</a>
+                            <ul>
+                                <li>en moy. 13 commits / jour</li>
+                                <li><strong>92% sont externes</strong></li>
+
+                            </ul></li>
+                        <li class="fragment">De nombreuses rencontres partout dans le monde
+                            <ul>
+                                <li><strong>15</strong> groupes de <a href="https://www.docker.io/meetups/">rencontres</a> actifs</li>
+                            </ul></li>
+                    </ul>
+                    <p class="fragment" style="margin-top: 40px;">Atteint seulement après <strong><u>10 mois</u></strong> depuis le premier commit sur GitHub</p>
+				</section>
+
+        <section>
+          <h2>Glossaire</h2>
+          <ul>
+            <li><strong>Image</strong>&nbsp;: un <em>package</em> avec un filesystem et des données</li>
+            <li class="fragment"><strong>Conteneur</strong>&nbsp;: une <em>image</em> en fonctionnement</li>
+            <li class="fragment"><strong>Registry</strong>&nbsp;: endroit où les <em>images</em> sont stockées/partagées</li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>Concepts principaux</h2>
+          <ul>
+            <li>Une image peut être liée à une image <strong>parente</strong></li>
+            <li class="fragment">Les images sans parent sont appelées image de <strong>base</strong></li>
+            <li class="fragment">Un conteneur a un état, alors que les images n'en ont pas</li>
+            <li class="fragment">Vous pouvez lancer de multiples conteneurs à partir d'une image</li>
+          </ul>
+				</section>
+
+				<section>
+          <h2>Composants de Docker</h2>
+				</section>
+
+				<section>
+          <div style="margin-bottom: 50px">
+            <h2>Manager</h2>
+            <p>Fait fonctionner, démarre, arrête, etc... sur les conteneurs</p>
+          </div>
+
+          <div class="fragment" style="margin-bottom: 50px">
+            <h2>Builder</h2>
+            <p>Crée les images</p>
+          </div>
+
+          <div class="fragment">
+            <h2>Registry des images</h2>
+            <p>Stockage pour les images</p>
+          </div>
+				</section>
+
+				<section>
+          <h2>Créer des images Docker</h2>
+          <p>C'est facile&nbsp;! On utilise des <a href="http://docs.docker.io/en/latest/use/builder/">Dockerfiles</a>.</p>
+				</section>
+
+        <section>
+          <h2>Dockerfile</h2>
+          <p>Un fichier <strong>texte</strong> avec des instructions qui <strong>automatisent</strong> la fabrication de l'image.</p>
+				</section>
+
+        <section>
+          <h2>Exemple de Dockerfile</h2>
+
+					<pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+# Se base sur une image de Fedora 20
+FROM mattdm/fedora
+
+# Met à jour l'image
+RUN yum -y update
+
+# Installe java
+RUN yum -y install java-1.7.0-openjdk-devel wget
+
+# Récupère WildFly
+RUN wget http://download.jboss.org/wildfly/8.0.0.Beta1/wildfly-8.0.0.Beta1.tar.gz -O /opt/wildfly.tar.gz
+RUN tar -xf /opt/wildfly.tar.gz -C /opt
+
+# Lance WildFly au démarrage du conteneur
+ENTRYPOINT /opt/wildfly-8.0.0.Beta1/bin/standalone.sh -c standalone-ha.xml -b 0.0.0.0
+					</code></pre>
+          <p>Ceci devrait être sauve dans le fichier appelé <code>Dockerfile</code></p>
+				</section>
+
+        <section>
+          <h2>Instructions de base</h2>
+          <ul>
+            <li><strong><code>FROM</code></strong>&nbsp;: l'image sur laquelle on se base / qu'on étend</li>
+            <li><strong><code>RUN</code></strong>&nbsp;: La commande à exécuter à la fabrication</li>
+            <li><strong><code>ENTRYPOINT</code></strong>&nbsp;: La commande à exécuter après le démarrage du conteneur</li>
+          </ul>
+          <p style="margin-top: 50px;" class="fragment">Mais il y en a <a href="http://docs.docker.io/en/latest/use/builder/">beaucoup d'autres</a>&nbsp;!</p>
+				</section>
+
+        <section>
+          <h2>Fabrication de l'image</h2>
+          <code>docker build .</code>
+				</section>
+
+        <section>
+          <h2>Fabrication de l'image</h2>
+					<pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+$ docker build .
+Uploading context 10240 bytes
+Step 1 : FROM mattdm/fedora
+
+[SNIP]
+
+Step 4 : RUN wget -q http://download.jboss.org/wildfly/8.0.0.Beta1/wildfly-8.0.0.Beta1.tar.gz -O /opt/wildfly.tar.gz
+ ---> Running in 41467b97b423
+ ---> 112766c23202
+Step 5 : RUN tar -xf /opt/wildfly.tar.gz -C /opt
+ ---> Running in d07d0c5c3dab
+ ---> c53f9f4ceb1e
+Step 6 : ENTRYPOINT /opt/wildfly-8.0.0.Beta1/bin/standalone.sh -c standalone-ha.xml -b 0.0.0.0
+ ---> Running in a9b2cecf4db5
+ ---> 5894688e4f2e
+Successfully built 5894688e4f2e
+          </code></pre>
+        <p>Nous avons fabriqué l'image <code>5894688e4f2e</code></p>
+				</section>
+
+        <section>
+          <h2>Modification de l'image</h2>
+          <ol>
+            <li>Changer le <code>Dockerfile</code></li>
+            <li>Exécuter la commande <code>build</code> à nouveau</li>
+          </ol>
+				</section>
+
+        <section>
+          <h2>Parlons de rapidité</h2>
+					<pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+$ time docker build .
+Uploading context 10240 bytes
+Step 1 : FROM mattdm/fedora
+ ---> 0f3e92b4e94d
+
+[SNIP]
+
+Step 4 : RUN wget -q http://download.jboss.org/wildfly/8.0.0.Beta1/wildfly-8.0.0.Beta1.tar.gz -O /opt/wildfly.tar.gz
+ ---> Using cache
+ ---> 2ad6655478dd
+Step 5 : RUN tar -xf /opt/wildfly.tar.gz -C /opt
+ ---> Using cache
+ ---> c0f63f06e9ec
+Step 6 : RUN touch /etc/something
+ ---> Running in 8426dd5570af
+ ---> 7ef016a00cde
+Step 7 : ENTRYPOINT /opt/wildfly-8.0.0.Beta1/bin/standalone.sh -c standalone-ha.xml -b 0.0.0.0
+ ---> Running in 60bfa9d3a746
+ ---> e757e0ea05d7
+Successfully built e757e0ea05d7
+
+real  0m0.307s
+user  0m0.000s
+sys 0m0.018s
+          </code></pre>
+        <p>Nous avons construit <strong>une nouvelle</strong> image <code>e757e0ea05d7</code></p>
+        <p class="fragment">Oui, <strong>300ms</strong>!</p>
+				</section>
+
+        <section>
+          <h2>Comment ça marche</h2>
+          <ol>
+            <li>Préparation de l'exécution d'une instruction
+              <ul>
+                <li class="fragment">Est-ce que l'instruction a déjà été exécutée auparavant&nbsp;?
+                  <ul>
+                    <li><strong>oui</strong> - utiliser le <strong>résultat précédent</strong>, aller au #3</li>
+                    <li><strong>non</strong> - exécuter l'instruction, aller au #2</li>
+                  </ul></li>
+              </ul></li>
+            <li class="fragment">Est-ce que l'instruction s'est exécutée sans erreur&nbsp;?
+              <ul>
+                <li><strong>oui</strong> - <strong>commit</strong>, aller au #3</li>
+                <li><strong>non</strong> - interromptre le build</li>
+              </ul></li>
+            <li class="fragment">Est-ce que c'est la fin des instructions&nbsp;?
+              <ul>
+                <li><strong>oui</strong> - <strong>commit</strong>, fini&nbsp;!</li>
+                <li><strong>non</strong> - aller au #1</li>
+              </ul></li>
+          </ol>
+				</section>
+
+				<section>
+          <h2>Parlons de <span style="font-size: 200%">taille</span></h2>
+					<pre><code class="bash" data-trim style="font-size: 18px; margin-top: 20px;">
+$ docker images
+
+REPOSITORY          TAG                 ID                  CREATED             SIZE
+&lt;none&gt;              &lt;none&gt;              e757e0ea05d7        37 minutes ago      12.29 kB (virtual 1.056 GB)
+&lt;none&gt;              &lt;none&gt;              5894688e4f2e        46 minutes ago      12.29 kB (virtual 1.056 GB)
+					</code></pre>
+          <p class="fragment">Oui, <strong>12.29kB</strong>!</p>
+				</section>
+
+        <section>
+          <h2>Référentiels d'images</h2>
+          <ol>
+            <li><strong>Privé</strong>&nbsp;: par exemple hébergé à l'intérieur d'une entreprise</li>
+            <li><strong>Public</strong>&nbsp;: <a href="https://index.docker.io/">index.docker.io</a></li>
+          </ol>
+				</section>
+
+
+				<section>
+					<h1>Commandes Docker CLI</h1>
+				</section>
+
+        <section>
+          <h2><code>docker pull</code></h2>
+          <p>Récupérer une image ou un repository dans le registry</p>
+				</section>
+
+        <section>
+          <h2><code>docker push</code></h2>
+          <p>Transmettre une image depuis le registry vers un repository</p>
+				</section>
+
+        <section>
+          <h2><code>docker run</code></h2>
+          <p>Lance une commande dans un <strong>nouveau conteneur</strong> basé sur l'image spécifiée</p>
+				</section>
+
+        <section>
+          <h2><code>docker stop</code></h2>
+          <p>Arrête un conteneur</p>
+				</section>
+
+        <section>
+          <h2><code>docker start</code></h2>
+          <p>Démarre un conteneur arrêté</p>
+				</section>
+
+        <section>
+          <h2><code>docker rm</code></h2>
+          <p>Supprime un conteneur arrêté</p>
+				</section>
+
+        <section>
+          <h2><code>docker rmi</code></h2>
+          <p>Supprime une image du registry</p>
+				</section>
+
+        <section>
+          <h2>OK, super, <strong>mais</strong>...</h2>
+				</section>
+
+        <section>
+          <h3>Cas d'utilisation&nbsp;?</h3>
+          <ul>
+            <li>Voulez-vous votre propre <strong>PaaS</strong>?</li>
+            <li class="fragment">Tests automatisés et <strong>CI</strong></li>
+            <li class="fragment">Deployer des applis <strong>qui passent à l'échelle</strong></li>
+            <li class="fragment"><strong>plateforme de déploiement</strong> d'applications</li>
+          </ul>
+				</section>
+
+        <section>
+          <h3>PaaS</h3>
+          <p>Il est (relativement) facile de créer une PaaS avec Docker</p>
+          <p class="fragment">Il y a même un <a href="http://progrium.com/blog/2013/06/19/dokku-the-smallest-paas-implementation-youve-ever-seen/">tutoriel</a> pour en créer une en 5 minutes...</p>
+				</section>
+        
+        <section>
+          <h3>OpenShift</h3>
+          <p><a href="https://github.com/openshift/openshift-pep/blob/master/openshift-pep-010-docker-cartridges.md">https://github.com/openshift/openshift-pep/blob/master/openshift-pep-010-docker-cartridges.md</a></p>
+				</section>
+
+        <section>
+          <h3>Intégration Continue (CI)</h3>
+          <ol>
+            <li>Vous committez</li>
+            <li class="fragment">la CI construit l'appli</li>
+            <li class="fragment">la CI crée une image avec votre nouvelle appli</li>
+            <li class="fragment">la CI démarre un conteneur à partir de cette nouvelle image</li>
+            <li class="fragment">les tests d'intégration sont exécutés sur une application <strong>réelle</strong></li>
+            <li class="fragment"><strong>Bénéfice&nbsp;!</strong></li>
+          </ol>
+				</section>
+
+        <section>
+          <h3>Applis passant à l'échelle</h3>        
+          <ul>
+            <li><strong>Prérequis</strong>&nbsp;: préparer son appli pour qu'elle passe facilement à l'échelle</li>
+            <li class="fragment">Démarrer un conteneur est rapide et pas cher</li>
+            <li class="fragment">Étendre un cluster (par exemple WildFly) devient facile</li>
+            <li class="fragment"><strong>Bénéfice&nbsp;!</strong></li>
+          </ul>
+				</section>
+
+        <section>
+          <h3>Plateforme de déploiement</h3>        
+          <p style="font-weight: bold;">Fabriquer une fois - exécuter n'importe où&nbsp;!</p>
+          <ul class="fragment" style="margin-top: 30px;">
+            <li>Télécharger facilement et rapidement</li>
+            <li>Mettre à jour les images est également facile</li>
+          </ul>
+
+          <h3 class="fragment" style="margin-top: 50px;">Bénéfice&nbsp;!</h3>
+				</section>
+
+        <section>
+          <h3>Par où commencer&nbsp;?</h3>        
+          <p><code>yum install docker-io</code></p>
+          <p style="margin-top: 20px;"><a href="http://docs.docker.io/en/latest/use/basics/">http://docs.docker.io/en/latest/use/basics/</a></p>
+				</section>
+
+				<section>
+					<h1>Merci&nbsp;!</h1>
+				</section>
+
+        <section>
+          <p><a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img style="border: 0;" src="images/cc-by-sa.png" /></a></p>
+          <p style="font-size: 50%">Remerciements&nbsp;:</p>
+          <ul style="font-size: 50%; list-style-type: none;">
+            <li>https://www.docker.io/</li>
+          </ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
