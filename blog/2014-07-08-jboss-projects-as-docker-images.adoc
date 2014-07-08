@@ -1,8 +1,8 @@
 = "JBoss projects as Docker images"
 Marek Goldmann
 2014-07-08
-:revdate: 2014-07-08t10:40:00.10+01:00
-:awestruct-timestamp: 2014-07-08t10:40:00.10+01:00
+:revdate: 2014-07-08t16:25:00.10+01:00
+:awestruct-timestamp: 2014-07-08t16:25:00.10+01:00
 :awestruct-tags: [ docker, jboss ]
 :awestruct-layout: blog
 
