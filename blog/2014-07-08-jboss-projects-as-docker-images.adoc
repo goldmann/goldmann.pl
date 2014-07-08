@@ -1,0 +1,47 @@
+= "JBoss projects as Docker images"
+Marek Goldmann
+2014-07-08
+:revdate: 2014-07-08t10:40:00.10+01:00
+:awestruct-timestamp: 2014-07-08t10:40:00.10+01:00
+:awestruct-tags: [ docker, jboss ]
+:awestruct-layout: blog
+
+Recently link:https://twitter.com/marekgoldmann/status/474867431736082432[I
+announced the avaibility] of the official link:http://wildfly.org/[WildFly]
+Docker image. Since that time link:https://hub.docker.com/u/jboss/[our
+portfolio of images has grown a bit]. As of today we do have 8 images. But this
+is not the end. We want to have *a nice collection* of JBoss' projects shipped as
+Docker images.
+
+=== Automated builds
+
+All images are hooked up as
+link:https://docs.docker.com/docker-hub/builds/[automated builds]. When we push
+an update to link:https://github.com/jboss/dockerfiles[the repository], a new
+build will be created and pushed to the global registry. I set up also links
+between the images. If a base image will be updated - our images will be
+rebuilt. This is a fully *automated* process that makes sure you get the latest
+available software.
+
+=== Docker microsite
+
+Today I'm happy to announce the link:http://www.jboss.org/docker/[Docker dedicated microsite on jboss.org] website.
+
+[.text-center]
+image:/images/jboss-docker-microsite.png[link="http://www.jboss.org/docker/", alt="JBoss Docker microsite", width="70%"]
+
+We crafted the http://jboss.org/docker website
+to show all the images we currently ship in one place. Additionally you can find there
+basic information about each project and detailed information about each image.
+
+Of course list of all repositories is available from the link:https://registry.hub.docker.com/repos/jboss/[hub.docker.com] website too!
+
+=== Help us to help you!
+
+We're happy to add new new images! You can even help us by
+link:https://github.com/jboss/dockerfiles/pulls[opening a pull request] or just
+link:https://github.com/jboss/dockerfiles/issues[let us know] what projects you
+would like to see in the portfolio. Do not hesitate to create bug reports (if
+you find any) too!
+
+// vim: set syntax=asciidoc:
