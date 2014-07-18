@@ -10,7 +10,7 @@ profiles:
     deploy:
       host: goldmann.pl
       path: /var/www/goldmann.pl/htdocs/
-  production:
+  staging:
     base_url: http://staging.goldmann.pl/
     disqus: goldmann
     deploy:

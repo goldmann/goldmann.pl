@@ -1,8 +1,8 @@
 = "Logging with the WildFly Docker image"
 Marek Goldmann
 2014-07-18
-:revdate: 2014-07-18t21:40:00.10+01:00
-:awestruct-timestamp: 2014-07-18t21:40:00.10+01:00
+:revdate: 2014-07-18t21:45:00.10+01:00
+:awestruct-timestamp: 2014-07-18t21:45:00.10+01:00
 :awestruct-tags: [ docker, jboss, wildfly ]
 :awestruct-layout: blog
 :toc:
