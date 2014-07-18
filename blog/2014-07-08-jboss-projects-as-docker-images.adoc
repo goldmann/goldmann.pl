@@ -13,7 +13,7 @@ portfolio of images has grown a bit] - as of today, we have 8 images. But this
 is not the end. We want to have *a nice collection* of JBoss projects shipped as
 Docker images.
 
-=== Automated builds
+== Automated builds
 
 All of our images are hooked up to
 link:https://docs.docker.com/docker-hub/builds/[automated builds]. When we push
@@ -23,7 +23,7 @@ between the images so if a base image is updated, our dependent images will be
 rebuilt. This is a fully *automated* process that ensures you get the latest
 available software.
 
-=== Docker microsite
+== Docker microsite
 
 Today I'm happy to announce the link:http://www.jboss.org/docker/[Docker dedicated microsite on jboss.org].
 
@@ -37,7 +37,7 @@ image.
 
 Of course, the list of all repositories is also available from link:https://registry.hub.docker.com/repos/jboss/[hub.docker.com]!
 
-=== Help us to help you!
+== Help us to help you!
 
 We're happy to add new images! You can even help us by
 link:https://github.com/jboss/dockerfiles/pulls[opening a pull request] or just

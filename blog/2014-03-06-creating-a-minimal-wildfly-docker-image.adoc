@@ -107,7 +107,7 @@ $ docker inspect -f '{{ .NetworkSettings.IPAddress }}' af59785a5245
 
 Great, WildFly is available on http://172.17.0.2:8080.
 
-====  Update 07.06.2014
+===  Update 07.06.2014
 
 I changed a bit the script. Now it installs only the `en` language files and there
 was a mistake in cleaning the YUM cache which is now fixed too. Additionally I
