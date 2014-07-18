@@ -8,16 +8,17 @@ Marek Goldmann
 :toc:
 
 There are various ways to set up logging for Docker containers. Docker itself
-has a built-in `logs` *command*, you can *mount a volume* from host and save
-the logs there, you can of course create a *different container* that would be
-responsible only for log handling or set up a *logging daemon*. Every method
-has some pros and cons and it is up to you to choose one that fits best.
+has a built-in `logs` *command*, you can *mount a volume* from the host and save
+the logs there, you can create a *different container* that would be
+only responsible for log handling, or set up a *logging daemon*. Every method
+has some pros and cons and it is up to you to choose the one that fits best.
 
 image:/images/docker-logging/wildfly.png[alt="Logging with Docker images", width="100%"]
 
-Let's go trough all the mentioned options describing them and make the `jboss/wildfly` image use them.
+Let's go through each of these options, learn a litle about the it,
+and modify the `jboss/wildfly` image use it.
 
-NOTE: I won't talk about WildFly logging in general, in this blog post I focus
+NOTE: I won't talk about WildFly logging in general, in this blog post I'll focus
 on the required changes (if any) to make it work inside a container. If you're
 interested in the logging subsystem configuration, please
 link:https://docs.jboss.org/author/display/WFLY8/Logging+Configuration[refer to
@@ -31,7 +32,7 @@ Don't use `docker logs` in production. Mounting volumes from a host is simple
 but could be tricky, especially if you run
 link:http://www.projectatomic.io/docs/docker-and-selinux/[SELinux]. If you set
 it up correctly, you'll be happy. Using data containers is fun and probably a
-good way to do logging, if you need more control, set up a logging daemon.
+good way to do logging. If you need more control, set up a logging daemon.
 
 Examples are link:https://github.com/goldmann/wildfly-docker-logging[available on GitHub].
 
@@ -48,7 +49,7 @@ Using `docker logs` is the simplest way to read logs from a container.
 # Start the container and save the container ID
 ID=$(docker run -d jboss/wildfly)
 
-# Use the ID to read the logs from selected container
+# Use the ID to read the logs from the selected container
 docker logs -f $ID
 ----
 
@@ -56,16 +57,16 @@ This approach is nice if you want to see what's going on inside of the
 container. I *do not recommend* using it in production as the only way of
 logging. You may ask why? Every line of the output is saved in a JSON formatted
 file (see `/var/lib/docker/containers/$ID/$ID-json.log`) accompanied by a bit
-of metadata (timestamp for example, where most logs include it anyway). This
-can grow the log file pretty quickly, especially if you want a lot of messages.
-Greeping JSON is not fun too. Additionally stacktraces are split line-by-line.
+of metadata (timestamp for example, where most logs include it anyway). The
+log file can grow pretty quickly, especially if you have a lot of messages.
+Grepping JSON is not much fun either. Additionally stacktraces are split line-by-line.
 
 If this is not an issue for you - go for it.
 
-NOTE: You can access logs from a stopped container too. Which is a plus.
+NOTE: You can access logs from a stopped container too, which is a plus.
 
-In the `jboss/wildfly` we didn't change the default logging configuration.
-Everything what goes to the console will be available using the `docker logs`
+In the `jboss/wildfly` image, we didn't change the default logging configuration.
+Everything that goes to the console will be available using the `docker logs`
 command.
 
 You can change this behavior by customizing the
@@ -73,34 +74,35 @@ You can change this behavior by customizing the
 use the default `standalone` profile). For example you can remove the `CONSOLE`
 handler entirely to stop printing anything to the console.
 
-== Mounting a volume from host
+== Mounting a volume from the host
 
 link:https://docs.docker.com/userguide/dockervolumes/#mount-a-host-directory-as-a-data-volume[Mounting
-a volume from host] and exposing it in the container is another way to store
+a volume from the host] and exposing it in the container is another way to store
 logs. In this case every file written to the directory will be immediately
 available on the host. This way you can have multiple containers saving logs to
-the host's directory (which may be in some cases *very handy*). 
+the host's directory (which may be *very handy* in some cases).
 
-NOTE: Biggest issue with this approach is that *it is not portable*. When you
-move to another host - you need to setup the directories once again.
+NOTE: The biggest issue with this approach is that *it is not
+portable*.  You need to setup the directories once again when you move
+to another host.
 
 === Permission denied
 
-If you use the `-v` switch from `docker run` command and try to mount a
-*non-existing directory from host* -- a new directory will be created on the
-host with `root` as the owner and `755` permissions making it not writeable for
+If you use the `-v` switch from the `docker run` command and try to mount a
+*non-existent directory from the host* -- a new directory will be created on the
+host with `root` as the owner and `755` permissions making it not writable for
 any other user than `root` *inside* of the container. The `jboss/wildfly` image
-does use the `wildfly` user to run the Java process, so it'll not be able to
+does use the `wildfly` user to run the Java process, so it will not be able to
 store logs in the mounted directory.
 
 Of course there is a way to make it work.
 
-=== Let's make it writeable
+=== Let's make it writable
 
-The trick is to have a user *with the same uid/gid both -- in the container and on the host*.
+The trick is to have a user *with the same uid/gid both in the container and on the host*.
 
 The `jboss/wildfly` image uses a `wildfly` user with
-link:https://github.com/jboss/dockerfiles/blob/master/wildfly/Dockerfile[well
+link:https://github.com/jboss/dockerfiles/blob/master/wildfly/Dockerfile[a well
 known user uid/gid] (`431/433`) to run the server. We can use this information
 and *create a `wildfly-logs` user on the host* with the same uid/gid. This will
 make the mounted volume available to read/write operations for the `wildfly`
@@ -125,7 +127,7 @@ Please note the last command. We need to change the *SELinux label* to
 `svirt_sandbox_file_t` for this directory so the Docker daemon can write to it.
 You can read more about
 link:http://www.projectatomic.io/docs/docker-and-selinux/[SELinux and Docker on
-Project Atomic website].
+the Project Atomic website].
 
 Now we can start the container with the volume mounted in
 `/opt/wildfly/standalone/log`.
@@ -141,23 +143,23 @@ particular uid/gid.
 Read more about using Docker volumes in the
 link:https://docs.docker.com/userguide/dockervolumes/[documentation].
 
-After you boot the container, you can go to `/opt/logs/wildfly-01` directory on
-the host. You should find there `server.log` file.
+After you boot the container, you can go to the `/opt/logs/wildfly-01` directory on
+the host. You should find the `server.log` file there.
 
 == Using a data container
 
 This is a variation of the logging to a mounted host directory approach. In
-this case instead of mounting a directory from host we use other container's
-exposed volume. Such container are called *data containers*. Their
+this case instead of mounting a directory from host we use another container's
+exposed volume. Such containers are called *data containers*. Their
 responsibility is to hold some data. You can use one container to save logs
-from many other containers. As a plus -- this approach is portable -- you can
-take your containers and launch on a different host and everything will work.
+from many other containers. As a plus, this approach is portable -- you can
+take your containers and launch them on a different host and everything will work.
 
 === The data container image
 
 NOTE: All files are link:https://github.com/goldmann/wildfly-docker-logging/tree/master/data-container/data[available on GitHub].
 
-First we need to prepare image that will be used to launch a container where we
+First we need to prepare an image that will be used to launch a container where we
 want to store our logs.
 
 ----
@@ -167,20 +169,20 @@ VOLUME /opt/wildfly/logs
 CMD true
 ----
 
-Save above snippet as `Dockerfile` and build it with the `docker build
+Save the above snippet as `Dockerfile` and build it with `docker build
 --rm --tag=data .`.
 
-NOTE: The `CMD` instruction is not a mistake. To use the exposed volumes from a
-container it doesn't need to be actually running. After executing the `true`
-command the container will be stopped, but we'll have still access to the
-volumes.
+NOTE: The `CMD` instruction above is not a mistake. To use the exposed
+volumes from a container it doesn't need to be actually running. After
+executing the `true` command the container will be stopped, but we'll
+still have access to the volumes.
 
 You may wonder why we extend the `jboss/wildfly` image in first place and not
-use a clean `fedora` image. The reason is that the `jboss/wildfly` image has
-already a `wildfly` user created. As link:#_let_s_make_it_writeable[I mentioned
-above] the same user will be used to launch the Java processes and if we mount a
-volume owned by this user -- it'll be available to write. We don't waste
-any disk space by using this approach, because Docker uses copy-on-write
+use a clean `fedora` image. The reason is that the `jboss/wildfly` image already has
+a `wildfly` user created. As link:#_let_s_make_it_writeable[I mentioned
+above], the same user will be used to launch the Java processes and if we mount a
+volume owned by this user, it will be available for writing. We don't waste
+any disk space by using this approach, because Docker uses a copy-on-write
 filesystem.
 
 Let's run our data container:
@@ -194,17 +196,17 @@ docker run --name data data
 Mounted data volumes are visible under *the same* path as they were exported.
 This means that if we export the `/opt/wildfly/logs` volume in the data
 container and mount it in our WildFly container -- it'll be visible under the
-`/opt/wildfly/logs` path too.
+`/opt/wildfly/logs` path there too.
 
 NOTE: This is not strictly true if you try to export a path that is actually a
-symlink. In such case the resolved path will be exported, not the symlink, so
-in our case it'll be rather `/opt/wildfly-8.1.0.Final` instead of
+symlink. In such cases the resolved path will be exported, not the symlink, so
+in our case it will be `/opt/wildfly-8.1.0.Final/logs` instead of
 `/opt/wildfly/logs`, but this won't change anything for us.
 
 Sometimes having a single location mounted in many containers under same path
 is desirable (for example database data), but in our case (logging from
-multiple WildFly containers) it would cause troubles. Imagine exported
-`/opt/wildfly/standalone/log` volume mounted in many WildFly containers at the
+multiple WildFly containers) it would cause problems. Imagine an exported
+`/opt/wildfly/standalone/log` volume being mounted in many WildFly containers at the
 same time...
 
 There are many solutions; for example you can change the WildFly configuration
@@ -218,15 +220,15 @@ In this blog post I'll show how to use the first solution.
 
 NOTE: All files are link:https://github.com/goldmann/wildfly-docker-logging/tree/master/data-container/wildfly[available on GitHub].
 
-Now we create a new image that extends the `jboss/wildfly` image. The chage we
-want to do is to modify the configuration where the logs are stored:
+Now we create a new image that extends the `jboss/wildfly` image. The change we
+want to make is to modify the configuration that controls where the logs are stored:
 
 ----
 FROM jboss/wildfly
 RUN sed -i 's|<file relative-to="jboss.server.log.dir" path="server.log"/>|\<file relative-to="jboss.home.dir" path="logs/\${jboss.host.name}/server.log"/\>|' /opt/wildfly/standalone/configuration/standalone.xml
 ----
 
-This simple `sed` changes the default location of the log file. We make the path
+This simple `sed` call changes the default location of the log file. We make the path
 host aware by using the `jboss.host.name` property. At the time of launching
 the container we have full control over the hostname. We can us the `-h` switch
 from the `docker run` command to specify the host name or just leave it as-is
@@ -244,7 +246,7 @@ And finally launch it:
 docker run -d -h wildfly-01 --name wildfly-01 --volumes-from data wildfly-logs
 ----
 
-We can launch even more containers and all of them will save logs in out `data`
+We can launch even more containers and all of them will save logs in our `data`
 container:
 
 ----
@@ -252,21 +254,21 @@ docker run -d -h wildfly-02 --name wildfly-02 --volumes-from data wildfly-logs
 docker run -d -h wildfly-03 --name wildfly-03 --volumes-from data wildfly-logs
 ----
 
-=== Getting access to logs
+=== Getting access to the logs
 
-We log from all our containers to one place, cool, but how to get access to these logs? It's not so hard:
+We log from all our containers to one place, cool, but how to get access to those logs? It's not so hard:
 
 ----
 docker run -it --rm --volumes-from data -v `pwd`:/backup fedora sh -c 'cp -r /opt/wildfly-8.1.0.Final/logs /backup && chown -R 1000:1000 /backup/'
 ----
 
-This (a bit lenghty) command will start a new container with the current
+This (somewhat lengthy) command will start a new container with the current
 directory mounted as `/backup` and the exported volume from the `data`
-container mounted in its path. Later it copies all the logs from the exported
+container mounted in its path. Then it copies all the logs from the exported
 volume to our local directory and changes ovnership of these files to my local
 user. This way we can have full control over these files. My local account has
-`1000` uid/gid, so this works for me. Probably you'll need to adjust the
-uid/gid.
+a uid/gid of `1000`, so this works for me. You'll probably need to adjust the
+uid/gid to match your own.
 
 NOTE: Do not forget to `chcon -t svirt_sandbox_file_t .` the directory where
 you want to store the logs locally so the the copy can be performed.
@@ -290,13 +292,13 @@ Exactly what we needed!
 
 == Logging daemon
 
-Logging to a file is nice, but sometimes you need to manage logging in more
+Logging to a file is nice, but sometimes you need to manage logging in a more
 powerful way. The are many solutions available like
 link:http://www.balabit.com/network-security/syslog-ng[syslog-ng],
-link:http://www.rsyslog.com/[rsyslog], link:http://logstash.net/[logstash]. No
+link:http://www.rsyslog.com/[rsyslog], or link:http://logstash.net/[logstash]. No
 matter which one you choose, they're all pretty flexible and easy to set up.
 
-I would like to show you how to set up `syslog-ng` daemon (running in a
+I would like to show you how to set up a `syslog-ng` daemon (running in a
 container) with the `jboss/wildfly` Docker image.
 
 === syslog-ng image
@@ -316,7 +318,7 @@ EXPOSE 514/udp
 CMD ["/usr/sbin/syslog-ng", "-F", "--no-caps"]
 ----
 
-And here is the simple `syslog-ng.conf`
+And here is the simple `syslog-ng.conf`:
 
 ----
 @version:3.4
@@ -341,16 +343,16 @@ destination d_wildfly { file("/var/log/wildfly/$HOST.log" template("$ISODATE $PR
 log { source(s_sys); destination(d_wildfly); };
 ----
 
-This is a very simple `syslog-ng` configuration file. When a new message comes,
-it'll be saved to a file corresponding to the hostname the message comes from.
-And since we can change easily the hostname of our containers -- we'll
+This is a very simple `syslog-ng` configuration file. When a new message arrives,
+it will be saved to a file corresponding to the hostname the message comes from.
+And since we can easily change the hostname of our containers, we will
 immediatelly know which container logged what.
 
 Build the image with `docker build --rm --tag syslog .`.
 
 NOTE: I need to mention that the true power in this (or any other) logger
-solution is to be able to filter and route the selected messages. Shown example
-is just a start, don't fear to extend it!
+solution is to be able to filter and route the selected messages. The above example
+is just a start, don't be afraid to extend it!
 
 We can start the logging container and proceed to the next step.
 
@@ -385,7 +387,7 @@ And enable it:
 </handlers>
 ----
 
-Above configuration will make sure we send the messages to proper destination.
+The above configuration will make sure we send the messages to the proper destination.
 We use the `SYSLOG_PORT_514_UDP_ADDR` environment variable to determine the IP
 address of the host where `syslog-ng` is running. More on this variable in a bit.
 
@@ -395,33 +397,34 @@ Now you need to build the image:
 docker build --rm --tag wildfly-syslog .
 ----
 
-That's all. Now you need to run one or more `wildfly-syslog` container. All of
+That's all. Now you need to run one or more `wildfly-syslog` containers. All of
 them will be saving logs to the `syslog` container over UDP.
 
 ----
 docker run -d --link syslog:syslog wildfly-syslog
 ----
 
-The `--link` switch will create environment variables based on what the
-`syslog` container is exposing. We do expose the `514` UDP port. Docker will
-create for us the `SYSLOG_PORT_514_UDP_ADDR` (and many others) which will tell
-us the IP where the container is running.
-link:https://docs.docker.com/userguide/dockerlinks/[Docker links feature] if a
-great way to make containers talk to each other without hardcoding the
-connection parameters.
+The `--link` switch will create environment variables based on what
+the `syslog` container is exposing, and it exposes the `514` UDP
+port. Docker will create the `SYSLOG_PORT_514_UDP_ADDR`
+environment variable (and many others) for us which will tell us the IP where
+the syslog container is running.
+The link:https://docs.docker.com/userguide/dockerlinks/[Docker links
+feature] if a great way to make containers talk to each other without
+hardcoding the connection parameters.
 
 === Accessing logs
 
-In above example we still log everything to files. If you would like to receive
-them from the `syslog` container you can use similar method as described in the
-link:#_getting_access_to_logs[Getting access to logs] section above.
+In the above example we still log everything to files. If you would like to receive
+them from the `syslog` container you can use a similar method as described in the
+link:#_getting_access_to_the_logs[Getting access to the logs] section above.
 
 == Summary
 
-As you can see logging in a container can be easy and powerful at the same
+As you can see, logging in a container can be easy and powerful at the same
 time. You need to choose the best option for you. There is no golden mean.
 
-I hope this blog post will help you manage the logs. If you have ideas how to
+I hope this blog post will help you manage your logs. If you have ny ideas on how to
 make the logging easier with the `jboss/wildfly` image, feel free to leave a
 comment or link:https://github.com/jboss/dockerfiles/issues/new[file a ticket].
 
