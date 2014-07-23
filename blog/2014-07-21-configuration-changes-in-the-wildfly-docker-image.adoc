@@ -1,4 +1,4 @@
-= "Customizing configuration of the WildFly Docker image"
+= "Customizing the configuration of the WildFly Docker image"
 Marek Goldmann
 2014-07-21
 :revdate: 2014-07-21t21:45:00.10+01:00
@@ -11,8 +11,8 @@ Default configuration is a great place to start with a project. We at JBoss try
 to make our link:http://www.jboss.org/projects/[projects] (and
 link:http://www.jboss.org/products/[products] too!) usable out-of-box for as
 many use cases as we can, but there is no way that one configuration could
-satisfy everyone's needs.  For example with link:http://wildfly.org/[WildFly]
-we ship 4 flavors of the `standalone.xml` configuration file since there are so
+satisfy everyone's needs.  For example, we ship 4 flavors of the `standalone.xml`
+configuration file with link:http://wildfly.org/[WildFly] since there are so
 many different deployment scenarios. But this is still not enough. We need to be able to
 tweak it at any point. The `jboss/wildfly` image is not an exception here.
 
@@ -29,17 +29,17 @@ toc::[]
 
 Using command line parameters (or environment variables) is the simplest way to
 modify the default configuration. This does not require rebuilding the image but is
-not persistent. Still -- in many cases it the best approach.
+not persistent. Still, in many cases it is the best approach.
 
-There is one obvious limitation: *only limited set of things
-can be modified*. WildFly allows to customize parameters with the switches for
+There is one obvious limitation: *only a limited set of things
+can be modified*. WildFly allows us to customize parameters with the switches for
 the `standalone.sh` or `domain.sh` startup scripts. The
 link:https://docs.jboss.org/author/display/WFLY8/Command+line+parameters[WildFly
-documentation] has a great summary of available options.
+documentation] has a great summary of the available options.
 
 === Command line parameters
 
-With the `jboss/wildfly` it's easy to use command line parameters. Just
+With the `jboss/wildfly` image it's easy to use command line parameters. Just
 override the default command when launching the container, for example:
 
 ----
@@ -47,11 +47,12 @@ docker run -it jboss/wildfly /opt/wildfly/bin/domain.sh -b 0.0.0.0 -Djboss.manag
 ----
 
 This launches WildFly in
-link:https://docs.jboss.org/author/display/WFLY8/Operating+modes[domain mode]
-(instead of standalone) and exposes the management endpoint on port `8888` (by
+link:https://docs.jboss.org/author/display/WFLY8/Operating+modes[domain
+mode] (instead of standalone), binds the public endpoint to every
+interface, and exposes the management endpoint on port `8888` (by
 default bound to `127.0.0.1`).
 
-NOTE: You can create your own image which overrides only the command to run. User `CMD` instruction in `Dockerfile`.
+NOTE: You can create your own image which overrides only the command to run. Use the `CMD` instruction in `Dockerfile`.
 
 === Environment variables
 
@@ -63,20 +64,20 @@ docker run -it -e JBOSS_LOG_DIR=/opt/wildfly/logs jboss/wildfly
 
 And now all logs will be saved to the `/opt/wildfly/logs` directory.
 
-NOTE: You can modify environment variables in Docker images too. Use `ENV` instruction in `Dockerfile`.
+NOTE: You can modify environment variables in Docker images too. Use the `ENV` instruction in `Dockerfile`.
 
 Explore the `--env-file` parameter of `docker run` if you want to set many
 environment variables.
 
 == `sed`
 
-NOTE: Example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/sed[available on GitHub].
+NOTE: This example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/sed[available on GitHub].
 
-The `sed` command may be used in `Dockerfile` to modify some (small) parts of
+The `sed` command may be used in your `Dockerfile` to modify some (small) parts of
 the configuration. Please note that WildFly stores configuration in XML format
-and thus be careful when using `sed` :)
+so you will need to be careful when using `sed` :)
 
-There are possible use cases for `sed`, for example when you want to disable the coloring on the console: 
+There are possible use cases for `sed`, for example when you want to disable the coloring on the console:
 
 ----
 sed -i 's|named-formatter name="COLOR-PATTERN"|named-formatter name="PATTERN"|' /opt/wildfly/standalone/configuration/standalone.xml
@@ -87,7 +88,7 @@ be tricky, especially if you're not familiar with them.
 
 == `xmlstarlet`
 
-NOTE: Example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/xmlstarlet[available on GitHub].
+NOTE: This example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/xmlstarlet[available on GitHub].
 
 The `xmlstarlet` tool is a set of commands that can be helpful when interacting
 with XML files. In our case one command is especially useful: `xmlstarlet ed`
@@ -99,21 +100,21 @@ Let's say we want to change the `root-logger` level to `DEBUG`:
 xmlstarlet ed -L -u "//*[local-name()='root-logger']/*/@name" -v "DEBUG" /opt/wildfly/standalone/configuration/standalone.xml
 ----
 
-You can place above in your `Dockerfile` and call it done.
+You can place the above in your `Dockerfile` and call it done.
 
 Although `xmlstarlet` is nice at finding (using XPath) and editing attributes
-or elements -- it's not a great tool to add complex elements. It can become
+or elements, it's not a great tool to add complex elements. It can become
 easily *very verbose*. If you don't trust `sed` but still want to tweak some
-elements -- use `xmlstarlet` instead!
+elements, use `xmlstarlet` instead!
 
 The `jboss/wildfly` image contains the `xmlstarlet` utility installed by default (as of July 23rd).
 
 == XSLT transformations
 
-NOTE: Example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/xslt[available on GitHub].
+NOTE: This example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/xslt[available on GitHub].
 
-XSLT transformations is a nice way to execute conditional modifications of the
-WilDfly application server. The
+XSLT transformations are a nice way to execute conditional modifications of the
+WildFly application server configuration. The
 link:https://github.com/wildfly/wildfly/tree/8.1.0.Final/testsuite/integration/src/test/xslt[WildFly
 team provides examples of xsl files]. You can use Saxon to execute the transformation:
 
@@ -121,9 +122,9 @@ team provides examples of xsl files]. You can use Saxon to execute the transform
 java -jar /usr/share/java/saxon.jar -s:/opt/wildfly/standalone/configuration/standalone.xml -xsl:/opt/wildfly/customization/changeIPAddresses.xsl -o:/opt/wildfly/standalone/configuration/standalone.xml publicIPAddress=0.0.0.0
 ----
 
-Tn this example we change the default binding address of the server for public ports.
+In this example we change the default binding address of the server for public ports.
 
-For more information about using the Saxon utility from CLI, please refer to
+For more information about using the Saxon utility from the CLI, please refer to
 the
 link:http://www.saxonica.com/documentation/using-xsl/commandline.html[documentation].
 
@@ -131,12 +132,12 @@ The `jboss/wildfly` image contains the `saxon` package installed by default (as 
 
 == Using `jboss-cli.sh`
 
-NOTE: Example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/cli[available on GitHub].
+NOTE: This example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/cli[available on GitHub].
 
 WildFly ships with a powerful CLI. The
 link:https://docs.jboss.org/author/display/WFLY8/CLI+Recipes[documentation]
 contains a few examples of how the CLI can be used. Of course the CLI is
-perfect to modify the server configuration. 
+perfect to modify the server configuration.
 
 To be able to modify the configuration the *WildFly server needs to be
 running*. Since at the build time of a Docker image based on `jboss/wildfly`
@@ -145,7 +146,7 @@ running*. Since at the build time of a Docker image based on `jboss/wildfly`
 One solution is to boot WildFly, execute the CLI commands and shutdown the
 server. I used this approach in
 link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/cli[my
-example]. It adds a new `ExampleMySQLDS` to the server. The main file that does
+example]. It adds a new `ExampleMySQLDS` datasource to the server. The main file that does
 the job is the
 link:https://github.com/goldmann/wildfly-docker-configuration/blob/master/cli/customization/execute.sh[`execute.sh`]
 script:
@@ -208,7 +209,7 @@ needs to be running to use the CLI.
 
 == Using custom configuration files
 
-The last approach is to simply maintain a separate configuration file for WildFly. Just `ADD` your configuration 
+The last approach is to simply maintain a separate configuration file for WildFly. Just `ADD` your configuration
 
 
 == Summary
