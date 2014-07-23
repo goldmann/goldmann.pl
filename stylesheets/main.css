@@ -117,5 +117,5 @@ code {
 }
 
 #toc ul {
-  list-style: none;
+  list-style-type: lower-roman;
 }

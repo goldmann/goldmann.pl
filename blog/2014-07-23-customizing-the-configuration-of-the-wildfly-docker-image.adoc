@@ -1,8 +1,8 @@
 = "Customizing the configuration of the WildFly Docker image"
 Marek Goldmann
-2014-07-21
-:revdate: 2014-07-21t21:45:00.10+01:00
-:awestruct-timestamp: 2014-07-21t21:45:00.10+01:00
+2014-07-23
+:revdate: 2014-07-23t17:10:00.10+01:00
+:awestruct-timestamp: 2014-07-23t17:10:00.10+01:00
 :awestruct-tags: [ docker, jboss, wildfly ]
 :awestruct-layout: blog
 :toc:
@@ -24,6 +24,10 @@ Of course this is not the only way to modify the WildFly configuration, so
 let's iterate over available options.
 
 toc::[]
+
+== TL;DR;
+
+See link:#_summary[summary].
 
 == Boot time configuration
 
@@ -204,14 +208,36 @@ data-source add --name=UnifiedPushDS --driver-name=mysql --jndi-name=java:jboss/
 run-batch
 ----
 
-The CLI approach is very powerful and flexible. the only caveat is that WildFly
+The CLI approach is very powerful and flexible. The only caveat is that WildFly
 needs to be running to use the CLI.
 
 == Using custom configuration files
 
-The last approach is to simply maintain a separate configuration file for WildFly. Just `ADD` your configuration
+NOTE: This example is link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/custom-file[available on GitHub].
 
+The last approach is to simply maintain a separate configuration file for
+WildFly. Just `ADD` your configuration to the
+`/opt/wildfly/{standalone|domain}/configuration` directory and override the
+default boot command. You can for example remove some subsystems like I did in
+the
+link:https://github.com/goldmann/wildfly-docker-configuration/tree/master/custom-file[example].
+
+This is the simplest and cleanest approach. This way you have full control over
+the configuration at any time. The bad thing is that you need to maintain the
+file yourself. If a new version of WildFly will be released -- you need to
+manually apply the changes to the configuration.
 
 == Summary
+
+Every approach has pros and cons. Boot time configuration is great if you want
+to change some exposed parameters. The `sed` and `xmlstarlet` options are
+similar providing a simple way to change some parts of the configuration. But
+this is not flexible. XSLT transformations are very powerful, but they require
+some amount of work to write the stylesheets properly. The `jboss-cli.sh`
+aproach is very good if you don't mind starting and stopping WildFly at the
+build time. Maintaining own configuration file at the first glance looks like a
+best solution and probably it is in some cases.
+
+What's your approach?
 
 // vim: set syntax=asciidoc:
