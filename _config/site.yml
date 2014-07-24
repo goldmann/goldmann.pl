@@ -9,13 +9,13 @@ profiles:
     disqus: goldmann
     deploy:
       host: goldmann.pl
-      path: /home/goldmann/docker/httpd/www/goldmann.pl
+      path: /home/goldmann/docker/httpd/www/goldmann.pl/htdocs
   staging:
     base_url: http://staging.goldmann.pl/
     disqus: goldmann
     deploy:
       host: goldmann.pl
-      path: /home/goldmann/docker/httpd/www/staging.goldmann.pl
+      path: /home/goldmann/docker/httpd/www/staging.goldmann.pl/htdocs
 intense_debate_acct: dc0fe4e524f2a8f99420088ae1c04124
 google_analytics:
   :account: 'UA-351971-1'
