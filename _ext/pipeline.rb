@@ -2,12 +2,13 @@ require 'tag-atomizer'
 require 'bugzilla'
 require 'presentations'
 require 'abstract'
+require 'disqus'
 
 Awestruct::Extensions::Pipeline.new do
   extension Awestruct::Extensions::Posts.new('/blog')
   extension Awestruct::Extensions::Paginator.new(:posts, '/blog/index', :per_page => 5)
   extension Awestruct::Extensions::Indexifier.new
-  extension Awestruct::Extensions::Disqus.new
+  extension Disqus.new
 
   extension Awestruct::Extensions::Tagger.new(:posts,
                                               '/blog/index',
