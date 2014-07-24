@@ -18,8 +18,8 @@ Awestruct::Extensions::Pipeline.new do
                                                 '/blog/tags/index.html',
                                                 :layout=>'base')
   extension Awestruct::Extensions::Atomizer.new(:posts, '/blog.atom', :feed_title => "Blog posts", :template => File.join( File.dirname(__FILE__), 'template.atom.haml' ))
-  extension TagAtomizer.new(:tags => ['fedora'])
-  extension TagAtomizer.new(:tags => ['jboss_as', 'java', 'jboss'], :output_path => "/jboss.atom", :feed_title => "Blog posts related to JBoss")
+  extension TagAtomizer.new(['fedora'], :template => File.join( File.dirname(__FILE__), 'template.atom.haml' ) )
+  extension TagAtomizer.new(['jboss_as', 'java', 'jboss'], :output_path => "/jboss.atom", :feed_title => "Blog posts related to JBoss", :template => File.join( File.dirname(__FILE__), 'template.atom.haml' ) )
   extension Bugzilla.new(:layout => 'blog')
   extension Presentations.new
 
