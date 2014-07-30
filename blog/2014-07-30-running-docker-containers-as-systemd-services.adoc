@@ -26,9 +26,9 @@ image:/images/systemd_deployment.png[alt="Deployment example", width="100%"]
 When we start such deployment we need to ensure that the database is started
 first, so we can link it later to WildFly node. 
 
-NOTE: Of course you may want to have a load balancer in front of this setup.
-The link:http://mod-cluster.jboss.org/[mod_cluster] project may be a good
-choice. The load balancer set up is not part of this guide.
+NOTE: The load balancer set up is not part of this guide, but is shown, along
+with another WildFly node using a dotted outline. For load blalancer the
+link:http://mod-cluster.jboss.org/[mod_cluster] project may be a good choice.
 
 We'll use following images to power this setup:
 
@@ -98,9 +98,9 @@ started, but we would try to run a container.
 
 The `[Service]` section defines the actual service.
 
-The `User` parameter specifies the user that will be used to exeute the command.
-This is optional but it's a good idea to *drop the privileges as fast as
-possible*.
+The `User` parameter specifies the user that will be used to exeute the
+command.  This is optional but it's a good idea to *keep user privileges as
+minimal as possible*.
 
 The `Restart` parameter specifies when the service should be restarted. The
 `on-failure` value means that the service will be restarted when the service is
@@ -164,11 +164,11 @@ WantedBy=multi-user.target
 
 Place it again in the +/etc/systemd/system/multi-user.target.wants/+ directory.
 
-This file is very similar to the first one *with one, but very important
-difference*: the `After` and `Requires` parameters specify the `docker-mariadb`
-service. This is because we want to boot WildFly after the MariaDB database.
+This file is similar to the first, but with one *very important difference*:
+the `After` and `Requires` parameters specify the `docker-mariadb` service.
+This is because we want to boot WildFly after the MariaDB database.
 
-If you want to run WildFly multiple nodes -- just copy the file and edit appropriate
+If you want to run WildFly on multiple nodes -- just copy the file and edit appropriate
 values (node name).
 
 NOTE: Although it is possible to run multiple containers from one systemd
