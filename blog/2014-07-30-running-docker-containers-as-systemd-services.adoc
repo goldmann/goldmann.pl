@@ -1,8 +1,8 @@
 = "Runninng Docker containers as systemd services"
 Marek Goldmann
 2014-07-30
-:awestruct-timestamp: 2014-07-30t17:10:00.10+01:00
-:awestruct-updated: 2014-07-30t13:40:00.10+01:00
+:awestruct-timestamp: 2014-07-30t15:18:00.10+01:00
+:awestruct-updated: 2014-07-30t15:18:00.10+01:00
 :awestruct-tags: [ docker, jboss, wildfly ]
 :awestruct-layout: blog
 :awestruct-docker-version: 1.0.0
