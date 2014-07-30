@@ -6,6 +6,9 @@ Marek Goldmann
 :awestruct-tags:  [ docker, fedora ]
 :awestruct-layout: blog
 
+WARNING: This guide is based on an old version of Docker. The instructions you
+find below may be already removed or changed in the Docker codebase.
+
 In my link:/blog/2014/01/16/running-fedora-cloud-images-on-kvm/[previous blog
 post] I talked about running the 
 link:http://fedoraproject.org/en/get-fedora#clouds[Fedora Cloud images] on

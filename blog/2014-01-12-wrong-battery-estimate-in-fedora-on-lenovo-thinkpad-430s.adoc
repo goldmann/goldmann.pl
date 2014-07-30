@@ -58,4 +58,15 @@ If you prefer graphical tools -- you can use `dconf-editor` to edit these
 values. The gui additionally shows a description for each key and what values
 are available to set.
 
+=== Update 30.07.2014
+
+The real reason for this issue was a bad firmware in the battery. Lenovo
+released a
+link:http://support.lenovo.com/en_US/downloads/detail.page?DocID=DS001322[battery
+upgrade utility], but... only for Windows. For Linux users the only way is to
+replace the battery or ask a friend with Windows to do the upgrade for you. I
+choose the 2nd option :) On the
+link:http://support.lenovo.com/en_US/downloads/detail.page?DocID=DS001322[support
+page page] you can find a list of affected batteries.
+
 // vim: set syntax=asciidoc:

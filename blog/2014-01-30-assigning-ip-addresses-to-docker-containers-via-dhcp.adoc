@@ -6,6 +6,9 @@ Marek Goldmann
 :awestruct-tags:  [ docker, fedora ]
 :awestruct-layout: blog
 
+WARNING: This guide is based on an old version of Docker. The instructions you
+find below may be already removed or changed in the Docker codebase. 
+
 In my
 link:/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/[last blog
 post] I explained how to run a Docker installation across multiple hosts.
