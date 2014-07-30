@@ -206,14 +206,16 @@ NOTE: if you use systemd to start the containers on boot, it's a good idea to
 disable the buit-in Docker functionaly by copying the
 +/usr/lib/systemd/system/docker.service+ to
 +/etc/systemd/system/multi-user.target.wants/docker.service+ and adding the
-following switch: +--restart=false+. Do not forget to reload the systemd
-daemon afterwards.
+following switch: +--restart=false+ to the Docker daemon in the `ExecStart`
+line. Do not forget to reload the systemd daemon afterwards.
 
 == Disable and remove the service
 
 When using custom scripts (like we do) we cannot use the `systemctl disable`
-commands. In our case we need to remove (or rename) the
-`docker-*.service` files and then run:
+commands (this is by systemd design -- if you want know more please read
+link:https://bugzilla.redhat.com/show_bug.cgi?id=955379#c14[this comment]). In
+our case we need to remove (or rename) the `docker-*.service` files and then
+run:
 
     $ systemctl reset-failed
 
