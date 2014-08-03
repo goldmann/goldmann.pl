@@ -13,6 +13,8 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
     ExpiresByType text/css "access plus 1 week"
     ExpiresByType text/javascript "access plus 1 week"
     ExpiresByType application/x-javascript "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
 </IfModule>
 
 <IfModule mod_headers.c>
