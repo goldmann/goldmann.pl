@@ -5,7 +5,7 @@ profiles:
     disqus_developer: true
     disqus_generate_id: true
   production:
-    base_url: http://goldmann.pl/
+    base_url: https://goldmann.pl/
     disqus: goldmann
     deploy:
       host: goldmann.pl
