@@ -1,0 +1,8 @@
+app:
+  image: wildfly-cluster-app
+  links:
+    - lb:lb
+lb:
+  image: wildfly-cluster-httpd
+  ports:
+   - "9090:80"

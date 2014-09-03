@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Docker and JBoss - the perfect combination</title>
+
+		<meta name="description" content="Docker - Intro to a revolution">
+		<meta name="author" content="Marek Goldmann">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+        <style type="text/css">
+            body {
+              background: #fff;
+            }
+            .reveal td, .reveal th {
+                padding-left: 10px;
+            }
+
+            .reveal td:first-child {
+                font-weight: bold;
+                background-color: #eee;
+            }
+            
+            #geecon-logo {
+              position: absolute;
+              left: 20px;
+              top: 20px;
+
+            }
+
+            p.footnote {
+              font-size: 0.4em;
+            }
+        </style>
+	</head>
+
+	<body>
+
+    <div id="geecon-logo">
+      <img src="images/wroclaw-jug-frame.png" style="width: 40%"/>
+    </div>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1 style="font-size: 250%">Docker and JBoss</h1>
+          <h1 style="font-size: 150%">The perfect combination</h1>
+					<p><small>@marekgoldmann</small></p>
+					<p style="font-size: 70%"><small>Wrocław JUG, 2nd Sep 2014</small></p>
+				</section>
+
+				<section>
+					<img src="images/docker-logo.png" style="border: 0; box-shadow: none" alt="Docker">
+        </section>
+<!--
+				<section data-background="#6cc5c3">
+					<img src="images/docker_fail_whale.png" style="border: 0; box-shadow: none" alt="Docker">
+				</section>
+-->
+				<section>
+          <h2>Applications are complex</h2>
+					<img src="images/mess.jpg" style="border: 0; box-shadow: none; width: 40%;" alt="Mess">
+          <p class="footnote">http://www.reddit.com/r/pics/comments/nf8la/im_always_tempted_to_switch_two_random_cables_to/</p>
+				</section>
+
+        <section>
+          <h2>Different deployment environments</h2>
+					<img src="images/pc.jpg" style="border: 0; box-shadow: none; width: 50%;" alt="Mess">
+          <p class="footnote">http://www.shedworking.co.uk/2012/03/nuts-and-bolts-cable-ties.html</p>
+				</section>
+<!--
+				<section>
+            <h2>But how?</h2>
+				</section>
+
+        <section>
+            <h2><strong>Unified</strong> deployment format</h2>
+				</section>
+-->
+				<section>
+					<img src="images/docker-logo.png" style="border: 0; box-shadow: none" alt="Docker">
+					<p class="fragment">
+                        A project to manage containers.
+					</p>
+				</section>
+
+				<section>
+                    <h2>Containers?</h2>
+					<p class="fragment">
+                        Yes, a lightweight operating system virtualization.
+					</p>
+				</section>
+
+				<section>
+                    <h2>How this compares to a virtual machine?</h2>
+					<p class="fragment">
+                        It's <strong>completely</strong> different.
+					</p>
+				</section>
+
+				<section>
+                    <h2>Comparison</h2>
+
+					<table style="border: 5px solid #eee; background-color: #fff; width: 100%; font-size: 50%" cellspacing="0">
+                        <tr style="font-weight: bold; background-color: #eee;"><th style="width: 40%"></th><th>Virtual Machine (KVM, VMware)</th><th>Container (LXC, OpenVZ)</th></tr>
+                        <tr><td>Hardware</td><td>Simulated</td><td>Uses it (almost) directly</td></tr>
+                        <tr><td>Supported OS'es</td><td>Almost any</td><td>Only Linux</td></tr>
+                        <tr><td>Space</td><td>User space</td><td>Kernel space</td></tr>
+                        <tr><td>Separation</td><td>Full</td><td>Control Groups (cgroups)</td></tr>
+                        <tr><td>Startup time</td><td>Seconds to minutes</td><td>Miliseconds</td></tr>
+                        <tr><td>Scalability</td><td>A few</td><td>Sky is the limit (thousands)</td></tr>
+                        <tr><td>Custom kernel</td><td>Yes</td><td>No</td></tr>
+                        <tr><td>Enterprise features (live migration, etc)</td><td>Yes</td><td>No</td></tr>
+                        <tr><td>Ease of creation</td><td>Moderate</td><td>Easy</td></tr>
+                        <tr><td>Time consumption of creation</td><td>High</td><td>Low</td></tr>
+                        <tr><td>Size</td><td>HUGE</td><td>Small</td></tr>
+
+					</table>
+				</section>
+
+				<section>
+            <h2>Linux FTW!</h2>
+				</section>
+
+				<section>
+            <a href="https://github.com/boot2docker/boot2docker">https://github.com/boot2docker/boot2docker</a>
+				</section>
+
+				<section>
+                    <h2>Docker community...</h2>
+                    <ul style="font-size: 80%">
+                        <li><strong>GitHub</strong>
+                            <ul>
+                              <li>&gt;1100 watchers</li>
+                                <li>&gt;14000 stars</li>
+                                <li>&gt;2700 forks</li>
+                                <li>&gt;660 open issues</li>
+                                <li>&gt;100 pull requests</li>
+                            </ul>
+                        </li>
+                        <li>Over <a href="https://github.com/docker/docker/graphs/contributors">585 contributors</a>
+                            <ul>
+                                <li>avg 17 commits / day</li>
+                                <li><strong>90% are external</strong></li>
+
+                            </ul></li>
+                        <li>Many meetups all over the world
+                            <ul>
+                                <li><strong>50</strong> active <a href="https://www.docker.com/community/meetups/">meetup</a> groups</li>
+                            </ul></li>
+                    </ul>
+				</section>
+<!--
+        <section>
+          <h2>Glossary</h2>
+          <ul>
+            <li><strong>Image</strong>: a (read-only) <em>template</em> with filesystem and data</li>
+            <li class="fragment"><strong>Container</strong>: a running <em>image</em></li>
+            <li class="fragment"><strong>Registry</strong>: place where <em>images</em> are hosted/shared</li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>Main concepts</h2>
+          <ul>
+            <li>An image can be linked to a <strong>parent</strong> image</li>
+            <li class="fragment">Image not having a parent is called <strong>base</strong> image</li>
+            <li class="fragment">Container has a state, whereas image doesn't</li>
+            <li class="fragment">You can launch multiple containers from an image</li>
+          </ul>
+				</section>
+
+        <section>
+          <h2>How does it work?</h2>
+          <ul>
+            <li><strong>cgroups</strong>
+              <ul>
+                <li>groups processes in trees, single entity</li>
+              </ul>
+            </li>
+            <li class="fragment"><strong>namespaces</strong>
+              <ul>
+                <li>process isolation; network, pid, filesystem, etc</li>
+              </ul>
+            </li>
+            <li class="fragment"><strong>filesystem</strong>
+              <ul>
+                <li>aufs, btrfs, devicemapper</li>
+              </ul>
+            </li>
+          </ul>
+				</section>-->
+
+				<section>
+            <h2>JBoss and Docker</h2>
+				</section>
+
+        <section>
+          <h2>Dockerized projects</h2>
+          <ul>
+            <li>WildFly</li>
+            <li>Keycloack</li>
+            <li>TorqueBox</li>
+            <li>Aerogear</li>
+            <li>Immutant</li>
+            <li>Nodyn</li>
+            <li>LiveOak</li>
+            <li>...</li>
+          </ul>
+				</section>
+
+        <section>
+					<img src="images/jbossorg-docker.png" style="border: 0; box-shadow: none; width: 70%;" alt="JBoss Docker site">
+          <a href="http://www.jboss.org/docker/">http://www.jboss.org/docker/</a>
+				</section>
+
+        <section>
+					<img src="images/hub-jboss.png" style="border: 0; box-shadow: none; width: 70%;" alt="Docker HUB with JBoss images">
+          <a href="https://registry.hub.docker.com/repos/jboss/">https://registry.hub.docker.com/repos/jboss/</a>
+				</section>
+
+        <section>
+					<img src="images/github-jboss.png" style="border: 0; box-shadow: none; width: 70%;" alt="Docker HUB with JBoss images">
+          <a href="https://github.com/jboss/dockerfiles">https://github.com/jboss/dockerfiles</a>
+				</section>
+
+				<section>
+					<img src="images/much.jpg" style="border: 0; box-shadow: none" alt="Much JBoss">
+        </section>
+
+        <section>
+          <h2>Demos!</h2>
+				</section>
+
+				<section>
+            <h2>A few tips</h2>
+				</section>
+
+        <section>
+            <h2>I need metrics!</h2>
+<ul>
+            <li>Use <code>iptables</code> for network</li>
+            <li>Parse <code>/sys/fs/cgroup/</code> for everything else</li>
+</ul>
+        </section>
+
+        <section>
+            <h2>I need to limit resources!</h2>
+            <ul>
+              <li>CPU: <code>docker run -c 512 [...]</code></li>
+              <li>Memory: <code>docker run -m 128m [...]</code></li>
+              <li>Disk space: 10GB by default
+                <ul>
+                  <li><a href="https://github.com/docker/docker/blob/master/daemon/graphdriver/devmapper/README.md"><code>docker -d --storage-opt dm.basesize=20G</code></a></li>
+                </ul>
+              </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>I need to do backup!</h2>
+            <ul>
+              <li>Files?
+                <ul>
+                  <li>Use volumes</li>
+                </ul></li>
+              <li>Data?
+                <ul>
+                  <li>Use links</li>
+                </ul>
+              </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>I need to access my containers!</h2>
+            <ul>
+              <li>Do you own the host?
+                <ul>
+                  <li>Use <code>nsenter</code></li>
+                </ul></li>
+              <li>In other cases:
+                <ul>
+                  <li>Run <code>sshd</code> inside of the container (boooo...)</li>
+                </ul>
+              </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>I need performance!</h2>
+            <h2 class="fragment">RLY?</h2>
+            <ul class="fragment"s>
+              <li>CPU: native</li>
+              <li>Memory: (almost) no overhead</li>
+              <li>Network: no overhead with <code>--net host</code></li>
+              <li>I/O: native on volumes</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Thanks!</h1>
+        </section>
+
+        <section>
+          <p><a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img style="border: 0;" src="images/cc-by-sa.png" /></a></p>
+          <p style="font-size: 50%">Attributions:</p>
+          <ul style="font-size: 50%; list-style-type: none;">
+            <li>https://www.docker.io/</li>
+          </ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
