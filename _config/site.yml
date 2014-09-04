@@ -13,6 +13,8 @@ profiles:
   staging:
     base_url: http://staging.goldmann.pl/
     disqus: goldmann
+    disqus_developer: true
+    disqus_generate_id: true
     deploy:
       host: goldmann.pl
       path: /home/goldmann/docker/httpd/www/staging.goldmann.pl/htdocs
