@@ -1,9 +1,6 @@
 profiles:
   development:
     base_url: http://localhost:4242/
-    disqus: goldmann
-    disqus_developer: true
-    disqus_generate_id: true
   production:
     base_url: https://goldmann.pl/
     disqus: goldmann
@@ -12,9 +9,6 @@ profiles:
       path: /home/goldmann/docker/httpd/www/goldmann.pl/htdocs
   staging:
     base_url: http://staging.goldmann.pl/
-    disqus: goldmann
-    disqus_developer: true
-    disqus_generate_id: true
     deploy:
       host: goldmann.pl
       path: /home/goldmann/docker/httpd/www/staging.goldmann.pl/htdocs
