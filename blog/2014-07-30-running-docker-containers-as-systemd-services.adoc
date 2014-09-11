@@ -7,6 +7,7 @@ Marek Goldmann
 :awestruct-layout: blog
 :awestruct-docker-version: 1.0.0
 :toc:
+:toc-placement!:
 
 Starting and stopping Docker containers is easy with the `docker run` and
 `docker {stop|kill}` commands. By default, when the Docker daemon is restarted,

@@ -6,6 +6,7 @@ Marek Goldmann
 :awestruct-tags: [ docker, jboss, wildfly ]
 :awestruct-layout: blog
 :toc:
+:toc-placement!:
 
 Default configuration is a great place to start with a project. We at JBoss try
 to make our link:http://www.jboss.org/projects/[projects] (and

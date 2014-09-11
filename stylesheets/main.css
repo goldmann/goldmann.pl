@@ -119,3 +119,8 @@ code {
 #toc ul {
   list-style-type: lower-roman;
 }
+
+span.footnote {
+  font-size: smaller;
+  vertical-align: super;
+}

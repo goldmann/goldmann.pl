@@ -6,6 +6,7 @@ Marek Goldmann
 :awestruct-tags: [ docker, jboss, wildfly ]
 :awestruct-layout: blog
 :toc:
+:toc-placement!:
 
 There are various ways to set up logging for Docker containers. Docker itself
 has a built-in `logs` *command*, you can *mount a volume* from the host and save
