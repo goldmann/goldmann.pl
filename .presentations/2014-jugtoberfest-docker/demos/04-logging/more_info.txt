@@ -1,0 +1,8 @@
+Blog post omawiający różne sposoby logowania:
+
+    https://goldmann.pl/blog/2014/07/18/logging-with-the-wildfly-docker-image/
+
+Dockerfiles:
+
+    https://github.com/goldmann/wildfly-docker-logging/
+

@@ -1,0 +1,7 @@
+
+WildFly i Docker -- praktycznie
+===============================
+
+JUGtoberfest 2014
+Marek Goldmann <@marekgoldmann>
+

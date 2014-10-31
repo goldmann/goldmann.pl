@@ -1,0 +1,8 @@
+Blog post omawiający różne możliwości zarządzania konfiguracją:
+
+    https://goldmann.pl/blog/2014/07/23/customizing-the-configuration-of-the-wildfly-docker-image/
+
+Dockerfiles:
+
+    https://github.com/goldmann/wildfly-docker-configuration/
+

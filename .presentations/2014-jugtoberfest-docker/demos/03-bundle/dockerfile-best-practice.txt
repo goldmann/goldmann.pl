@@ -1,0 +1,11 @@
+Garść rad
+=========
+
+* Umieszczaj instrukcje w odpowiedniej kolejności
+* Używaj tagów w FROM
+* Nie używaj ENTRYPOINT (CMD FTW!)
+* Używaj ENV i VOLUME ile się tylko da
+* NIE uruchamiaj procesów jako root (serio!)
+* Nie używaj SSHD (to zło)
+* Czyść pliki tymczasowe (zawsze!)
+
