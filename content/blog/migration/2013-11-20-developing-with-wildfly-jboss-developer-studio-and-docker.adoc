@@ -1,0 +1,225 @@
+---
+title: "Developing with WildFly, JBoss Developer Studio and Docker"
+date: 2013-11-20T10:22:00.10+01:00
+draft: false
+tags: [ docker, jboss, eap ]
+---
+
+== What and why
+
+I am always sad seeing all the potential damage done to your local system, just
+to set up your development environment. Every time you do almost the same thing,
+every time you mess your system up in almost the same way. It really doesn't matter
+in which language you're wrtiting and what frameworks you use but *Java* (and Maven)
+is a pretty good, uhm, example.
+
+A development environment is not only about IDE and JDK, in almost all cases we
+need to have an application server too. We set it up; our application works
+great on it, but when we deploy it to production we experience deployment
+issues. Some things changed: we have different JDK, different network
+interfaces and so on. *Everything* can affect your application.
+
+Imagine now an environment which is exactly the same as your production.
+
+*Welcome to Docker!*
+
+Docker makes it easy to create snapshots of your container. This means that you
+can deploy your app, create a snapshot, push the image to a repository for
+deployment and launch it in production from there.
+
+I want to make this a series of blog posts about how we can leverage Docker in
+the Java (but not only) world to make the development more pleasant and
+expectable with every iteration _polishing_ the setup.
+
+== TL;DR;
+
+In this blog post *I'll focus on the application server deployment*. It shows
+how to set-up an environment for developing Java applications for
+http://wildfly.org/[WildFly].  It uses
+https://www.jboss.org/products/jbds.html[JBoss Developer Studio] as the IDE and
+the application is deployed to the server runnning in a
+https://www.docker.io/[Docker] container. Curious? Read on!
+
+Please note that everything below is pretty rough, since it's my first take on
+it. Any hints on making it more developer friendly are appreciated, just leave a
+note in the comments.
+
+== Preparations
+
+First of all we need to get all the required stuff:
+
+1. *JDK*: You should have something on your system, if not: `yum install
+   java-devel` should help. Or go to
+   http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle]...
+2. *Docker*: You can use the `docker-io` package available
+   http://goldmann.fedorapeople.org/repos/docker.repo[in my repo] if you're
+   running Fedora. Otherwise you can follow the http://docs.docker.io/en/latest/installation/[installation instructions]
+   available on the Docker website.
+3. *JBoss Developer Studio*: It can be downloaded from the
+   https://www.jboss.org/products/jbds.html[product page].
+4. *WildFly*: It's required by the IDE to detect what server we're using and
+   to get all required libraries locally. We can download it
+   http://wildfly.org/downloads/[from here]. Please grab
+   the `8.0.0.Beta1` version.
+
+Next steps assume you have everything installed and working.
+
+=== Docker image
+
+I created a Docker image with WildFly on it. The application server is
+configured to be ready to run, so we can manage it from the IDE and deploy our
+applications to it.
+
+The image is avalable in the Docker
+https://index.docker.io/u/goldmann/[`goldmann/jbds-wildfly`] repository.
+
+Please pull it. This will grab the latest version for you:
+
+----
+$ docker pull goldmann/jbds-wildfly
+----
+
+You can now try to run it to confirm that it works as expected:
+
+----
+$ docker run -i -t goldmann/jbds-wildfly:wildfly
+The container is running. You can use your IDE now to deploy your apps.
+----
+
+Great, it works. Now we can proceed to the IDE setup.
+
+NOTE: You can run the container in detached mode by using the `-d` switch. See
+the http://docs.docker.io/en/latest/commandline/cli/#run[documentation of the run command] for more info.
+
+=== JBoss Developer Studio
+
+Lets open JBDS and teach this thing to talk to the application server.
+
+==== Adding a new remote connection
+
+NOTE: You can skip this by
+link:/files/posts/docker-remote-connection-jbds[importing the connection].
+Right click in the _Remote Systems_ tab, select _Import..._.
+
+
+In the _Remote Systems_ tab we need to create a new connection to the Docker
+container. Please select _Linux_ from the list.
+
+In the next step *please leave* the _Host Name_ field with +LOCALHOST+ entered.
+Last, specify the _Connection Name_, I choose +Docker+.
+
+NOTE: The prepared Docker image exports the following container ports: +22+,
++8080+ and +9990+ as *local ports*: +10022+, +18080+ and +19990+.
+
+In the _Files_ step, select the _ssh.files_ configuration.
+In the _Processes_ step, select the _processes.shell.linux_ configuration.
+In the _Shells_ step, select the _ssh.shells_ configuration.
+In the _Ssh Terminals_ step, select the _ssh.terminals_ configuration.
+
+After you create the connection, please right click on the _Ssh Terminals_ and
+select _Subsystems_. On that page we need to change the port from +22+ to
++10022+.
+
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/ide_connection_port.png" title="Specifying the remote SSH port"><img class="img-responsive" alt="Specifying the remote SSH port" src="/images/wildfly-jbds-docker/ide_connection_port.png" /></a>
+++++
+
+Now we can try to connect to the container, right click on the connection and
+select _Connect_. You'll be asked about password and user ID, please use +root+ / +verysecure+.
+
+NOTE: If you select the _Save password_ option you can be asked for
+creating/using the Secure Storage Password.
+
+A nice feature is the Ssh Terminal -- you can launch one and execute commands
+directly *inside the container*. Try it!
+
+===== Troubleshooting
+
+If you hit any issues, please try following:
+
+1. Please make sure your Docker container is running.
+2. Check firewall. Docker container (at least on Fedora) are connected the +docker0+ interface.
+3. If this doesn't help -- let me know in the comments, I'll try to help.
+
+==== Adding a new server
+
+Please unpack the WildFly zip you downloaded.
+
+In the _Servers_ tab please add new new server. From the list of available
+server choose _JBoss Community > WildFly 8.0 (Experimental)_, click _Next_.
+
+*Please change* the _Server's host name_ field from +localhost+ to +0.0.0.0+.
+Because of the nature of the containers this will let us manage
+the server from IDE directly.
+
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/ide_new_server.png" title="Create new server wizard"><img class="img-responsive" alt="Create new server wizard" src="/images/wildfly-jbds-docker/ide_new_server.png" /></a>
+++++
+
+In the next step in the _Home Directory_ field specify the directory to where
+you unpacked the WildFly zip content.
+
+In the next step please check the _Listen on all interfaces..._ and _Expose your
+management_ checkboxes. We need to change the deployment from local to remote,
+please select _Remote System Deployment_ from the dropdown.
+
+After finishing the host set up wizard select the newly created _Docker_ host
+from dropdown.
+
+We're ready to set the _Remote Server Home_ field. Click _Browse_ and expand _Root
+> / > usr / > share > wildfly_.
+
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/ide_home_directory.png" title="Browsing for the remote home directory of the application server"><img class="img-responsive" alt="Browsing for the remote home directory of the application server" src="/images/wildfly-jbds-docker/ide_home_directory.png" /></a>
+++++
+
+The last thing is to change the server settings, double click on the newly created server.
+
+In the _Server Ports_ section please change the web port to +18080+ and
+management port to +19990+.
+
+In the _Management Login Credentials_ section fields please enter +admin+ and +Admin#70365+ as credentials.
+
+You can now try to start your server. See the Console tab for the output.
+
+OK, we have now a new server defined, which is running inside a container. Let's
+prepare an application to make use of it!
+
+=== Application
+
+JBoss' developers provide a great set of examples for various technologies under the
+http://www.jboss.org/jdf/[JBoss Developer Framework]. There are many
+http://www.jboss.org/jdf/quickstarts/get-started/articles/[articles],
+http://www.jboss.org/jdf/quickstarts/get-started/videos/[videos] and -- most
+exciting --
+https://github.com/jboss-developer/jboss-eap-quickstarts[code].
+
+We'll use one example by creating a new project, select _File > New >
+Example... > Project Examples_. Feel free to select example what you want. I
+used the _Web Applications > kitchensink_ one.
+
+JBDS will download all the required code and preapre it to run.
+
+The last step is to add the application to the server. It'll be automatically
+deployed and ready to check at http://localhost:18080/jboss-as-kitchensink.
+
+++++
+<a rel="browser" class="picture" href="/images/wildfly-jbds-docker/kitchensink.png" title="The kitchensink application"><img class="img-responsive" alt="The kitchensink application" src="/images/wildfly-jbds-docker/kitchensink.png" /></a>
+++++
+
+=== Done
+
+Please note the that you can stop the container, launch another one and
+still be able to develop your app!
+
+If you get hit by a long deployment time, then most probably you see the
+https://issues.jboss.org/browse/JBIDE-12202[JBIDE-12202] which will be fixed in
+the next version of JBDS.
+
+++++
+<script type="text/javascript">
+    $('.picture').colorbox();
+</script>
+++++
+
+// vim: set syntax=asciidoc:

@@ -1,0 +1,39 @@
+baseurl: 'https://goldmann.pl/'
+disqusShortname: goldmann
+googleAnalytics: UA-351971-1
+languageCode: en-us
+title: Marek Goldmann
+theme: natrium
+preserveTaxonomyNames: true
+rssLimit: 10
+paginate: 10
+pygmentsCodefences: true
+pygmentsStyle: native
+taxonomies:
+  category: categories
+  tag: tags
+  blog: blog
+permalinks:
+  page: '/:slug/'
+  blog: '/blog/:year/:month/:day/:slug/'
+menu:
+  main:
+    - name: Socially
+      url: /socially
+      weight: -140
+    - name: Musically
+      url: /musically
+      weight: -150
+    - name: Technically
+      url: /technically
+      weight: -160
+    - name: Blog
+      url: /blog
+      weight: -200
+params:
+  description: ''
+  logo:
+    url: 'https://www.gravatar.com/avatar/e00cc70beb20a4a77809fd95b6f75ff2'
+    width: 50
+    height: 50
+    alt: Logo

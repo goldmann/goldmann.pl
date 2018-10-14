@@ -1,0 +1,26 @@
+---
+title: Socially
+---
+
+There are several ways of contacting me.
+
+== Twitter
+
+You can find me on https://twitter.com/[Twitter]. I'm https://twitter.com/marekgoldmann[@marekgoldmann].
+
+== IRC
+
+I'm `mgoldmann` on http://freenode.net/[irc.freenode.net]. You can find me i.a. on the following channels:
+
+* irc://irc.freenode.net/fedora-cloud[#fedora-cloud]
+* irc://irc.freenode.net/jboss-docker[#jboss-docker]
+
+Remember that I'm http://www.timeanddate.com/library/abbreviations/timezones/eu/cest.html[CEST] timezone.
+
+== IM
+
+I'm not very often on IM's these days, but I have a http://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol[Jabber/XMPP account]: `my_last_name@jid.pl`.
+
+== Email
+
+You can send me an email to `marek.MY_LAST_NAME@gmail.com`.

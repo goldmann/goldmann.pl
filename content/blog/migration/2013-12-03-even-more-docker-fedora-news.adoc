@@ -1,0 +1,75 @@
+---
+title: "Even more Docker - Fedora news"
+date: 2013-12-03T17:40:00.10+01:00
+draft: false
+tags: [ docker, fedora ]
+---
+
+It has been a while since my link:/blog/2013/11/08/recent-docker-changes-in-fedora/[last blog post
+about recent Docker changes in Fedora]. We've done some significant work over the last three weeks.
+Now it's time to wrap it up.
+
+== Docker is available in the repositories
+
+Now you can enjoy Docker on your Fedora system by executing
+just one command:
+
+----
+yum install docker-io
+----
+
+If you're on RHEL/CentOS you still need to enable `epel-testing` repository. This shouldn't be necessary once the `lxc` package https://admin.fedoraproject.org/updates/FEDORA-EPEL-2013-11454[will be available in stable].
+
+----
+yum install docker-io --enablerepo epel-testing
+----
+
+We also created systemd (or init.d -- for EPEL) scripts for you so
+you can easily manage the Docker service.
+
+To make it all happen, in the last 3 weeks we have https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&bug_status=POST&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=RELEASE_PENDING&bug_status=CLOSED&chfield=cf_last_closed&chfieldfrom=2013-11-08&chfieldto=2013-12-03&classification=Fedora&component=docker-io&list_id=1966489&product=Fedora&product=Fedora%20EPEL&query_format=advanced[closed 19 bugs].
+
+=== Issues?
+
+Please report all issues regarding the `docker-io` package in Red Hat Bugzilla in the correct place:
+
+1. https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=docker-io[Bugs in Fedora package].
+2. https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora%20EPEL&component=docker-io[Bugs in EPEL package].
+
+== Docker Registry is packaged
+
+This is new: some time ago I
+https://bugzilla.redhat.com/show_bug.cgi?id=1032670[opened a review request]
+for the `docker-registry` package. It has been finished and I was able to submit an update
+yesterday. Today I've added support for EPEL 6 and submitted a new update.
+
+Over the next few hours the `docker-registry` package will be pushed to
+`updates-testing` (or `epel-testing` for EPEL) so you'll be able to play with
+it.
+
+In Fedora:
+
+----
+yum install docker-registry --enablerepo updates-testing
+----
+
+And EPEL:
+
+----
+yum install docker-registry --enablerepo epel-testing
+----
+
+=== Issues?
+
+And again, please report all issues in Red Hat Bugzilla in the correct place:
+
+1. https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=docker-registry[Bugs in Fedora package].
+2. https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora%20EPEL&component=docker-registry[Bugs in EPEL package].
+
+== What's next
+
+The major packaging work is done. Now it is your turn -- please install these
+packages, use them, and report all issues in the places mentioned above. We'll
+make sure they are fixed.
+
+// vim: set syntax=asciidoc:

@@ -1,0 +1,27 @@
+---
+title: Technically
+---
+
+I'm a Software Engineer, mostly.
+
+== Work
+
+I work for http://www.redhat.com/[Red Hat]. I'm there some kind of a plumber working in different areas including Cloud, Virtualization, Operating systems (Fedora), RPMs, Middleware (JBoss AS/EAP) and Polyglot. I'm part of http://projectodd.org/:[project:odd].
+
+For a few years I was the https://web.archive.org/web/20170814223540/http://boxgrinder.org/[BoxGrinder] project leader -- a simple solution for creating virtual appliances for Cloud and many virtualization providers. Currently I'm busy helping with the http://torquebox.org/[TorqueBox] project -- a Ruby application server and packaging and maintaining WildFly/JBoss AS into Fedora.
+
+And yes - I have a https://github.com/goldmann:[GitHub profile].
+
+== Presentations
+
+If I have the chance -- I'm link:/presentations/[giving talks] on conferences and not only.
+
+== CV
+
+You can also look at my http://linkedin.com/in/goldmann:[LinkedIn profile].
+
+== Other things
+
+Some time ago I was pretty active in propagating open communication using http://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol[XMPP protocol]. I have my own public XMPP server -- http://www.jid.pl/[jid.pl].
+
+I am co-author of http://hapi.pl/[Hapi] -- a polish easy to use XMPP client.

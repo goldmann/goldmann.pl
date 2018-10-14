@@ -1,0 +1,54 @@
+---
+title: "Running Fedora Cloud images on KVM"
+date: 2014-01-16T16:35:00.10+01:00
+draft: false
+tags: [ fedora, tip ]
+---
+
+Inspired by
+link:http://spinningmatt.wordpress.com/2014/01/08/a-recipe-for-starting-cloud-images-with-virt-install/[Matt's
+blog post] I've decided to make something that is similar but better fits
+my use case. I plan to do some clustering and routing testing and therefore I
+need to have similar VMs running side-by-side. These images will be short-lived
+and I would like to automate as many things I can.
+
+Additionally, I found out that the images shipped by Fedora require some changes
+to work well in my case, for example the default 2GB disk is too small.
+
+== Script
+
+You can see link:https://gist.github.com/goldmann/8455702[my script here].
+
+My script does create a new domain with the desired name with the cloud disk
+image. I use the a QCOW2 image to not eat all the free space on my SSD. The disk
+can be optionally grown to the desired size. The whole install is done without VNC
+using the text method. The domain is optionally run after the setup
+completes.
+
+I use the cloud-init script *only* for the initial setup (setting the password)
+- afterwards it is removed from the image. The same thing happens to the
+ISO used for the cloud-init configuration - it's ejected and removed from
+the disk afterwards.
+
+== Sample run
+
+----
+$ virt-install-fedora host
+Thu, 16 Jan 2014 14:28:58 +0100 Destroying the host1 domain...
+Thu, 16 Jan 2014 14:28:59 +0100 Generating ISO for cloud-init...
+Thu, 16 Jan 2014 14:28:59 +0100 Installing the domain and adjusting the configuration...
+Thu, 16 Jan 2014 14:29:23 +0100 Cleaning up cloud-init...
+Thu, 16 Jan 2014 14:29:23 +0100 Resizing the disk...
+Thu, 16 Jan 2014 14:30:15 +0100 Launching the host1 domain...
+Thu, 16 Jan 2014 14:30:15 +0100 DONE, ssh to the 192.168.122.43 host using 'fedora' username and 'fedora' password
+----
+
+After about a minute I have a registered domain with a Fedora 20 disk image
+on a 20GB QCOW2 disk. Pretty good. And I can run the command as many times I want
+to deploy new VMs.
+
+Along with the disk image -- the script creates a log file (in my case
+`host1/host1.log`) in which you can see the messages from the commands that were run
+during the installation.
+
+// vim: set syntax=asciidoc:

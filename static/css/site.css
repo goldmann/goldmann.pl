@@ -1,0 +1,45 @@
+html {
+  border-top: 5px solid #aaa;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+div.title {
+  padding: 1em;
+}
+
+td.icon {
+  width: 150px;
+  text-align: center;
+  background-color: #ddd;
+  padding: 0;
+}
+
+td.content {
+  background-color: #eee;
+  padding: 1em;
+}
+
+.article-content li > p {
+  margin: 5px;
+}
+
+.nav-links a {
+  font-family: 'Merriweather';
+  font-size: 16px;
+}
+
+
+.nav-links li + li {
+    border-left: solid 2px #ddd;
+}
+
+
+@media (min-width: 600px) {
+  .nav-links a {
+    font-size: 20px;
+  }
+}

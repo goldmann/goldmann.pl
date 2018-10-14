@@ -1,0 +1,48 @@
+---
+title: Presentations
+---
+
+From time to time I'm attending various conferences. Sometimes I'm even a speaker. Below you can find list of presentations I gave so far.
+
+== License
+
+image::http://i.creativecommons.org/l/by-sa/3.0/88x31.png[role="left"]
+
+== 2014
+
+* *Docker and JBoss -- the perfect combination*, Toruń JUG, Oct 2014: link:/presentations/2014-torun-jug-docker[slides], https://github.com/goldmann/goldmann.pl/tree/master/.presentations/2014-torun-jug-docker/demos[demos]
+*  *Docker and JBoss -- the perfect combination*, JUGtoberFest 2014, Poznań, Oct 2014: https://github.com/goldmann/goldmann.pl/tree/master/.presentations/2014-jugtoberfest-docker/[slides], https://github.com/goldmann/goldmann.pl/tree/master/.presentations/2014-jugtoberfest-docker/demos[demos]
+* *Revolution in software distribution called Docker*, Y Soft: Technology Hour, Sep 2014: link:/presentations/2014-ysoft-technology-hour-docker[slides], https://github.com/goldmann/goldmann.pl/tree/master/.presentations/2014-ysoft-technology-hour-docker/demos[demos]
+* *Docker and JBoss -- the perfect combination*, Virtual JBoss User Group, Sep 2014: https://www.youtube.com/watch?v=4uQ6gR_xZhE[recording], link:/presentations/2014-vjbug-docker[slides], https://github.com/goldmann/goldmann.pl/tree/master/.presentations/2014-vjbug-docker/demos[demos]
+* *Docker and JBoss -- the perfect combination*, Wrocław JUG, Sep 2014: https://www.youtube.com/watch?v=uNYHcxUu6pQ[recording], link:presentations/2014-wroclaw-jug-docker[slides], https://github.com/goldmann/goldmann.pl/tree/master/.presentations/2014-wroclaw-jug-docker/demos[demos]
+* *Docker*, Poznań JUG, June 2014: link:/presentations/2014-poznan-jug-docker[slides]
+* *Docker*, WJBUG, June 2014: link:/presentations/2014-wjbug-docker[slides]
+* *Docker -- Intro to a revolution*, GeeCON, May 2014: link:/presentations/2014-geecon-docker-intro-to-a-revolution[slides]
+
+== 2013
+
+* *Docker -- Introduction*, Red Hat, Dec 2013: link:/presentations/2013-red-hat-docker-introduction[slides], link:/presentations/2013-red-hat-docker-introduction/index.fr.html[slides in French] (translated by https://twitter.com/olberger"[@olberger])
+* *TorqueBox -- Messaging and scheduled jobs made simple*, GeeCON, May 2013: link:/presentations/2013-geecon-messaging-and-scheduled-jobs-made-simple[slides], https://github.com/goldmann/torquebox-messaging-demos[demos]
+
+== 2012
+
+* *BoxGrinder*, Red Hat, Mar 2012: link:/presentations/2012-red-hat-boxgrinder/2012-red-hat-boxgrinder.pdf[slides]
+* *BoxGrinder*, FUDCon Blacksburg, Mar 2012: link:/presentations/2012-fudcon-blacksburg-boxgrinder/2012-fudcon-blacksburg-boxgrinder.pdf[slides]
+* *BoxGrinder*, FOSDEM, Feb 2012: link:/presentations/2012-fosdem-boxgrinder/2012-fosdem-boxgrinder.pdf[slides]
+
+== 2011
+
+* *BoxGrinder*, FUDCon Milan, Oct 2011: link:/presentations/2011-fudcon-milan-boxgrinder/2011-fudcon-milan-boxgrinder.pdf[slides]
+* *TorqueBox -- Ruby na sterydach*, Silesia RUG, Nov 2011, polish: link:/presentations/2011-srug-torquebox-ruby-na-sterydach/2011-srug-torquebox-ruby-na-sterydach.pdf[slides]
+* *TorqueBox -- Where Ruby meets CDI*, JUDCon London, Oct 2011: link:/presentations/2011-judcon-london-torquebox-where-ruby-meets-cdi/2011-judcon-london-torquebox-where-ruby-meets-cdi.pdf[slides]
+* *TorqueBox -- Gdzie Ruby spotyka CDI*, Confitura, Jul 2011, polish: link:/presentations/2011-javacamp-torquebox-gdzie-ruby-spotyka-cdi/2011-javacamp-torquebox-gdzie-ruby-spotyka-cdi.pdf[slides]
+* *TorqueBox -- Moc Javy Piękno Rubiego*, Confitura, Jun 2011, polish: link:/presentations/2011-confitura-torquebox-moc-javy-piekno-rubiego/2011-confitura-torquebox-moc-javy-piekno-rubiego.pdf[slides]
+* *BoxGrinder*, JUDCon Boston, Jun 2011: link:/presentations/2011-judcon-boston-boxgrinder/2011-judcon-boston-boxgrinder.pdf[slides]
+* *BoxGrinder*, FUDCon Tempe, Jan 2011: link:/presentations/2011-fudcon-tempe-boxgrinder/2011-fudcon-tempe-boxgrinder.pdf[slides]
+
+== 2010
+
+* *SteamCannon*, JavaNight, Dec 2010: link:/presentations/2010-java-night-steamcannon/2010-java-night-steamcannon.pdf[slides]
+* *BoxGrinder*, JUDCon Berlin, Oct 2010: link:/presentations/2010-judcon-berlin-boxgrinder/2010-judcon-berlin-boxgrinder.pdf[slides]
+* *CirrAS -- JBoss w chmurkach*, Javarsovia, Jul 2010, polish: link:/presentations/2010-javarsovia-cirras-jboss-w-chmurach/2010-javarsovia-cirras-jboss-w-chmurach.pdf[slides]
+* *StormGrind -- Hackowanie w chmurkach*, Silesia JUG, Apr 2010, polish: link:/presentations/2010-silesia-jug-stormgrind-hackowanie-w-chmurkach/2010-silesia-jug-stormgrind-hackowanie-w-chmurkach.pdf[slides]

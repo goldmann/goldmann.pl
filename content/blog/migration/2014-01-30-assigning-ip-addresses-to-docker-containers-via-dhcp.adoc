@@ -1,0 +1,269 @@
+---
+title: "Assigning IP addresses to Docker containers via DHCP"
+date: 2014-01-30T18:30:00.10+01:00
+draft: false
+tags: [ "docker", "fedora" ]
+---
+
+WARNING: This guide is based on an old version of Docker. The instructions you
+find below may be already removed or changed in the Docker codebase.
+
+In my
+link:/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/[last blog
+post] I explained how to run a Docker installation across multiple hosts.
+In the comments I was asked if it would be possible to use a DHCP server to
+assign IPs to the containers. I thought immediately -- why not? In fact,
+assigning IPs using DHCP is a nice way to overcome the
+link:/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/#_the_issue_ip_assignment[IP
+assignment issue I talked about before].
+
+== Set up
+
+The set up is pretty similar to my
+link:/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/#_set_up[earlier
+work].
+
+The difference is that I want to run a DHCP server *on each* of the hosts.
+It will be responsible for assigning the IPs to all of the containers connected to the
+`docker0` bridge on that host.
+
+You may ask why I want to run so many DHCP servers? Of course one server would
+do the job of assigning the IP's (in fact, this was my initial set-up). Then I
+  realized that it would be easier to manage routing of the container's traffic
+  if we have a DHCP server on every host.
+
+Since we want to have the containers run on the same network, there
+will be many DHCP servers working on *that network*. The trick is to reserve a
+bunch of IP's for each host so as not to interfere with other hosts (in my case it's
+10 addresses per host) and drop the DHCP requests on each `br0` Open vSwitch
+bridge.
+
+=== New scripts
+
+Additionally I rewrote link:https://gist.github.com/goldmann/8455702[my earlier script]
+that prepares the virtual machines for me. I decided to
+drop the use of link:http://cloudinit.readthedocs.org/en/latest/[cloud-init]
+entirely in favor of link:http://libguestfs.org/[libguestfs] -- a great Swiss
+Army knife written by link:http://rwmj.wordpress.com/[Rich]. If you're not
+familiar with it -- it's a tool for offline manipulation of disk images. And it
+does the job damn well.
+
+You can install libguestfs tools on your system by running this
+command:
+
+----
+yum -y install libguestfs-tools
+----
+
+Install `liguestfs-tools` before you use my scripts.
+
+NOTE: The first run of link:http://libguestfs.org/guestfish.1.html[`guestfish`]
+can take a bit, since it creates the
+link:http://libguestfs.org/febootstrap.8.html#supermin_appliances[supermin
+appliance]. Also, if you run it in a virtualized environment it will
+perform a bit worse compared to bare metal.
+
+The new scripts are avilable in the
+link:https://github.com/goldmann/docker-dhcp[docker-dhcp repository on
+GitHub].
+
+The logic of preparing and registering the image as a libvirt domain was split
+into two scripts:
+
+* link:https://github.com/goldmann/docker-dhcp/blob/master/prepare-image.sh[`prepare-image.sh`] -- update the system, modify the image,
+* link:https://github.com/goldmann/docker-dhcp/blob/master/register-domain.sh[`register-domain.sh`] -- copy the image to a custom location and register a
+  domain under the new name.
+
+The split made it possible to create the image once and create as many domains
+as you want in seconds.
+
+I placed a lot of comments in these scripts, so I hope everything is
+self-explaining. Let me know if that's not the case!
+
+==== Base image
+
+To create a VM with everything preinstalled to make the setup
+easier the only thing you need to do is to download the QCOW2 image from
+link:cloud.fedoraproject.org[cloud.fedoraproject.org] and run the script
+providing the cloud image as the parameter, like this:
+
+----
+$ ./prepare-image.sh Fedora-x86_64-20-20131211.1-sda.qcow2
+Wed, 29 Jan 2014 12:20:57 +0100 Cleaniung up...
+Wed, 29 Jan 2014 12:20:58 +0100 Modifying the image...
+Wed, 29 Jan 2014 12:25:15 +0100 Resizing the disk...
+Wed, 29 Jan 2014 12:26:06 +0100 Image 'image.qcow2' created!
+----
+
+NOTE: Executing the above script can take some time. It took about 5 minutes for me
+to prepare the image. Please keep in mind that it does the full system update
+and it installs some additional software as well.
+
+This script injects the `network.sh` script which will be used later to
+configure the network inside the hosts.
+
+==== Host domains
+
+Now we have the base image prepared: `image.qcow2`. Time to make use of it and
+register two domains based on it. For this purpose I use the
+`register-domain.sh` script:
+
+[source,shell]
+----
+$ ./register-domain.sh image.qcow2 host1
+Wed, 29 Jan 2014 13:52:51 +0100 Installing the domain and adjusting the configuration...
+Wed, 29 Jan 2014 13:52:51 +0100 Domain host1 registered!
+Wed, 29 Jan 2014 13:52:51 +0100 Launching the host1 domain...
+Wed, 29 Jan 2014 13:52:52 +0100 Domain started, waiting for the IP...
+Wed, 29 Jan 2014 13:53:30 +0100 You can ssh to the 192.168.122.144 host using 'fedora' username and 'fedora' password or use the 'virsh console host1' command to directly attach to the console
+----
+
+You can log-in using the `fedora` / `fedora` credentials.
+
+NOTE: If you don't want to run the domain immediately after creation -- use the
+`RUN_AFTER` environment variable and set it to `false`.
+
+Run the `register-domain.sh` script twice with `host1` and `host2` as the arguments.
+
+=== DHCP configuration explained
+
+The DHCP server will be run on every host and listen only for requests on the `docker0`
+interface since it's configured to look for the `172.16.42.0/24` network only.
+The first 9 IP addresses from this network are reserved (can be assigned
+manually to additional hosts), the rest will be available to the DHCP clients.
+
+Every DHCP server will only be responsible for a part of the network. For
+example, the server on `host1` will assign addresses from `172.16.42.10` to
+`172.16.42.19`, whereas `host2` will will assign addresses from `172.16.42.20`
+to `172.16.42.29`.
+
+NOTE: This is just an example -- you can expand the default values to run more
+than 10 containers on one host.
+
+The `host1` `docker0` network interface will have the `172.16.42.1` address
+assigned, `host2` will have `172.16.42.2`, and so on.
+
+== Make it work!
+
+I assume that we have already started `host1` and `host2` as explained above.
+
+=== Networking
+
+Now it's time to prepare the networking on both hosts. Log-in to both hosts and
+get the IP addresses of the `eth0` network interfaces. Now run the `network.sh`
+script (it's located in the `/home/fedora` directory) on both hosts.
+
+NOTE: I assume that `host1` has `192.168.122.31` IP and `host2` has `192.168.122.2`.
+
+On `host1` run the script with the IP of `host2`:
+
+----
+$ sudo ./network.sh 1 192.168.122.2
+----
+
+And do the opposite on `host2`:
+
+----
+$ sudo ./network.sh 2 192.168.122.31
+----
+
+NOTE: When you run the `network.sh` script for the first time, you may see
+messages similar to `bridge docker0 doesn't exist` -- don't worry, this is
+normal.
+
+The GRE tunnel should now be established and a DHCP server should be running on
+`host1`. You can confirm this by pinging the `docker0` bridge addresses on each host.
+
+=== Containers
+
+There is one requirement for the container image -- it needs to have a DHCP
+client installed. Sadly the default `fedora` image does not have the `dhclient`
+package installed. To make things easy I prepared the
+link:https://index.docker.io/u/goldmann/fedora-dhcp/[`goldmann/fedora-dhcp`]
+image. The only difference between `fedora` image is the addition of
+`dhclient`.
+
+Download this image on both hosts:
+
+----
+docker pull goldmann/fedora-dhcp
+----
+
+If you run the `goldmann/fedora-dhcp` image you'll see that there is no network
+interfaces beside the loopback. This is because Docker is run with the
+`-b=none` flag and it does not know about any network interfaces to bind to, so
+it does not create the ethernet adapter in the container.
+
+But we still want to have networking. The only option at the moment is to use
+the `-lxc-conf` flag when running the image, like this:
+
+----
+docker run -i -t \
+-lxc-conf="lxc.network.type = veth" \
+-lxc-conf="lxc.network.link = docker0" \
+-lxc-conf="lxc.network.flags = up" \
+goldmann/fedora-dhcp /bin/bash
+----
+
+This will start a new container with a virtual ethernet adapter which is
+attached to the `docker0` bridge. Sweet!
+
+=== Obtaining the IP address
+
+Since the Docker container does not run anything besides the command you
+specify (in our case `/bin/bash`) -- it does not run the scripts that
+configures the network too. We need to do it by hand.
+
+NOTE: I hope this will change in the near future. One option is to make systemd
+run well in the Docker containers.
+
+After you get the prompt from the container, you can simply run the
+`dhclient` command. This will obtain the address from the DHCP server, exit and
+leave a shell just for you.
+
+----
+bash-4.2# ip a s dev eth0
+17: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 1e:d4:13:c7:9d:fd brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::1cd4:13ff:fec7:9dfd/64 scope link
+       valid_lft forever preferred_lft forever
+bash-4.2# dhclient
+bash-4.2# ip a s dev eth0
+17: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 1e:d4:13:c7:9d:fd brd ff:ff:ff:ff:ff:ff
+    inet 172.16.42.14/24 brd 172.16.42.255 scope global dynamic eth0
+       valid_lft 43197sec preferred_lft 43197sec
+    inet6 fe80::1cd4:13ff:fec7:9dfd/64 scope link
+       valid_lft forever preferred_lft forever
+bash-4.2# ping -c 1 google.com
+PING google.com (173.194.65.139) 56(84) bytes of data.
+64 bytes from ee-in-f139.1e100.net (173.194.65.139): icmp_seq=1 ttl=39 time=55.6 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 55.672/55.672/55.672/0.000 ms
+----
+
+NOTE: You can also use the `/etc/init.d/network restart` command to obtain the IP.
+
+You can (should!) try it on `host1` and `host2`. You should get the same
+result with no IP conflict and be able to access the Internet as well as other
+containers on the network.
+
+Enjoy!
+
+== Things to improve
+
+There are of course some things that could be improved to make this setup
+easier.
+
+1. Make link:http://freedesktop.org/wiki/Software/systemd/[systemd] available
+   in the container -- this would boot the networking and get the IP address
+   automatically for us.
+
+2. Stop Docker from (blindly) assigning IP addresses when we specify the
+`-b=BRIDGE` flag. Docker currently  assumes that it manages the container
+network and nothing else is allowed to do so. I hope this will change in the
+future.
+
+// vim: set syntax=asciidoc:
