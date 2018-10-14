@@ -25,8 +25,10 @@
       </li>
       {{ end }}
   </article>
-  
+
+  {{ if eq .Page.Type "blog" }}
   {{ template "_internal/disqus.html" . }}
+  {{ end }}
 
 </main>
 
