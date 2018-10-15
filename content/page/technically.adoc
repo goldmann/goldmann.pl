@@ -10,7 +10,7 @@ I work for http://www.redhat.com/[Red Hat]. I'm there some kind of a plumber wor
 
 For a few years I was the https://web.archive.org/web/20170814223540/http://boxgrinder.org/[BoxGrinder] project leader -- a simple solution for creating virtual appliances for Cloud and many virtualization providers. Currently I'm busy helping with the http://torquebox.org/[TorqueBox] project -- a Ruby application server and packaging and maintaining WildFly/JBoss AS into Fedora.
 
-And yes - I have a https://github.com/goldmann:[GitHub profile].
+And yes - I have a https://github.com/goldmann[GitHub profile].
 
 == Presentations
 
@@ -18,7 +18,7 @@ If I have the chance -- I'm link:/presentations/[giving talks] on conferences an
 
 == CV
 
-You can also look at my http://linkedin.com/in/goldmann:[LinkedIn profile].
+You can also look at my http://linkedin.com/in/goldmann[LinkedIn profile].
 
 == Other things
 
