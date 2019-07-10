@@ -74,7 +74,7 @@ Customer base?::
     IBM's is bigger.
 Maybe employees?::
     Oh, this is not easy. You cannot just buy Red Hatters. We are a very opinionated crowd, if something is
-    the _Red Hat way_ many people will just resign. So, no, not employees.
+    not the _Red Hat way_ many people will just resign. So, no, not employees.
 Buildings?::
     For $34 billions? These must be very expensive buildings... 
 
@@ -84,7 +84,8 @@ My feeling is that #IBM wants to work the _Red Hat way_#. What is Red Hat way? T
 collaborate, we discuss. Default to open.
 
 IBM *must and wants to change*. IBM wants to be seen again as the company that innovates. Red Hat is required
-here, because IBM alone could not do it. You could try to do the process yourself, but it would take too much time, especially with a company of this size and the process would not be that visible to customers either.
+here, because IBM alone could not do it. You could try to do the process yourself, but it would take too much time,
+especially with a company of this size and the process would not be that visible to customers either.
 
 You could change CEO, sure, but it does work always as expected. Although
 link:https://twitter.com/marekgoldmann/status/1129289849524183040[there are exceptions].
