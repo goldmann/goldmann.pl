@@ -1,3 +1,4 @@
 [submodule "themes/natrium"]
-	path = themes/natrium
-	url = https://github.com/mobybit/hugo-natrium-theme.git
+  path = themes/natrium
+  url = https://github.com/mobybit/hugo-natrium-theme.git
+  branch = b05ee49fd4030096446b020ab134498508fb5f8c

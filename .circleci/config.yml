@@ -8,6 +8,7 @@ jobs:
       - run: git submodule init && git submodule update
       - run: sudo apt-get install asciidoctor
       - run: cd ~/bin && curl -L https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_extended_0.54.0_Linux-64bit.tar.gz | tar xvz
+      - run: hugo version
       - run: hugo -v -d www
       - persist_to_workspace:
           root: /home/circleci/project
