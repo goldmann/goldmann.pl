@@ -30,8 +30,7 @@ jobs:
             - "00:82:0e:1d:0f:bb:ac:d5:b2:e5:92:e3:b8:fd:f5:75"
       - run:
           name: Deploy with rsync
-          command: |
-            rsync -va --delete /tmp/workspace/www $SYNC_USER@$SYNC_HOST:$SYNC_PATH
+          command: cd /tmp/workspace/www && rsync -avzhe ssh --progress --delete . $SYNC_USER@$SYNC_HOST:$SYNC_PATH
 
 workflows:
   version: 2
