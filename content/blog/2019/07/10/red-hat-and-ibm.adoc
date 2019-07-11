@@ -80,14 +80,14 @@ Buildings?::
 
 So *what* it is?
 
-My feeling is that #IBM wants to work the _Red Hat way_#. What is Red Hat way? This is how we work, we
-collaborate, we discuss. Default to open.
+My feeling is that #IBM wants to work the _Red Hat way_#. What is Red Hat way? This is how we work,
+collaborate, discuss. All default to open.
 
 IBM *must and wants to change*. IBM wants to be seen again as the company that innovates. Red Hat is required
 here, because IBM alone could not do it. You could try to do the process yourself, but it would take too much time,
 especially with a company of this size and the process would not be that visible to customers either.
 
-You could change CEO, sure, but it does work always as expected. Although
+You could change CEO, sure, but it does not work always as expected. Although
 link:https://twitter.com/marekgoldmann/status/1129289849524183040[there are exceptions].
 
 == What's the future then?
