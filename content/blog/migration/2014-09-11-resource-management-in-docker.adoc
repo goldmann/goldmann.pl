@@ -311,14 +311,14 @@ If you try once again to allocate for example 250MB (`--vm-bytes
 250M`) it will work just fine.
 
 WARNING: If we don't limit the memory by using `-m` switch the swap size will be unlimited too.
-footnoteref:[limit-actually-exists,This is technically not true; there is a limit, but it's set to a
+footnote:limit-actually-exists[This is technically not true; there is a limit, but it's set to a
 value that is not reachable in the systems we currently run. For example on my
 laptop with 16GB of ram the value is `18446744073709551615` which is ~18.5
 exabytes...]
 
 Having no limit on memory can lead to issues where one container can easily
 make the whole system unstable and as a result unusable. So please remember:
-*always use the `-m` parameter* footnoteref:[systemd-memory,Or just use the `MemoryLimit` property.].
+*always use the `-m` parameter* footnote:systemd-memory[Or just use the `MemoryLimit` property.].
 
 === CGroups fs
 
