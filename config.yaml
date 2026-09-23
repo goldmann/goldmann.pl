@@ -20,9 +20,6 @@ permalinks:
   blog: '/blog/:year/:month/:day/:slug/'
 menu:
   main:
-    - name: Blog
-      url: /blog/
-      weight: 10
     - name: Archive
       url: /archive/
       weight: 15
