@@ -1,0 +1,54 @@
+/* Post lists (home, blog, tags): plain entries instead of cards */
+.list {
+  background: var(--theme);
+}
+
+.post-entry {
+  padding: 0;
+  margin-bottom: 44px;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+.post-entry:hover,
+.post-entry:focus-within {
+  transform: none;
+}
+
+.entry-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+  transition: color 300ms;
+}
+
+.post-entry:hover .entry-header h2 {
+  color: var(--secondary);
+}
+
+.entry-content {
+  margin: 10px 0;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--content);
+  -webkit-line-clamp: 3;
+}
+
+.entry-footer {
+  font-size: 15px;
+}
+
+.home-info .entry-content {
+  font-size: 19px;
+}
+
+@media (max-width: 600px) {
+  .entry-header h2 {
+    font-size: 24px;
+  }
+
+  .entry-content {
+    font-size: 16px;
+  }
+}
