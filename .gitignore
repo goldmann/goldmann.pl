@@ -3,3 +3,4 @@ _tmp
 _site
 *.swp
 .awestruct*
+*.lock
