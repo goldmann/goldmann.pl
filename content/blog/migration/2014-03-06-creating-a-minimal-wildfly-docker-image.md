@@ -9,41 +9,42 @@ The default way of creating an image with Docker is to extend an image by
 using the `FROM` call in the `Dockerfile`. But this is not the only way to do
 this. You can easily create a base image by using only the `yum` command.
 
-link:http://wildfly.org/[WildFly] `8.0.0.Final`
-link:http://wildfly.org/news/2014/02/11/WildFly8-Final-Released/[was recently released]
-and is now available in Fedora 20 `updates-testing` repository. Let's
+[WildFly](http://wildfly.org/) `8.0.0.Final`
+[was recently released](http://wildfly.org/news/2014/02/11/WildFly8-Final-Released/)
+and is now available in Fedora 20 `updates-testing` repository. Let’s
 create an image that could be used to test this release but make it as minimal
 as it could be. The application server does have a lot of dependencies, so do
-not expect a 100 MB image. It'll be closer to 1 GB.
+not expect a 100 MB image. It’ll be closer to 1 GB.
 
-== Intro
+## Intro
 
 One difference between virtual machines and Docker images is that a virtual
 machine need to contain its own kernel to be able to run. This is not the case
-in Docker since we *reuse* the host kernel (which is already running).
+in Docker since we **reuse** the host kernel (which is already running).
 
 The following analogy may help:
 
-* **Virtual machines** -- whole PC with graphic card, CPU, disk, controllers,
-* **Docker images** -- only the disk.
+- **Virtual machines** — whole PC with graphic card, CPU, disk, controllers,
+
+- **Docker images** — only the disk.
 
 You can move around and launch either, but virtual machines are way heavier.
 
 This means that we can create an image with only the required bits and drop
-everything else -- *making it easier to maintain, lighter and of course more
-secure*. An example of such an image is
-link:https://index.docker.io/_/busybox/[busy box]. The current virtual image
+everything else — **making it easier to maintain, lighter and of course more
+secure**. An example of such an image is
+[busy box](https://index.docker.io/_/busybox/). The current virtual image
 size is **~2.5 MB**. Less than nothing.
 
 To create such a small image we need to use an external tool and not
 extend a base image. As I mentioned before in our case we will use the `yum`
 command.
 
-== Building the image
+## Building the image
 
 I prepared and ran the following script:
 
-----
+```
 #!/bin/bash
 
 if [ $UID -ne 0 ]; then
@@ -77,41 +78,39 @@ EOF
 
 # Import to Docker
 tar -C $BUILDDIR -c . | docker import - $NAME
-----
+```
 
-That's all. Now you can run your image. The image ID was printed after import. In my case it was
+That’s all. Now you can run your image. The image ID was printed after import. In my case it was
 `05c926b5dc99d5c4edc6eb6bfb7040d6b4bc67e1f00f3f9af4485dffefe21a66`. Time to run it:
 
-----
+```
 docker run -i -t 05c926b5 /usr/share/wildfly/bin/standalone.sh -b 0.0.0.0
-----
+```
 
-Now that we have a running WildFly server, let's point the browser to it. But what's
-the address? It's easy to get this information too!
+Now that we have a running WildFly server, let’s point the browser to it. But what’s
+the address? It’s easy to get this information too!
 
 First execute the `docker ps` command to get the container ID:
 
-----
+```
 $ docker ps
 CONTAINER ID        IMAGE                    COMMAND                CREATED              STATUS              PORTS               NAMES
 af59785a5245        wildfly-minimal:latest   /usr/share/wildfly/b   About a minute ago   Up About a minute                       tender_euclid
-----
+```
 
 Now we can use the `docker inspect` command to get the IP address:
 
-----
+```
 $ docker inspect -f '{{ .NetworkSettings.IPAddress }}' af59785a5245
 172.17.0.2
-----
+```
 
-Great, WildFly is available on http://172.17.0.2:8080.
+Great, WildFly is available on <http://172.17.0.2:8080>.
 
-===  Update 07.06.2014
+### Update 07.06.2014
 
 I changed a bit the script. Now it installs only the `en` language files and there
 was a mistake in cleaning the YUM cache which is now fixed too. Additionally I
 fixed the `/dev/console` warning messages that were appearing on boot.
 
-Everything above made it possible to *decrease the size of the image from 1.6GB to 1GB*. Win!
-
-// vim: set syntax=asciidoc:
+Everything above made it possible to **decrease the size of the image from 1.6GB to 1GB**. Win!

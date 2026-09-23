@@ -1,0 +1,19 @@
+---
+title: Musically
+author: "Marek Goldmann"
+---
+
+I always like to listen to music. It’s hard to describe what type of music is my favourite. Maybe something between electro-house, electro-pop, ambient, dub, minimal and microhouse.
+
+My favorite artists are (in no particular order): Luomo, Feist, Sacha Funke, Ellen Allien, Lykke Li, Paul Kalkbrenner, Little Dragon, Radiohead, Smolik, Vladislav Delay, Daft Punk… and many others.
+
+In my free (what?!) time I try to produce some music myself.
+
+## My songs
+
+Below you can find my published tracks.
+
+<iframe width="100%" height="350" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/2266426&amp;color=ff6600&amp;auto_play=false&amp;show_artwork=true">
+
+</iframe>
+

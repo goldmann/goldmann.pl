@@ -43,3 +43,18 @@ td.content {
     font-size: 20px;
   }
 }
+
+.alert {
+  border-left: 4px solid #4a90d9;
+  padding: 0.5em 1em;
+  margin: 1em 0;
+}
+
+.alert-warning {
+  border-left-color: #d9a441;
+}
+
+.alert-heading {
+  font-weight: bold;
+  margin-bottom: 0.25em;
+}

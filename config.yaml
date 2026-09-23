@@ -1,18 +1,17 @@
 baseurl: 'https://goldmann.pl/'
-disqusShortname: goldmann
-googleAnalytics: UA-351971-1
-languageCode: en-us
+locale: en-us
 title: Marek Goldmann
 theme: natrium
-preserveTaxonomyNames: true
-rssLimit: 10
-paginate: 10
-pygmentsCodefences: true
-pygmentsStyle: native
+services:
+  disqus:
+    shortname: goldmann
+  rss:
+    limit: 10
+pagination:
+  pagerSize: 10
 taxonomies:
   category: categories
   tag: tags
-  blog: blog
 permalinks:
   page: '/:slug/'
   blog: '/blog/:year/:month/:day/:slug/'
@@ -37,3 +36,10 @@ params:
     width: 50
     height: 50
     alt: Logo
+markup:
+  goldmark:
+    renderer:
+      # Posts embed raw HTML (tweets, asciinema, SoundCloud)
+      unsafe: true
+  highlight:
+    style: native

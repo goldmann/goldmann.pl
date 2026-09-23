@@ -5,67 +5,65 @@ draft: false
 tags: [ fedora, tip ]
 ---
 
-I had a power mangement issue when running *Fedora 19* (and later 20) on my
-link:http://shop.lenovo.com/us/en/laptops/thinkpad/t-series/t430[Lenovo
-ThinkPad 430s]. When the battery was low - the laptop just powered off itself,
-without a clean shutdown or even warning me. As you may guess - this wasn't
+I had a power mangement issue when running **Fedora 19** (and later 20) on my
+[Lenovo
+ThinkPad 430s](http://shop.lenovo.com/us/en/laptops/thinkpad/t-series/t430). When the battery was low - the laptop just powered off itself,
+without a clean shutdown or even warning me. As you may guess - this wasn’t
 something I very happy about.
 
-== Cause
+## Cause
 
-I discovered that it happens when the battery is *still at 15%*. The system
-reported at that time still about *40 min* of available time.
+I discovered that it happens when the battery is **still at 15%**. The system
+reported at that time still about **40 min** of available time.
 
-By default Fedora uses the *time based policy for battery power management*. In
-almost all cases this is a good choice, but this time it won't fly.
+By default Fedora uses the **time based policy for battery power management**. In
+almost all cases this is a good choice, but this time it won’t fly.
 
-== Solution
+## Solution
 
 Instead of fixing the issue properly (finding the source of wrong estimate or
 wrong battery reading) I found a workaround which works very well and does not
-involve any magic: I disabled the time based and *switched to percentage based
-policy*.
+involve any magic: I disabled the time based and **switched to percentage based
+policy**.
 
-----
+```
 gsettings set org.gnome.settings-daemon.plugins.power use-time-for-policy false
-----
+```
 
 The other thing we need to do is to adjust when the warning will apear and what
 type of action should be executed when the battery level is critical.
 
-----
+```
 gsettings set org.gnome.settings-daemon.plugins.power percentage-critical 25
 gsettings set org.gnome.settings-daemon.plugins.power percentage-low 30
 
 gsettings set org.gnome.settings-daemon.plugins.power percentage-action 20
 gsettings set org.gnome.settings-daemon.plugins.power critical-battery-action 'suspend'
-----
+```
 
 The system will warn me when the battery level is at 30%, another warning will
 apear at 25% and the action will be executed at 20% of battery level. What
-action? I *choose supend* because in almost all cases I have apower plug
+action? I **choose supend** because in almost all cases I have apower plug
 somewhere nearby, so I just need to plug in and I can work again almost
 immediately.
 
 You can check the values for all power management settings by using this command:
 
-----
+```
 gsettings list-recursively org.gnome.settings-daemon.plugins.power
-----
+```
 
-If you prefer graphical tools -- you can use `dconf-editor` to edit these
+If you prefer graphical tools — you can use `dconf-editor` to edit these
 values. The gui additionally shows a description for each key and what values
 are available to set.
 
-=== Update 30.07.2014
+### Update 30.07.2014
 
 The real reason for this issue was a bad firmware in the battery. Lenovo
 released a
-link:http://support.lenovo.com/en_US/downloads/detail.page?DocID=DS001322[battery
-upgrade utility], but... only for Windows. For Linux users the only way is to
+[battery
+upgrade utility](http://support.lenovo.com/en_US/downloads/detail.page?DocID=DS001322), but… only for Windows. For Linux users the only way is to
 replace the battery or ask a friend with Windows to do the upgrade for you. I
 choose the 2nd option :) On the
-link:http://support.lenovo.com/en_US/downloads/detail.page?DocID=DS001322[support
-page page] you can find a list of affected batteries.
-
-// vim: set syntax=asciidoc:
+[support
+page page](http://support.lenovo.com/en_US/downloads/detail.page?DocID=DS001322) you can find a list of affected batteries.
