@@ -1,0 +1,15 @@
+/* Fonts carried over from the old natrium-based design */
+body {
+  font-family: 'Merriweather', serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.logo, #menu, .post-meta, .breadcrumbs, .paginav, .pagination,
+.entry-footer, .post-tags, .archive-year, .archive-month, .archive-meta,
+.footer, .toc {
+  font-family: 'Lato', sans-serif;
+}
+
+code, pre, kbd, .post-content pre code {
+  font-family: 'Roboto Mono', monospace;
+}

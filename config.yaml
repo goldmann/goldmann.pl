@@ -1,7 +1,8 @@
-baseurl: 'https://goldmann.pl/'
+baseURL: 'https://goldmann.pl/'
 locale: en-us
 title: Marek Goldmann
-theme: natrium
+theme: PaperMod
+enableRobotsTXT: true
 services:
   disqus:
     shortname: goldmann
@@ -9,6 +10,8 @@ services:
     limit: 10
 pagination:
   pagerSize: 10
+outputs:
+  home: [HTML, RSS, JSON]
 taxonomies:
   category: categories
   tag: tags
@@ -17,29 +20,56 @@ permalinks:
   blog: '/blog/:year/:month/:day/:slug/'
 menu:
   main:
-    - name: Socially
-      url: /socially
-      weight: -140
-    - name: Musically
-      url: /musically
-      weight: -150
-    - name: Technically
-      url: /technically
-      weight: -160
     - name: Blog
-      url: /blog
-      weight: -200
+      url: /blog/
+      weight: 10
+    - name: Archive
+      url: /archive/
+      weight: 15
+    - name: Technically
+      url: /technically/
+      weight: 20
+    - name: Musically
+      url: /musically/
+      weight: 30
+    - name: Socially
+      url: /socially/
+      weight: 40
+    - name: Search
+      url: /search/
+      weight: 50
 params:
+  env: production
   description: ''
-  logo:
-    url: 'https://www.gravatar.com/avatar/e00cc70beb20a4a77809fd95b6f75ff2'
-    width: 50
-    height: 50
-    alt: Logo
+  mainSections: [blog]
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  ShowBreadCrumbs: false
+  comments: true
+  homeInfoParams:
+    Title: Hi, I'm Marek
+    Content: |
+      Software plumber with twenty years of experience. I build the pipes other
+      engineers ship their code through, and I get unreasonably excited when
+      nothing leaks.
+
+      Somewhere between a programmer, an ops guy and a team lead, depending on
+      the day and on who's asking. Lately the pipes are sometimes made of
+      roadmaps and budgets, but it's still plumbing.
+
+      In my free (what?!) time I make electronic music. It takes longer to
+      build than my pipelines, but it's nicer to listen to.
+  socialIcons:
+    - name: github
+      url: https://github.com/goldmann
+    - name: linkedin
+      url: https://linkedin.com/in/goldmann
 markup:
   goldmark:
     renderer:
       # Posts embed raw HTML (tweets, asciinema, SoundCloud)
       unsafe: true
   highlight:
-    style: native
+    noClasses: false

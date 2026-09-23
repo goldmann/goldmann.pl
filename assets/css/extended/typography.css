@@ -1,0 +1,110 @@
+/* Typography carried over from the old natrium-based design */
+:root {
+  --link-underline: #d0d0d0;
+}
+
+:root:not([data-theme="dark"]) {
+  --content: #555;
+  --primary: #222;
+}
+
+:root[data-theme="dark"] {
+  --link-underline: rgb(105, 106, 110);
+}
+
+.post-content {
+  font-size: 19px;
+  line-height: 1.8;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.post-content p {
+  margin: 15px 0 25px;
+}
+
+.post-content li > p {
+  margin: 5px 0;
+}
+
+/* Headings: regular-weight Lato, as before */
+.post-title,
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  font-weight: 400;
+  color: var(--primary);
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+.post-title {
+  font-size: 42px;
+  line-height: 1.3;
+}
+
+.post-content h2 {
+  font-size: 30px;
+  margin: 48px 0 16px;
+}
+
+.post-content h3 {
+  font-size: 24px;
+  margin: 36px 0 12px;
+}
+
+.post-content h4 {
+  font-size: 20px;
+}
+
+.post-meta {
+  font-size: 16px;
+  color: var(--secondary);
+}
+
+/* Links: soft thick underline that darkens on hover */
+.post-content a:not(.anchor) {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--link-underline);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 600ms;
+}
+
+.post-content a:not(.anchor):hover {
+  text-decoration-color: var(--secondary);
+}
+
+.post-content code {
+  font-size: 0.9em;
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+.post-content pre code {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .post-content {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .post-title {
+    font-size: 34px;
+  }
+
+  .post-content h2 {
+    font-size: 26px;
+  }
+
+  .post-content pre code {
+    font-size: 14px;
+  }
+}
