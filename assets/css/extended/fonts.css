@@ -1,9 +1,7 @@
-/* Fonts carried over from the old natrium-based design */
-body {
+/* Shared editorial serif; interface labels retain Lato. */
+body, h1, h2, h3, h4, h5, h6 {
   font-family: 'Merriweather', serif;
 }
-
-h1, h2, h3, h4, h5, h6,
 .logo, #menu, .post-meta, .breadcrumbs, .paginav, .pagination,
 .entry-footer, .post-tags, .archive-year, .archive-month, .archive-meta,
 .footer, .toc {

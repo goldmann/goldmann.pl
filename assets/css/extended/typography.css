@@ -4,7 +4,7 @@
 }
 
 :root:not([data-theme="dark"]) {
-  --content: #555;
+  --content: #666;
   --primary: #222;
 }
 
@@ -27,10 +27,11 @@
   margin: 5px 0;
 }
 
-/* Headings: regular-weight Lato, as before */
+/* Regular-weight serif headings; size and spacing establish the hierarchy. */
 .post-title,
 .page-header h1,
 .first-entry .entry-header h1,
+.entry-header h2,
 .post-content h1,
 .post-content h2,
 .post-content h3,
@@ -41,12 +42,6 @@
   color: var(--primary);
   -webkit-hyphens: none;
   hyphens: none;
-}
-
-/* h2s carry more weight than h1 for a clearer hierarchy */
-.post-content h2,
-.entry-header h2 {
-  font-weight: 600;
 }
 
 .post-title,

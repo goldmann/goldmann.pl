@@ -5,6 +5,9 @@ date: 2019-07-10
 categories: ["General"]
 tags: ["blog", "personal", "redhat"]
 draft: false
+cover:
+  image: "/images/covers/red-hat-and-ibm-cover-editorial-v1.png"
+  alt: "New owner. Same spirit. A copper arch and navy column share a baseline on ivory."
 ---
 
 There we go — the Red Hat—​IBM merger is now complete:

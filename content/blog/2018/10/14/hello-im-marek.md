@@ -5,6 +5,9 @@ date: 2018-10-14
 categories: ["General"]
 tags: ["blog", personal]
 draft: false
+cover:
+  image: "/images/covers/hello-im-marek-cover-editorial-v1.png"
+  alt: "A long pause. Hello again. An open circular motif on a muted copper field."
 ---
 
 TL;DR; **I’m back!**

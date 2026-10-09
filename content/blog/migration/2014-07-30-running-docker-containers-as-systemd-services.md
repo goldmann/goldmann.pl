@@ -2,6 +2,9 @@
 title: "Runninng Docker containers as systemd services"
 date: 2014-07-30T15:18:00.10+01:00
 draft: false
+cover:
+  image: "/images/covers/docker-containers-as-systemd-services-cover-editorial-v1.png"
+  alt: "Start in order. Stay running. Connected service blocks form a staircase on navy."
 tags: [ docker, jboss, wildfly ]
 ---
 

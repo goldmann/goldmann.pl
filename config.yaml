@@ -9,7 +9,7 @@ services:
   rss:
     limit: 10
 pagination:
-  pagerSize: 10
+  pagerSize: 5
 outputs:
   home: [HTML, RSS, JSON]
 taxonomies:
