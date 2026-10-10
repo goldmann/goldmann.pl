@@ -26,12 +26,12 @@ let’s iterate over available options.
 
 [One of the readers
 brought up](https://twitter.com/bsideup/status/492050173238181888) that I forgot to mention one great tool:
-[Augeas](http://augeas.net/). I’ve [added it now to the list](#_augeas)
+[Augeas](http://augeas.net/). I’ve [added it now to the list](#augeas)
 and summary.
 
 ## TL;DR;
 
-See [summary](#_summary).
+See [summary](#summary).
 
 ## Boot time configuration
 
@@ -238,6 +238,8 @@ the configuration at any time. The bad thing is that you need to maintain the
 file yourself. If a new version of WildFly will be released — you need to
 manually apply the changes to the configuration.
 
+<div id="_augeas"></div>
+
 ## Augeas
 
 > [!NOTE]
@@ -281,6 +283,8 @@ Augeas is definitely a project worth to become familiar with. Above was just a
 tiny example of what it can do.
 
 The `jboss/wildfly` image contains the `augeas` utility installed by default (as of July 24rd).
+
+<div id="_summary"></div>
 
 ## Summary
 

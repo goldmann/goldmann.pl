@@ -103,7 +103,7 @@ Lets open JBDS and teach this thing to talk to the application server.
 
 > [!NOTE]
 > You can skip this by
-> [importing the connection](/files/posts/docker-remote-connection-jbds).
+> [importing the connection](/files/posts/docker-remote-connection-jbds.zip).
 > Right click in the *Remote Systems* tab, select *Import…*.
 
 In the *Remote Systems* tab we need to create a new connection to the Docker

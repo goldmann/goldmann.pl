@@ -18,7 +18,7 @@ containers on multiple hosts **attached to the same network**.
 
 I was asked in the comments on my
 [WildFly cluster based
-on Docker blog post](/2013/10/07/wildfly-cluster-using-docker-on-fedora/) if it would be possible to run a cluster on multiple
+on Docker blog post](/blog/2013/10/07/wildfly-cluster-using-docker-on-fedora/) if it would be possible to run a cluster on multiple
 hosts. I found a
 [very
 nice tutorial](http://fbevmware.blogspot.com/2013/12/coupling-docker-and-open-vswitch.html) written by Franck Besnard. I’ve decided to set up a similar
@@ -37,6 +37,8 @@ I made a few changes to Franck’s set up:
     attaching all containers to a bridge.
 
 4.  I’m not using VLAN’s (yet)
+
+<div id="_set_up"></div>
 
 ## Set up
 
@@ -173,6 +175,8 @@ doing, but here’s a high level view on the networking part.
     [GRE tunnel](http://en.wikipedia.org/wiki/Generic_Routing_Encapsulation)
     is used for this purpose. This tunnel is attached to the `br0` Open vSwitch
     bridge and as a result to `docker0` too.
+
+<div id="_the_issue_ip_assignment"></div>
 
 ## The issue: IP assignment
 

@@ -16,13 +16,13 @@ In the comments I was asked if it would be possible to use a DHCP server to
 assign IPs to the containers. I thought immediately — why not? In fact,
 assigning IPs using DHCP is a nice way to overcome the
 [IP
-assignment issue I talked about before](/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/#_the_issue_ip_assignment).
+assignment issue I talked about before](/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/#the-issue-ip-assignment).
 
 ## Set up
 
 The set up is pretty similar to my
 [earlier
-work](/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/#_set_up).
+work](/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/#set-up).
 
 The difference is that I want to run a DHCP server **on each** of the hosts.
 It will be responsible for assigning the IPs to all of the containers connected to the

@@ -97,6 +97,8 @@ store logs in the mounted directory.
 
 Of course there is a way to make it work.
 
+<div id="_let_s_make_it_writeable"></div>
+
 ### Let’s make it writable
 
 The trick is to have a user **with the same uid/gid both in the container and on the host**.
@@ -182,7 +184,7 @@ Save the above snippet as `Dockerfile` and build it with `docker build --rm --ta
 You may wonder why we extend the `jboss/wildfly` image in first place and not
 use a clean `fedora` image. The reason is that the `jboss/wildfly` image already has
 a `wildfly` user created. As [I mentioned
-above](#_let_s_make_it_writeable), the same user will be used to launch the Java processes and if we mount a
+above](#lets-make-it-writable), the same user will be used to launch the Java processes and if we mount a
 volume owned by this user, it will be available for writing. We don’t waste
 any disk space by using this approach, because Docker uses a copy-on-write
 filesystem.
@@ -257,6 +259,8 @@ container:
 docker run -d -h wildfly-02 --name wildfly-02 --volumes-from data wildfly-logs
 docker run -d -h wildfly-03 --name wildfly-03 --volumes-from data wildfly-logs
 ```
+
+<div id="_getting_access_to_the_logs"></div>
 
 ### Getting access to the logs
 
@@ -425,7 +429,7 @@ hardcoding the connection parameters.
 
 In the above example we still log everything to files. If you would like to receive
 them from the `syslog` container you can use a similar method as described in the
-[Getting access to the logs](#_getting_access_to_the_logs) section above.
+[Getting access to the logs](#getting-access-to-the-logs) section above.
 
 ## Summary
 
