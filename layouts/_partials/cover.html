@@ -1,0 +1,56 @@
+{{/* Adapted from PaperMod's cover partial; generate three variants per cover. */}}
+{{- with .cxt }}
+{{- if (and .Params.cover.image (not $.isHidden)) }}
+<figure class="entry-cover">
+    {{- $loading := cond $.IsSingle "eager" "lazy" }}
+    {{- $addLink := (and site.Params.cover.linkFullImages $.IsSingle) }}
+    {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
+    {{- $alt := (.Params.cover.alt | default .Params.cover.caption | plainify) }}
+    {{- $responsiveImages := (.Params.cover.responsiveImages | default site.Params.cover.responsiveImages) | default true }}
+    {{- $pageBundleCover := (.Resources.ByType "image").GetMatch (printf "*%s*" .Params.cover.image) }}
+    {{- $globalResourcesCover := resources.Get (strings.TrimPrefix "/" .Params.cover.image) }}
+    {{- $cover := or $pageBundleCover $globalResourcesCover }}
+    {{- $imgdl := .Params.cover.image | absURL }}
+    {{- with $cover }}
+        {{- $imgdl = .Permalink }}
+    {{- end }}
+
+    {{- if $addLink }}
+        <a href="{{ $imgdl }}" target="_blank" rel="noopener noreferrer">
+    {{- end }}
+
+    {{- if $cover }}
+        {{- if (and (reflect.IsImageResourceProcessable $cover) $responsiveImages $prod) }}
+            {{- $smallWidth := int (math.Min 720 $cover.Width) }}
+            {{- $largeWidth := int (math.Min 1440 $cover.Width) }}
+            {{- $small := $cover.Resize (printf "%dx webp q85" $smallWidth) }}
+            {{- $large := $cover.Resize (printf "%dx webp q85" $largeWidth) }}
+            {{- $fallback := $cover.Resize (printf "%dx png" $smallWidth) }}
+            {{- $srcset := printf "%s %dw" $small.Permalink $small.Width }}
+            {{- if gt $large.Width $small.Width }}
+                {{- $srcset = printf "%s, %s %dw" $srcset $large.Permalink $large.Width }}
+            {{- end }}
+            <picture>
+                <source type="image/webp" srcset="{{ $srcset }}"
+                    sizes="(min-width: 748px) 720px, calc(100vw - 28px)">
+                <img loading="{{ $loading }}" src="{{ $fallback.Permalink }}"
+                    width="{{ $cover.Width }}" height="{{ $cover.Height }}" alt="{{ $alt }}">
+            </picture>
+        {{- else }}
+            <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
+        {{- end }}
+    {{- else }}
+        <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
+    {{- end }}
+
+    {{- if $addLink }}
+        </a>
+    {{- end }}
+    {{- if $.IsSingle }}
+        {{- with .Params.cover.caption }}
+            <figcaption>{{ . | markdownify }}</figcaption>
+        {{- end }}
+    {{- end }}
+</figure>
+{{- end }}
+{{- end }}

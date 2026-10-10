@@ -1,4 +1,10 @@
 baseURL: 'https://goldmann.pl/'
+module:
+  mounts:
+    - source: assets
+      target: assets
+    - source: static/images/covers
+      target: assets/images/covers
 locale: en-us
 title: Marek Goldmann
 theme: PaperMod

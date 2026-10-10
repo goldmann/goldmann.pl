@@ -4,3 +4,4 @@ _site
 *.swp
 .awestruct*
 *.lock
+resources/_gen/
