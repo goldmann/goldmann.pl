@@ -6,7 +6,7 @@ categories: ["General"]
 tags: ["blog", personal]
 draft: false
 cover:
-  image: "/images/covers/hello-im-marek-cover-editorial-v1.png"
+  image: "/images/covers/hello-im-marek-cover-editorial-v1.webp"
   alt: "A long pause. Hello again. An open circular motif on a muted copper field."
 ---
 

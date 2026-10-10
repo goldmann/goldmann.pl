@@ -2,6 +2,9 @@
 title: "Customizing the configuration of the WildFly Docker image"
 date: 2014-07-23T17:10:00.10+01:00
 draft: false
+cover:
+  image: "/images/covers/customizing-wildfly-docker-configuration-cover-editorial-v1.webp"
+  alt: "Defaults first. Your rules. Adjustable copper sliders on a navy configuration panel against ivory."
 tags: [ docker, jboss, wildfly ]
 toc: true
 ---

@@ -5,3 +5,5 @@ _site
 .awestruct*
 *.lock
 resources/_gen/
+output/covers/masters/
+output/covers/backgrounds/

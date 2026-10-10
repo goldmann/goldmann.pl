@@ -6,7 +6,7 @@ categories: ["General"]
 tags: ["blog", "personal", "redhat"]
 draft: false
 cover:
-  image: "/images/covers/red-hat-and-ibm-cover-editorial-v1.png"
+  image: "/images/covers/red-hat-and-ibm-cover-editorial-v1.webp"
   alt: "New owner. Same spirit. A copper arch and navy column share a baseline on ivory."
 ---
 

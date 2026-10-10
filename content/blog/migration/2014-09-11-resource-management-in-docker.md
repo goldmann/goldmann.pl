@@ -3,7 +3,7 @@ title: "Resource management in Docker"
 date: 2014-09-11T16:38:00.10+01:00
 draft: false
 cover:
-  image: "/images/covers/resource-management-in-docker-cover-editorial-v1.png"
+  image: "/images/covers/resource-management-in-docker-cover-editorial-v1.webp"
   alt: "Shared host. Fair shares. A navy disk divided into shares with a copper segment on ivory."
 tags: [ "docker" ]
 toc: true
